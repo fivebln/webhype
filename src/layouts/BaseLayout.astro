@@ -1,0 +1,104 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'Webhype – Websites für Handwerk. In 7 Tagen live.',
+  description = 'Wir bauen Websites für Berliner Handwerksbetriebe. Schnell, mobil, mit Festpreis. In 7 Tagen live, monatlich kündbar.',
+  canonical,
+  ogImage = '/og-image.svg',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://webhype.de';
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = new URL(ogImage, siteUrl).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Webhype',
+  url: siteUrl,
+  image: ogImageUrl,
+  description: 'Websites für Berliner Handwerksbetriebe. In 7 Tagen live, monatlich kündbar.',
+  priceRange: '€€',
+  areaServed: {
+    '@type': 'City',
+    name: 'Berlin',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Berlin',
+    addressCountry: 'DE',
+  },
+  telephone: '[GRÜNDER_TELEFON]',
+  email: '[GRÜNDER_EMAIL]',
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0F1419" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Webhype" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Fonts via Bunny Fonts (DSGVO-konform) -->
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.bunny.net/css?family=geist:700,800|inter:400,500,600|jetbrains-mono:500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.bunny.net/css?family=geist:700,800|inter:400,500,600|jetbrains-mono:500&display=swap"
+    />
+
+    <!-- Plausible (cookieless) -->
+    <script defer data-domain="webhype.de" src="https://plausible.io/js/script.js"></script>
+    <script is:inline>
+      window.plausible = window.plausible || function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+    </script>
+
+    <!-- JSON-LD: LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  </head>
+  <body class="bg-surface text-text antialiased">
+    <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,88 @@
+---
+const founder = {
+  phone: '[GRÜNDER_TELEFON]',
+  email: '[GRÜNDER_EMAIL]',
+};
+
+const navLinks = [
+  { href: '#pakete', label: 'Pakete' },
+  { href: '#so-funktionierts', label: 'So funktioniert’s' },
+  { href: '#showcase', label: 'Showcase' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#demo', label: 'Demo buchen' },
+];
+
+const legalLinks = [
+  { href: '/impressum', label: 'Impressum' },
+  { href: '/datenschutz', label: 'Datenschutz' },
+  { href: '/agb', label: 'AGB' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-surface border-t border-border pt-16 md:pt-20 pb-10">
+  <div class="container-content">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      <div>
+        <a href="/" class="inline-block" aria-label="webhype – Startseite">
+          <img src="/logo-light.svg" alt="webhype" width="140" height="32" class="h-8 w-auto" />
+        </a>
+        <p class="mt-4 text-text/80 max-w-xs">
+          Websites für Handwerk.<br />
+          In 7 Tagen live.
+        </p>
+      </div>
+
+      <nav aria-label="Footer-Navigation">
+        <p class="font-sans font-bold text-sm uppercase tracking-widest text-muted mb-4">
+          Navigation
+        </p>
+        <ul class="space-y-2">
+          {
+            navLinks.map((l) => (
+              <li>
+                <a href={l.href} class="text-text/85 hover:text-accent transition-colors">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p class="font-sans font-bold text-sm uppercase tracking-widest text-muted mb-4">
+          Rechtliches & Kontakt
+        </p>
+        <ul class="space-y-2 mb-5">
+          {
+            legalLinks.map((l) => (
+              <li>
+                <a href={l.href} class="text-text/85 hover:text-accent transition-colors">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="border-t border-border pt-4 space-y-1 text-text/85">
+          <p>
+            <a href={`tel:${founder.phone}`} class="hover:text-accent transition-colors price-mono">
+              {founder.phone}
+            </a>
+          </p>
+          <p>
+            <a href={`mailto:${founder.email}`} class="hover:text-accent transition-colors">
+              {founder.email}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 md:mt-16 pt-8 border-t border-border text-center text-sm text-muted">
+      © {year} Webhype · Made in Berlin · Hosting in Frankfurt
+    </div>
+  </div>
+</footer>

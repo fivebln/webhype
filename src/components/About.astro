@@ -1,0 +1,69 @@
+---
+const founder = {
+  name: '[GRÜNDER_NAME]',
+  phone: '[GRÜNDER_TELEFON]',
+  email: '[GRÜNDER_EMAIL]',
+};
+---
+
+<section id="ueber-uns" class="bg-surface py-20 md:py-32 scroll-mt-24">
+  <div class="container-content">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+      <!-- Foto / Placeholder -->
+      <div class="md:col-span-5">
+        <div class="relative mx-auto md:mx-0 max-w-sm">
+          <div class="aspect-square rounded-3xl overflow-hidden bg-bg flex items-center justify-center relative">
+            <!-- Generative Placeholder: abstraktes Gradient + Initiale -->
+            <div aria-hidden="true" class="absolute inset-0" style="background: radial-gradient(circle at 30% 30%, rgba(255,90,31,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(255,90,31,0.18), transparent 70%), #0F1419;"></div>
+            <svg viewBox="0 0 200 200" class="relative w-3/5 h-3/5 text-text-light" role="img" aria-label="Founder-Foto Platzhalter">
+              <circle cx="100" cy="80" r="36" fill="currentColor" opacity="0.85"/>
+              <path d="M30 180 C 30 130, 170 130, 170 180 Z" fill="currentColor" opacity="0.85"/>
+            </svg>
+          </div>
+          <div aria-hidden="true" class="absolute -bottom-3 -right-3 w-20 h-20 rounded-2xl bg-accent -z-0"></div>
+        </div>
+        <p class="mt-4 text-xs text-muted italic text-center md:text-left">
+          Hier später echtes Foto vom Gründer einsetzen (siehe README).
+        </p>
+      </div>
+
+      <div class="md:col-span-7">
+        <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+          Über mich
+        </p>
+        <h2 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop">
+          Wer baut Ihre Website?
+        </h2>
+
+        <div class="mt-6 md:mt-8 space-y-5 text-lg text-text/90 leading-relaxed">
+          <p>
+            Ich bin <strong class="font-semibold">{founder.name}</strong>, Gründer von Webhype.
+            Ich baue Websites seit mehreren Jahren – modern, schnell, ohne Schnickschnack.
+          </p>
+          <p>
+            Mein Versprechen: Sie kennen Ihren Webdesigner persönlich.
+            Keine Hotline. Keine Ticketsysteme. Direktes Telefon.
+          </p>
+        </div>
+
+        <!-- Kontakt-Card -->
+        <div class="mt-8 rounded-2xl border border-border bg-white p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <div aria-hidden="true" class="w-14 h-14 rounded-full bg-bg flex items-center justify-center text-text-light font-sans font-extrabold text-xl shrink-0">
+            W
+          </div>
+          <div class="min-w-0">
+            <p class="font-sans font-bold text-text">{founder.name}</p>
+            <div class="mt-1 flex flex-col sm:flex-row sm:gap-5 text-sm text-text/80">
+              <a href={`tel:${founder.phone}`} class="hover:text-accent transition-colors price-mono">
+                {founder.phone}
+              </a>
+              <a href={`mailto:${founder.email}`} class="hover:text-accent transition-colors">
+                {founder.email}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

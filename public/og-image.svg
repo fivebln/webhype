@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Webhype – Websites für Handwerk. In 7 Tagen live.">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F1419"/>
+      <stop offset="100%" stop-color="#161D26"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#FF5A1F" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Wordmark -->
+  <g transform="translate(80, 120)">
+    <text x="0" y="42" font-family="Geist, Inter, system-ui, sans-serif" font-weight="800" font-size="44" letter-spacing="-1.6" fill="#F5F2EC">webh<tspan fill="#FF5A1F">y</tspan>pe</text>
+    <circle cx="188" cy="38" r="4" fill="#FF5A1F"/>
+  </g>
+
+  <!-- Claim -->
+  <text x="80" y="320" font-family="Geist, Inter, system-ui, sans-serif" font-weight="800" font-size="86" letter-spacing="-2.5" fill="#F5F2EC">Websites für Handwerk.</text>
+  <text x="80" y="420" font-family="Geist, Inter, system-ui, sans-serif" font-weight="800" font-size="86" letter-spacing="-2.5" fill="#F5F2EC">In 7 Tagen <tspan fill="#FF5A1F">live</tspan>.</text>
+
+  <!-- Trust strip -->
+  <g font-family="Inter, system-ui, sans-serif" font-size="22" fill="#F5F2EC" fill-opacity="0.75">
+    <text x="80" y="540">Hosting in Deutschland  ·  DSGVO-konform  ·  Monatlich kündbar</text>
+  </g>
+
+  <!-- Accent line -->
+  <rect x="80" y="450" width="120" height="4" fill="#FF5A1F"/>
+</svg>

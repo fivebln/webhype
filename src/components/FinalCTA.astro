@@ -1,0 +1,200 @@
+---
+const CAL_LINK = 'webhype/15min';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/PLACEHOLDER';
+---
+
+<section id="demo" class="bg-bg text-text-light py-24 md:py-32 scroll-mt-20">
+  <div class="container-content">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop text-text-light">
+        Bereit für eine bessere Website?
+      </h2>
+      <p class="mt-6 text-lg md:text-2xl text-text-light/80">
+        15 Minuten Demo. Keine Verpflichtung.<br />
+        Wir zeigen Ihnen direkt, wie Ihre Site aussehen könnte.
+      </p>
+    </div>
+
+    <div class="mt-12 md:mt-16 max-w-3xl mx-auto">
+      <!-- Cal.com Embed Container; bei Fehler: Fallback-Formular -->
+      <div
+        id="cal-embed"
+        class="rounded-2xl overflow-hidden bg-surface text-text min-h-[640px] relative"
+        data-cal-link={CAL_LINK}
+      >
+        <div id="cal-loading" class="absolute inset-0 flex items-center justify-center text-muted text-sm">
+          Lade Buchungs-Kalender …
+        </div>
+      </div>
+
+      <noscript>
+        <p class="mt-6 text-center text-sm text-text-light/70">
+          Für den Buchungs-Kalender bitte JavaScript aktivieren oder das untenstehende Formular nutzen.
+        </p>
+      </noscript>
+
+      <!-- Fallback-Formular -->
+      <div id="cal-fallback" class="hidden mt-6">
+        <form
+          action={FORMSPREE_ENDPOINT}
+          method="POST"
+          class="bg-surface text-text rounded-2xl p-6 md:p-8 space-y-5"
+          novalidate
+        >
+          <div class="text-center mb-2">
+            <p class="font-sans font-bold text-lg">Kalender nicht verfügbar?</p>
+            <p class="text-sm text-muted mt-1">Hinterlassen Sie kurz Ihre Daten – wir rufen Sie zurück.</p>
+          </div>
+
+          <div>
+            <label for="cf-name" class="block text-sm font-semibold mb-1">Name</label>
+            <input
+              id="cf-name"
+              type="text"
+              name="name"
+              required
+              autocomplete="name"
+              class="w-full rounded-lg border border-border bg-white px-4 py-3 text-base focus:outline-none focus:border-accent"
+            />
+          </div>
+
+          <div>
+            <label for="cf-phone" class="block text-sm font-semibold mb-1">Telefon</label>
+            <input
+              id="cf-phone"
+              type="tel"
+              name="phone"
+              required
+              autocomplete="tel"
+              class="w-full rounded-lg border border-border bg-white px-4 py-3 text-base focus:outline-none focus:border-accent"
+            />
+          </div>
+
+          <div>
+            <label for="cf-email" class="block text-sm font-semibold mb-1">E-Mail</label>
+            <input
+              id="cf-email"
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              class="w-full rounded-lg border border-border bg-white px-4 py-3 text-base focus:outline-none focus:border-accent"
+            />
+          </div>
+
+          <div>
+            <label for="cf-message" class="block text-sm font-semibold mb-1">
+              Kurze Nachricht <span class="font-normal text-muted">(max 200 Zeichen)</span>
+            </label>
+            <textarea
+              id="cf-message"
+              name="message"
+              maxlength="200"
+              rows="3"
+              class="w-full rounded-lg border border-border bg-white px-4 py-3 text-base focus:outline-none focus:border-accent resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Honeypot -->
+          <div class="hidden" aria-hidden="true">
+            <label for="cf-website">Website (nicht ausfüllen)</label>
+            <input id="cf-website" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full" data-cta="fallback-submit">
+            Rückruf anfordern <span aria-hidden="true">→</span>
+          </button>
+
+          <p class="text-xs text-muted text-center">
+            Mit dem Absenden stimmen Sie unserer
+            <a href="/datenschutz" class="underline hover:text-accent">Datenschutzerklärung</a> zu.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const container = document.getElementById('cal-embed');
+    const loading = document.getElementById('cal-loading');
+    const fallback = document.getElementById('cal-fallback');
+    if (!container) return;
+
+    const calLink = container.getAttribute('data-cal-link') || 'webhype/15min';
+
+    // Offizielles Cal.com Embed Script laden
+    const initCal = () => {
+      try {
+        // Cal.com Snippet (offiziell)
+        (function (C, A, L) {
+          let p = function (a, ar) { a.q.push(ar); };
+          let d = C.document;
+          C.Cal = C.Cal || function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              d.head.appendChild(d.createElement('script')).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () { p(api, arguments); };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === 'string') {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ['initNamespace', namespace]);
+              } else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+        })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+        // Timeout-Fallback: wenn nach 6s kein Iframe gerendert ist
+        const fallbackTimer = setTimeout(showFallback, 6000);
+
+        window.Cal('init', '15min', { origin: 'https://cal.com' });
+        window.Cal.ns['15min']('inline', {
+          elementOrSelector: '#cal-embed',
+          calLink,
+          layout: 'month_view',
+          config: { layout: 'month_view' },
+        });
+        window.Cal.ns['15min']('on', {
+          action: 'linkReady',
+          callback: () => {
+            clearTimeout(fallbackTimer);
+            if (loading) loading.remove();
+          },
+        });
+      } catch (e) {
+        showFallback();
+      }
+    };
+
+    function showFallback() {
+      if (container) container.classList.add('hidden');
+      if (fallback) fallback.classList.remove('hidden');
+    }
+
+    // Lazy-Init wenn Sektion in den Viewport scrollt
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            initCal();
+            obs.disconnect();
+          }
+        });
+      }, { rootMargin: '200px' });
+      io.observe(container);
+    } else {
+      initCal();
+    }
+  })();
+</script>

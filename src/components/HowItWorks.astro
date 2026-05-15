@@ -1,0 +1,60 @@
+---
+const steps = [
+  {
+    n: 1,
+    title: 'Demo (15 Min)',
+    body: 'Wir schauen uns Ihren Betrieb an und zeigen, was wir bauen würden.',
+  },
+  {
+    n: 2,
+    title: 'Onboarding (1 Tag)',
+    body: 'Sie füllen ein 10-Minuten-Formular aus: Texte, Bilder, Leistungen. Wir kümmern uns um den Rest.',
+  },
+  {
+    n: 3,
+    title: 'Bau (5 Tage)',
+    body: 'Wir bauen Ihre Site mit KI-Tools und unserem Auge fürs Handwerk. Sie bekommen täglich ein Update per E-Mail.',
+  },
+  {
+    n: 4,
+    title: 'Live (Tag 7)',
+    body: 'Ihre Site geht online. Wir richten Google Business ein. Erste Anfragen kommen meist innerhalb 2 Wochen.',
+  },
+];
+---
+
+<section id="so-funktionierts" class="bg-surface py-20 md:py-32 scroll-mt-24">
+  <div class="container-content">
+    <div class="max-w-3xl mb-12 md:mb-20">
+      <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+        Ablauf
+      </p>
+      <h2 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop">
+        So funktioniert’s.
+      </h2>
+    </div>
+
+    <ol class="relative grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6">
+      <!-- Verbindungs-Linie (Desktop) -->
+      <div aria-hidden="true" class="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] h-px bg-border"></div>
+
+      {
+        steps.map((step) => (
+          <li class="relative flex flex-col items-start text-left">
+            <div class="flex items-center gap-4 md:flex-col md:items-start md:gap-5">
+              <span class="relative z-10 flex items-center justify-center w-14 h-14 rounded-full bg-accent text-text-light price-mono font-bold text-xl shadow-sm">
+                {step.n}
+              </span>
+              <h3 class="font-sans font-extrabold text-h3-mobile md:text-h3-desktop">
+                {step.title}
+              </h3>
+            </div>
+            <p class="mt-3 md:mt-4 text-text/85 text-base md:text-[1.0625rem] leading-relaxed max-w-sm">
+              {step.body}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

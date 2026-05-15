@@ -1,0 +1,51 @@
+[
+  {
+    "id": "starter",
+    "name": "Starter",
+    "setup": "299 €",
+    "monthly": "39 €",
+    "highlighted": false,
+    "features": [
+      "One-Pager mit klarer Struktur",
+      "Mobil-optimiert (Lighthouse 95+)",
+      "Kontaktformular",
+      "Google-Business-Profil-Setup",
+      "SSL-Zertifikat",
+      "Hosting in Deutschland",
+      "Kleine Änderungen im Abo"
+    ]
+  },
+  {
+    "id": "standard",
+    "name": "Standard",
+    "setup": "599 €",
+    "monthly": "69 €",
+    "highlighted": true,
+    "badge": "Beliebteste Wahl",
+    "features": [
+      "Bis 5 Seiten",
+      "Referenz-Galerie",
+      "Lokal-SEO-Basis",
+      "Editor zum Selber-Pflegen",
+      "Kontaktformular",
+      "Google-Business-Profil-Setup",
+      "Hosting in Deutschland · SSL"
+    ]
+  },
+  {
+    "id": "premium",
+    "name": "Premium",
+    "setup": "999 €",
+    "monthly": "129 €",
+    "highlighted": false,
+    "features": [
+      "Bis 10 Seiten inkl. Blog",
+      "Einfaches Buchungs-Tool",
+      "Monatliches SEO-Update",
+      "Lokal-SEO-Basis",
+      "Editor zum Selber-Pflegen",
+      "Google-Business-Profil-Setup",
+      "Hosting in Deutschland · SSL"
+    ]
+  }
+]

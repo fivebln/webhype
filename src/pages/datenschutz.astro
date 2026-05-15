@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Datenschutzerklärung – Webhype"
+  description="Datenschutzerklärung gemäß DSGVO für die Website von Webhype."
+>
+  <LegalHeader />
+  <main id="main" class="bg-surface py-16 md:py-24">
+    <div class="container-content">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-3">
+          Rechtliches
+        </p>
+        <h1 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop">
+          Datenschutzerklärung
+        </h1>
+
+        <aside class="mt-6 p-4 rounded-xl border border-accent/30 bg-accent/5 text-sm text-text/80">
+          <strong class="font-semibold">Hinweis:</strong> Vorlage zur Prüfung durch einen Anwalt vor Live-Schaltung.
+          Platzhalter in <code class="price-mono text-xs">{'{{...}}'}</code> sind durch reale Angaben zu ersetzen.
+        </aside>
+
+        <div class="legal-prose mt-10">
+          <h2>1. Verantwortlicher</h2>
+          <p>
+            Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
+            <strong>{`{{IMPRESSUM_NAME}}`}</strong><br />
+            {`{{IMPRESSUM_ADRESSE}}`}<br />
+            {`{{IMPRESSUM_PLZ_ORT}}`}<br />
+            E-Mail: {`{{IMPRESSUM_EMAIL}}`}
+          </p>
+
+          <h2>2. Begriffsbestimmungen</h2>
+          <p>
+            Diese Datenschutzerklärung verwendet die Begriffe der EU-Datenschutz-Grundverordnung
+            (DSGVO). Eine Übersicht aller Definitionen finden Sie in Art. 4 DSGVO.
+          </p>
+
+          <h2>3. Hosting</h2>
+          <p>
+            Diese Website wird bei <strong>{`{{HOSTING_PROVIDER}}`}</strong> (z.B. Vercel Inc.,
+            EU-Region Frankfurt, oder Netlify, Inc., EU-Region) gehostet. Beim Aufruf der Seite
+            werden technisch notwendige Verbindungsdaten verarbeitet, um die Website auszuliefern.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem
+            sicheren und performanten Webauftritt). Mit dem Hosting-Provider besteht ein
+            Auftragsverarbeitungsvertrag.
+          </p>
+
+          <h2>4. Server-Logfiles</h2>
+          <p>
+            Beim Aufruf der Website erfasst der Hosting-Provider automatisch Informationen
+            in sog. Server-Logfiles:
+          </p>
+          <ul>
+            <li>Browsertyp und Browserversion</li>
+            <li>Verwendetes Betriebssystem</li>
+            <li>Referrer URL</li>
+            <li>Uhrzeit der Serveranfrage</li>
+            <li>Anonymisierte IP-Adresse</li>
+          </ul>
+          <p>
+            Diese Daten werden nicht mit anderen Datenquellen zusammengeführt und nach
+            kurzer Zeit gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+
+          <h2>5. Plausible Analytics (cookieless)</h2>
+          <p>
+            Wir nutzen Plausible Analytics (Plausible Insights OÜ, Estland) zur statistischen
+            Auswertung der Website-Nutzung. Plausible verwendet <strong>keine Cookies</strong>,
+            erstellt keine geräteübergreifenden Profile und anonymisiert IP-Adressen vor der
+            Verarbeitung. Es werden keine personenbezogenen Daten an Dritte oder in Drittländer
+            übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; ein Cookie-Banner ist
+            mangels Cookie-Setzung nicht erforderlich.
+          </p>
+
+          <h2>6. Kontaktformular und Buchungs-Tool (Cal.com)</h2>
+          <p>
+            Wenn Sie uns über das Kontaktformular oder das eingebettete Buchungs-Tool von
+            Cal.com (Cal.com, Inc.) kontaktieren, werden die von Ihnen angegebenen Daten
+            (Name, Kontaktdaten, Nachricht, ggf. Terminwunsch) zur Bearbeitung Ihrer Anfrage
+            verarbeitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung)
+            sowie Art. 6 Abs. 1 lit. f DSGVO. Mit Cal.com besteht ein
+            Auftragsverarbeitungsvertrag; eine Datenübermittlung erfolgt auf Basis von
+            EU-Standardvertragsklauseln.
+          </p>
+
+          <h2>7. Schriftarten via Bunny Fonts</h2>
+          <p>
+            Wir laden Schriftarten über bunny.net (BunnyWay d.o.o., Slowenien). Bunny Fonts
+            wurde DSGVO-konform konzipiert: IP-Adressen werden nicht protokolliert, es werden
+            keine Cookies gesetzt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+
+          <h2>8. Ihre Rechte</h2>
+          <p>Sie haben jederzeit das Recht:</p>
+          <ul>
+            <li>auf Auskunft über die zu Ihrer Person gespeicherten Daten (Art. 15 DSGVO)</li>
+            <li>auf Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
+            <li>auf Löschung Ihrer Daten (Art. 17 DSGVO)</li>
+            <li>auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+            <li>auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+            <li>auf Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
+            <li>auf Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)</li>
+          </ul>
+          <p>
+            Für die Geltendmachung Ihrer Rechte genügt eine E-Mail an {`{{IMPRESSUM_EMAIL}}`}.
+          </p>
+
+          <h2>9. Stand der Erklärung</h2>
+          <p>Stand: {`{{DATENSCHUTZ_STAND}}`}.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

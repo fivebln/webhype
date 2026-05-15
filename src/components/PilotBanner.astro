@@ -1,0 +1,30 @@
+---
+const seatsLeft = 7;
+---
+
+<section class="bg-accent text-text-light py-10 md:py-14">
+  <div class="container-content">
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
+      <div class="flex-1">
+        <p class="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-text-light/80 mb-3">
+          Berlin-Pilotaktion
+        </p>
+        <h2 class="font-sans font-extrabold text-2xl md:text-3xl lg:text-4xl text-text-light leading-tight">
+          Die ersten 10 Handwerksbetriebe in Berlin bekommen Standard zum Pilotpreis.
+        </h2>
+        <p class="mt-4 price-mono text-base md:text-lg font-semibold text-text-light/95">
+          199 € einmalig · 49 €/Monat · Vertrag monatlich kündbar
+        </p>
+      </div>
+
+      <a
+        href="#demo"
+        class="btn btn-ghost-light shrink-0 self-stretch md:self-auto"
+        data-cta="pilot-banner"
+      >
+        Jetzt Platz sichern
+        <span class="font-normal text-text/70 ml-1">(noch {seatsLeft} verfügbar)</span>
+      </a>
+    </div>
+  </div>
+</section>

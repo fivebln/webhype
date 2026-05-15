@@ -1,0 +1,78 @@
+---
+import showcases from '../content/showcases.json';
+---
+
+<section id="showcase" class="bg-surface py-20 md:py-32 scroll-mt-24">
+  <div class="container-content">
+    <div class="max-w-3xl mb-12 md:mb-16">
+      <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+        Showcase
+      </p>
+      <h2 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop">
+        Beispielprojekte aus unserer Werkstatt.
+      </h2>
+      <p class="mt-5 text-lg md:text-xl text-muted max-w-2xl">
+        Echte Kundenreferenzen folgen, sobald die ersten Pilot-Sites live sind.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {
+        showcases.map((item) => (
+          <article class="group flex flex-col rounded-2xl border border-border bg-white overflow-hidden hover:border-text/30 transition-colors">
+            {/* Browser-Mockup-Frame – rein CSS */}
+            <div class="relative w-full" style={`aspect-ratio: 16 / 10; background: hsl(${item.accentHue}, 25%, 96%);`}>
+              {/* Browser-Bar */}
+              <div class="absolute inset-x-0 top-0 h-7 bg-[#EDEAE3] border-b border-border flex items-center px-3 gap-1.5">
+                <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-[#D9D6CE]" />
+                <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-[#D9D6CE]" />
+                <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-[#D9D6CE]" />
+                <div class="flex-1 ml-3 h-4 rounded bg-white/80 px-2 flex items-center text-[10px] text-muted truncate price-mono">
+                  {item.domain}
+                </div>
+              </div>
+
+              {/* Pseudo-Site-Inhalt (Placeholder, CSS-Pattern) */}
+              <div class="absolute inset-x-0 top-7 bottom-0 p-4 flex flex-col gap-2">
+                <div class="h-3 w-2/3 rounded" style={`background: hsl(${item.accentHue}, 30%, 78%);`}></div>
+                <div class="h-2 w-1/2 rounded bg-black/10"></div>
+                <div class="mt-auto grid grid-cols-3 gap-1.5">
+                  <div class="h-10 rounded bg-black/10"></div>
+                  <div class="h-10 rounded bg-black/10"></div>
+                  <div class="h-10 rounded" style={`background: hsl(${item.accentHue}, 60%, 55%);`}></div>
+                </div>
+              </div>
+
+              {/* Placeholder-Hinweis (a11y-versteckt für Screenreader, nur visuell) */}
+              <div aria-hidden="true" class="absolute top-9 right-3 text-[10px] text-muted/70 italic">
+                Bild folgt
+              </div>
+            </div>
+
+            <div class="p-6 flex flex-col flex-1">
+              <p class="text-xs font-semibold uppercase tracking-widest text-accent">
+                {item.tag}
+              </p>
+              <h3 class="mt-2 font-sans font-extrabold text-lg md:text-xl">
+                {item.title}
+              </h3>
+              <p class="mt-2 text-sm md:text-base text-text/80 flex-1">
+                {item.description}
+              </p>
+              {item.live && (
+                <a
+                  href={item.live}
+                  class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent-hover"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Live ansehen <span aria-hidden="true">→</span>
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

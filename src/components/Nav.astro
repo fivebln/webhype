@@ -1,0 +1,173 @@
+---
+const navLinks = [
+  { href: '#pakete', label: 'Pakete' },
+  { href: '#so-funktionierts', label: 'So funktioniert’s' },
+  { href: '#showcase', label: 'Showcase' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+  data-transparent="true"
+>
+  <div class="container-content">
+    <nav
+      class="flex h-16 md:h-20 items-center justify-between"
+      aria-label="Hauptnavigation"
+    >
+      <a
+        href="/"
+        class="flex items-center"
+        aria-label="webhype – Startseite"
+      >
+        <img
+          src="/logo-dark.svg"
+          alt="webhype"
+          width="120"
+          height="32"
+          class="h-7 md:h-8 w-auto"
+          data-logo="dark"
+        />
+        <img
+          src="/logo-light.svg"
+          alt=""
+          aria-hidden="true"
+          width="120"
+          height="32"
+          class="h-7 md:h-8 w-auto hidden"
+          data-logo="light"
+        />
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium" data-nav-links>
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-text-light/80 hover:text-text-light transition-colors"
+                data-nav-link
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <a
+          href="#demo"
+          class="btn btn-primary text-sm md:text-base !py-2.5 md:!py-3 !px-4 md:!px-5"
+          data-cta="nav-demo"
+        >
+          Demo buchen
+          <span aria-hidden="true">→</span>
+        </a>
+        <button
+          type="button"
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 text-text-light"
+          aria-label="Menü öffnen"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          id="mobile-nav-toggle"
+        >
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div
+      id="mobile-nav"
+      class="md:hidden hidden border-t border-white/10 bg-bg/95 backdrop-blur"
+    >
+      <ul class="flex flex-col py-2">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="block px-4 py-3 text-text-light/90 hover:bg-white/5 text-base font-medium"
+                data-mobile-link
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const header = document.getElementById('site-header');
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const drawer = document.getElementById('mobile-nav');
+    const logoDark = document.querySelector('[data-logo="dark"]');
+    const logoLight = document.querySelector('[data-logo="light"]');
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+
+    function setSolid(solid) {
+      if (!header) return;
+      if (solid) {
+        header.style.background = '#F5F2EC';
+        header.style.borderBottom = '1px solid #E5E0D6';
+        header.setAttribute('data-transparent', 'false');
+        logoDark && logoDark.classList.add('hidden');
+        logoLight && logoLight.classList.remove('hidden');
+        navLinks.forEach((l) => {
+          l.classList.remove('text-text-light/80');
+          l.classList.add('text-text/80', 'hover:text-text');
+        });
+        if (toggleBtn) toggleBtn.classList.remove('text-text-light'), toggleBtn.classList.add('text-text');
+      } else {
+        header.style.background = 'transparent';
+        header.style.borderBottom = '0';
+        header.setAttribute('data-transparent', 'true');
+        logoDark && logoDark.classList.remove('hidden');
+        logoLight && logoLight.classList.add('hidden');
+        navLinks.forEach((l) => {
+          l.classList.add('text-text-light/80');
+          l.classList.remove('text-text/80', 'hover:text-text');
+        });
+        if (toggleBtn) toggleBtn.classList.add('text-text-light'), toggleBtn.classList.remove('text-text');
+      }
+    }
+
+    function onScroll() {
+      setSolid(window.scrollY > 24);
+    }
+    setSolid(false);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    if (toggleBtn && drawer) {
+      toggleBtn.addEventListener('click', () => {
+        const open = drawer.classList.toggle('hidden') === false;
+        toggleBtn.setAttribute('aria-expanded', String(open));
+        toggleBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      });
+      drawer.querySelectorAll('[data-mobile-link]').forEach((a) => {
+        a.addEventListener('click', () => {
+          drawer.classList.add('hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          toggleBtn.setAttribute('aria-label', 'Menü öffnen');
+        });
+      });
+    }
+
+    document.querySelectorAll('[data-cta]').forEach((el) => {
+      el.addEventListener('click', () => {
+        if (window.plausible) window.plausible('CTA: Demo buchen', { props: { source: el.getAttribute('data-cta') || 'unknown' } });
+      });
+    });
+  })();
+</script>

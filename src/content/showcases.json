@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "tag": "Sanitär · Berlin Pankow",
+    "title": "Müller Sanitärtechnik",
+    "description": "Modernes One-Page-Design mit Online-Notdienst-Buchung.",
+    "domain": "mueller-sanitaer.de",
+    "accentHue": 18,
+    "live": null
+  },
+  {
+    "id": 2,
+    "tag": "Heizungsbau · Berlin Spandau",
+    "title": "Heizung Spandau GmbH",
+    "description": "Fünf-Seiten-Site mit Wärmepumpen-Beratungs-Formular.",
+    "domain": "heizung-spandau.de",
+    "accentHue": 200,
+    "live": null
+  },
+  {
+    "id": 3,
+    "tag": "Dachdecker · Berlin Treptow",
+    "title": "Dach & Mehr Treptow",
+    "description": "Galerie für Vorher/Nachher-Projekte, mobil-optimiert.",
+    "domain": "dachdecker-treptow.de",
+    "accentHue": 140,
+    "live": null
+  },
+  {
+    "id": 4,
+    "tag": "Bauunternehmen · Berlin Mitte",
+    "title": "Baumeister Mitte",
+    "description": "Premium-Site mit Referenzen-Filter und Anfrage-Strecke.",
+    "domain": "baumeister-mitte.de",
+    "accentHue": 35,
+    "live": null
+  },
+  {
+    "id": 5,
+    "tag": "Trockenbau · Berlin Lichtenberg",
+    "title": "Lichtenberg Trockenbau",
+    "description": "Schlanke One-Page mit Direkt-Anruf-Button mobil.",
+    "domain": "trockenbau-lichtenberg.de",
+    "accentHue": 260,
+    "live": null
+  },
+  {
+    "id": 6,
+    "tag": "SHK-Notdienst · Berlin Reinickendorf",
+    "title": "SHK Notdienst Nord",
+    "description": "24/7-Notdienst-Hero, Klick-zu-Anruf an erster Stelle.",
+    "domain": "shk-notdienst-nord.de",
+    "accentHue": 0,
+    "live": null
+  }
+]

@@ -1,0 +1,79 @@
+---
+import packages from '../content/packages.json';
+---
+
+<section id="pakete" class="bg-surface pb-20 md:pb-32 pt-4 md:pt-8 scroll-mt-24">
+  <div class="container-content">
+    <div class="max-w-3xl mb-12 md:mb-16">
+      <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+        Pakete
+      </p>
+      <h2 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop">
+        Drei klare Pakete.<br />Ein klarer Preis.
+      </h2>
+      <p class="mt-5 text-lg md:text-xl text-muted max-w-2xl">
+        Kein „ab €“. Keine Beratung im Trichter. Sie wissen vor dem Klick, was Sie zahlen.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+      {
+        packages.map((pkg) => (
+          <article
+            class:list={[
+              'relative flex flex-col rounded-2xl border bg-white p-7 md:p-8',
+              pkg.highlighted
+                ? 'border-accent shadow-xl md:scale-[1.03] md:-translate-y-2 z-10'
+                : 'border-border shadow-sm',
+            ]}
+          >
+            {pkg.highlighted && pkg.badge && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-text-light text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full whitespace-nowrap">
+                {pkg.badge}
+              </span>
+            )}
+
+            <h3 class="font-sans font-extrabold text-h3-mobile md:text-h3-desktop">
+              {pkg.name}
+            </h3>
+
+            <div class="mt-5">
+              <p class="price-mono text-3xl md:text-4xl font-bold text-text">
+                {pkg.setup} <span class="text-base font-medium text-muted">einmalig</span>
+              </p>
+              <p class="mt-2 text-sm md:text-base text-muted">
+                <span class="price-mono font-semibold text-text">+ {pkg.monthly}/Monat</span>
+                {' – jederzeit kündbar'}
+              </p>
+              <p class="mt-1 text-xs text-muted">zzgl. MwSt</p>
+            </div>
+
+            <hr class="my-6 border-border" />
+
+            <ul class="space-y-3 text-sm md:text-base text-text/90 flex-1">
+              {pkg.features.map((feature) => (
+                <li class="flex gap-3">
+                  <span aria-hidden="true" class="mt-0.5 flex-shrink-0 text-accent font-bold">
+                    ✓
+                  </span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="#demo"
+              class:list={[
+                'btn mt-8 w-full',
+                pkg.highlighted ? 'btn-primary' : 'btn-secondary-light',
+              ]}
+              data-cta={`package-${pkg.id}`}
+            >
+              Demo buchen <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

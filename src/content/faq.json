@@ -1,0 +1,38 @@
+[
+  {
+    "q": "Wem gehört die Website nach Fertigstellung?",
+    "a": "Ihnen. Domain, Inhalte und alle Zugänge laufen auf Ihren Namen. Wenn Sie kündigen, nehmen Sie alles mit."
+  },
+  {
+    "q": "Kann ich die Website selbst pflegen?",
+    "a": "Ja. Im Standard- und Premium-Paket bekommen Sie einen einfachen Editor mit 5–10 Feldern (Öffnungszeiten, Notdienst aktivieren, neue Projekte hinzufügen). Eine 30-Minuten-Einweisung ist inklusive."
+  },
+  {
+    "q": "Was, wenn ich nach 3 Monaten kündige?",
+    "a": "Sie kündigen monatlich. Die Website bleibt, das Hosting läuft noch 30 Tage, Sie haben Zeit für den Umzug oder Re-Hosting."
+  },
+  {
+    "q": "Was kostet eine Änderung?",
+    "a": "Kleine Änderungen (Telefonnummer, Öffnungszeiten, Texte unter 100 Wörtern) sind im Abo. Größere Änderungen 60 €/Stunde mit Voranschlag."
+  },
+  {
+    "q": "Brauche ich Texte und Bilder?",
+    "a": "Nein. Wir schreiben die Texte für Sie und nutzen lizenzierte Bilder. Ihre eigenen Fotos vom Team oder Projekten machen die Site noch besser, sind aber kein Muss."
+  },
+  {
+    "q": "Was, wenn ich keine Domain habe?",
+    "a": "Wir registrieren sie für Sie. Üblich sind 12–20 € pro Jahr, läuft separat über IONOS oder INWX auf Ihren Namen."
+  },
+  {
+    "q": "Ist die Website DSGVO-konform?",
+    "a": "Ja. Hosting in Frankfurt, kein Google Analytics, keine US-Tools. Datenschutzerklärung und Impressum sind inklusive. Cookie-Banner brauchen Sie meist gar nicht."
+  },
+  {
+    "q": "Wie schnell ranke ich bei Google?",
+    "a": "Erste Sichtbarkeit nach 1–2 Wochen, lokal gute Rankings nach 2–3 Monaten. Wir richten Ihr Google-Business-Profil mit ein – das ist für Handwerker oft wichtiger als die Website selbst."
+  },
+  {
+    "q": "Was unterscheidet euch von einer WordPress-Agentur?",
+    "a": "Sie haben keine Plugin-Updates, kein Login das Sie vergessen, kein Hacker-Risiko. Die Site ist statisch und schnell, der Editor schlank. Sie kümmern sich um Ihre Kundschaft, wir um die Technik."
+  }
+]

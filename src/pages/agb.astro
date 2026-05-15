@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalHeader from '../components/LegalHeader.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="AGB – Webhype"
+  description="Allgemeine Geschäftsbedingungen von Webhype für Website-Erstellung und Hosting."
+>
+  <LegalHeader />
+  <main id="main" class="bg-surface py-16 md:py-24">
+    <div class="container-content">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-3">
+          Rechtliches
+        </p>
+        <h1 class="font-sans font-extrabold text-h2-mobile md:text-h2-desktop">
+          Allgemeine Geschäftsbedingungen
+        </h1>
+
+        <aside class="mt-6 p-4 rounded-xl border border-accent/30 bg-accent/5 text-sm text-text/80">
+          <strong class="font-semibold">Hinweis:</strong> Vorlage zur Prüfung durch einen Anwalt vor Live-Schaltung.
+          Diese AGB richten sich ausschließlich an Unternehmer i.S.d. § 14 BGB.
+        </aside>
+
+        <div class="legal-prose mt-10">
+          <h2>§ 1 Geltungsbereich</h2>
+          <p>
+            (1) Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen
+            Webhype, {`{{IMPRESSUM_NAME}}`} (nachfolgend „Auftragnehmer“) und seinen Auftraggebern
+            über die Erstellung, das Hosting und die Pflege von Websites.
+          </p>
+          <p>
+            (2) Die Angebote richten sich ausschließlich an Unternehmer i.S.d. § 14 BGB.
+            Verbraucher i.S.d. § 13 BGB sind ausgeschlossen.
+          </p>
+          <p>
+            (3) Abweichende oder entgegenstehende Bedingungen des Auftraggebers werden nicht
+            anerkannt, es sei denn, der Auftragnehmer stimmt ihrer Geltung ausdrücklich
+            schriftlich zu.
+          </p>
+
+          <h2>§ 2 Vertragsabschluss</h2>
+          <p>
+            (1) Die Darstellung der Leistungspakete auf der Website stellt kein bindendes
+            Angebot dar, sondern eine Aufforderung zur Abgabe eines Angebots.
+          </p>
+          <p>
+            (2) Der Vertrag kommt durch eine Online-Bestellung oder im Anschluss an eine
+            Demo durch eine schriftliche Auftragsbestätigung des Auftragnehmers per E-Mail
+            zustande.
+          </p>
+
+          <h2>§ 3 Leistungsumfang</h2>
+          <p>
+            (1) Der Auftragnehmer erbringt die im jeweils gebuchten Paket („Starter“, „Standard“
+            oder „Premium“ bzw. „Berlin-Pilot“) beschriebenen Leistungen. Maßgeblich ist die
+            zum Zeitpunkt der Bestellung auf <a href="/#pakete">webhype.de</a> dargestellte
+            Leistungsbeschreibung.
+          </p>
+          <p>
+            (2) Die Erstellung der Website erfolgt regelmäßig innerhalb von sieben Werktagen
+            nach vollständigem Eingang der Onboarding-Daten beim Auftragnehmer. Verzögerungen,
+            die aus einer verspäteten Mitwirkung des Auftraggebers resultieren, verlängern
+            die Frist entsprechend.
+          </p>
+          <p>
+            (3) Im monatlichen Abo sind Hosting, SSL, technischer Support und kleine
+            Inhaltsänderungen (Telefonnummer, Öffnungszeiten, Textänderungen unter 100 Wörtern)
+            enthalten. Darüber hinausgehende Änderungen werden mit 60 € netto pro Stunde auf
+            Basis eines Voranschlags berechnet.
+          </p>
+
+          <h2>§ 4 Preise und Zahlung</h2>
+          <p>
+            (1) Es gelten die zum Zeitpunkt des Vertragsschlusses ausgewiesenen Preise.
+            Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer.
+          </p>
+          <p>
+            (2) Die einmalige Setup-Gebühr ist mit Auftragsbestätigung fällig und innerhalb
+            von 14 Tagen zu zahlen. Das monatliche Entgelt wird zu Beginn jedes Abrechnungs-
+            monats per Rechnung oder SEPA-Lastschrift erhoben.
+          </p>
+
+          <h2>§ 5 Mitwirkungspflichten des Auftraggebers</h2>
+          <p>
+            (1) Der Auftraggeber stellt dem Auftragnehmer alle benötigten Inhalte (Texte,
+            Bilder, Logos, Angaben zum Betrieb) innerhalb von 14 Tagen nach Auftragsbestätigung
+            zur Verfügung.
+          </p>
+          <p>
+            (2) Der Auftraggeber versichert, dass die überlassenen Inhalte frei von Rechten
+            Dritter sind und stellt den Auftragnehmer von etwaigen Ansprüchen Dritter frei.
+          </p>
+          <p>
+            (3) Freigaben durch den Auftraggeber sind innerhalb von 3 Werktagen zu erteilen.
+          </p>
+
+          <h2>§ 6 Eigentums- und Nutzungsrechte</h2>
+          <p>
+            (1) Der vom Auftragnehmer entwickelte Quellcode und die verwendeten Templates
+            verbleiben im Eigentum des Auftragnehmers. Der Auftraggeber erhält ein einfaches,
+            zeitlich auf die Vertragsdauer beschränktes Nutzungsrecht an der ausgelieferten
+            Website.
+          </p>
+          <p>
+            (2) Inhalte (Texte, Bilder, Logos) verbleiben im Eigentum des Auftraggebers.
+            Die Domain wird auf den Namen des Auftraggebers registriert.
+          </p>
+          <p>
+            (3) Nach Beendigung des Vertrags kann der Auftraggeber einen vollständigen
+            statischen Export der Website kostenlos anfordern (HTML/CSS/Assets), um diese
+            bei einem anderen Anbieter weiter zu hosten.
+          </p>
+
+          <h2>§ 7 Laufzeit und Kündigung</h2>
+          <p>
+            (1) Das Abo läuft auf unbestimmte Zeit und ist von beiden Parteien mit einer
+            Frist von 14 Tagen zum Monatsende kündbar.
+          </p>
+          <p>
+            (2) Die Kündigung bedarf der Textform (E-Mail genügt).
+          </p>
+          <p>
+            (3) Nach Kündigung läuft das Hosting noch 30 Tage weiter, um dem Auftraggeber
+            den geordneten Wechsel zu einem anderen Anbieter zu ermöglichen.
+          </p>
+
+          <h2>§ 8 Haftung</h2>
+          <p>
+            (1) Der Auftragnehmer haftet unbeschränkt für Vorsatz und grobe Fahrlässigkeit
+            sowie nach den Vorschriften des Produkthaftungsgesetzes.
+          </p>
+          <p>
+            (2) Für leicht fahrlässige Pflichtverletzungen haftet der Auftragnehmer nur bei
+            Verletzung wesentlicher Vertragspflichten (Kardinalpflichten), beschränkt auf
+            den vertragstypischen, vorhersehbaren Schaden.
+          </p>
+          <p>
+            (3) Eine weitergehende Haftung ist ausgeschlossen.
+          </p>
+
+          <h2>§ 9 Gerichtsstand und anwendbares Recht</h2>
+          <p>
+            (1) Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.
+          </p>
+          <p>
+            (2) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem
+            Vertragsverhältnis ist Berlin.
+          </p>
+
+          <h2>§ 10 Salvatorische Klausel</h2>
+          <p>
+            Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, so bleibt
+            die Wirksamkeit der übrigen Bestimmungen davon unberührt. An die Stelle der
+            unwirksamen Bestimmung tritt die gesetzliche Regelung.
+          </p>
+
+          <p class="mt-10 text-sm text-muted">Stand: {`{{AGB_STAND}}`}.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
