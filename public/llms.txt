@@ -1,0 +1,25 @@
+# webhype
+
+> webhype baut moderne Websites für mittelständische Unternehmen in 7 Tagen zum Festpreis. Zwei Pakete: Starter (499 €, bis zu 5 Unterseiten) oder Business (999 €, bis zu 10 Unterseiten). 30-Minuten-Briefing, dann 7 Tage Lieferung.
+
+## Hauptseiten
+
+- [Startseite](https://webhype.de/): Überblick, Pakete, Prozess, Branchen
+- [Pakete](https://webhype.de/pakete): Detail-Vergleich Starter / Business
+- [Prozess](https://webhype.de/prozess): 30 Min Briefing → 7 Tage Live (5 Schritte)
+- [Über uns](https://webhype.de/ueber): Gründer & Idee
+
+## Branchen-Lösungen
+
+- [Handwerk](https://webhype.de/branchen/handwerk): Für Handwerksbetriebe — mobile-first, Click-to-Call, echte Werkstattszenen
+- [Arztpraxis](https://webhype.de/branchen/arztpraxis): Für Arzt-, Zahnarzt- und Tierarztpraxen — DSGVO-konform, mit Team-Vorstellung
+- [Kanzlei](https://webhype.de/branchen/kanzlei): Für Kanzleien und Beratungen — Lighthouse 100, AEO-Setup, Tracking
+
+## Kontakt
+
+- [Kontakt & Briefing](https://webhype.de/kontakt): 30-Min-Onboarding-Call buchen
+
+## Pflichtangaben
+
+- [Impressum](https://webhype.de/impressum)
+- [Datenschutz](https://webhype.de/datenschutz)

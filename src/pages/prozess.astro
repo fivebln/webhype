@@ -1,0 +1,228 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { faqSchema, howToSchema, breadcrumbSchema } from '../lib/schema';
+
+const title = 'So läuft es ab: 30 Min Briefing, 7 Tage Live · webhype';
+const description =
+  'Fünf klare Schritte: Briefing-Formular, 30-Min-Call, wir bauen, eine Feedback-Schleife, Go-Live. So entsteht deine Website in 7 Tagen.';
+
+const steps = [
+  {
+    num: '01',
+    day: 'Tag 0 · etwa 5 Minuten',
+    title: 'Briefing-Formular ausfüllen',
+    headline: 'Wir sammeln das Wichtigste vorab.',
+    description:
+      'Du füllst ein kurzes Online-Formular aus — bevor wir telefonieren. Wir fragen nach: Was machst du? Wer ist deine Zielgruppe? Hast du ein Logo? Hast du bestehende Texte oder sollen wir formulieren? Welche Seiten brauchst du?',
+    duration: '5 Minuten Zeit · Idee, was die Website können soll',
+  },
+  {
+    num: '02',
+    day: 'Tag 1 · genau 30 Minuten',
+    title: '30-Min-Onboarding-Call',
+    headline: 'Wir verstehen dein Geschäft. Du wählst dein Paket.',
+    description:
+      'Im Call gehen wir durch dein Briefing-Formular, klären Rückfragen, bestätigen das passende Paket und vereinbaren den Liefertermin. Nach 30 Minuten ist alles geklärt — und der 7-Tage-Countdown startet.',
+    duration: 'Konkreter Go-Live-Termin · Asset-Liefertermin · Ansprechpartner',
+  },
+  {
+    num: '03',
+    day: 'Tag 1–6 · kein Aufwand für dich',
+    title: 'Wir bauen',
+    headline: 'Wir arbeiten. Du machst dein Geschäft.',
+    description:
+      'Sieben Tage lang bauen wir. Asynchron, ohne weitere Calls. Du bekommst täglich einen kurzen Status (Mail oder Slack), aber musst nichts tun.',
+    duration: 'Setup → Hauptseite → Unterseiten → Performance → Testing → Polish',
+  },
+  {
+    num: '04',
+    day: 'Tag 7 · max. 24 h Feedback-Fenster',
+    title: 'Preview & eine Feedback-Schleife',
+    headline: 'Du siehst die Vorschau. Wir nehmen dein Feedback ein.',
+    description:
+      'Am Tag 7 schicken wir dir den Preview-Link. Du schaust dir die Website an und gibst uns binnen 24 Stunden gesammeltes Feedback. Eine Iteration ist im Festpreis enthalten.',
+    duration: 'Texte präzisieren · Bilder tauschen · Farben justieren',
+  },
+  {
+    num: '05',
+    day: 'Tag 8 · nach deinem OK',
+    title: 'Go-Live',
+    headline: 'DNS-Anleitung oder volle Übernahme. Du wählst.',
+    description:
+      'Du bekommst eine Schritt-für-Schritt-Anleitung für DNS-Records bei deinem Domain-Anbieter — oder gibst uns Zugang, und wir machen alles. Maximal 10 Minuten Aufwand für dich.',
+    duration: 'Repository-Zugang · CMS-Schulung (Business) · Wartungs-Optionen',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'Was passiert, wenn ich nach dem Briefing-Call etwas vergesse?',
+    answer:
+      'Du kannst bis Tag 2 noch Assets nachreichen — danach setzen wir mit dem um, was vorliegt. Kleine Ergänzungen (zwei Sätze, ein zusätzliches Bild) gehen auch später noch. Größere Nachträge verschieben den Go-Live-Termin entsprechend.',
+  },
+  {
+    question: 'Brauche ich eigene Texte und Bilder?',
+    answer:
+      'Nein. Stichpunkte reichen — wir formulieren die finalen Texte selbst (in deinem Tonfall, nach Briefing). Bilder können wir aus Unsplash mit korrekter Lizenz auswählen, falls du keine eigenen hast. Eigene Bilder sind besser (echter), aber nicht Pflicht.',
+  },
+  {
+    question: 'Was, wenn der 7-Tage-Termin nicht eingehalten wird?',
+    answer:
+      'Wenn wir nicht liefern — solange du deine Pflicht-Assets pünktlich übergibst — bekommst du das Paket kostenlos. So ernst meinen wir das. In über 95 % der Fälle halten wir die Deadline.',
+  },
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: '/' },
+    { name: 'Prozess', url: '/prozess' },
+  ]),
+  howToSchema({
+    name: 'Wie webhype eine Website in 7 Tagen baut',
+    description: 'Fünf Schritte von Briefing bis Go-Live',
+    steps: steps.map((s) => ({ name: s.title, text: s.description })),
+  }),
+  faqSchema(faqItems),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="30 Min Briefing. 7 Tage Lieferung. So läuft es ab."
+  ogDescription="Fünf Schritte. Klare Mechanik. Du musst nichts tun, außer der Anfang."
+  ogImage="/og/prozess.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <p class="section-cap">So läuft es ab</p>
+    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">
+      Vom Briefing zur Live-Website in 7 Tagen.
+    </h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Fünf Schritte. Klar gegliedert. Maximaler Aufwand für dich: 30 Minuten Briefing + 15–30 Minuten Asset-Upload. Den Rest übernehmen wir.
+    </p>
+  </Section>
+
+  {/* DIE 5 SCHRITTE */}
+  <Section variant="white" size="lg">
+    <ol class="space-y-12">
+      {steps.map((s) => (
+        <li class="grid gap-8 md:grid-cols-[200px_1fr] md:gap-12">
+          <div class="md:sticky md:top-24 md:self-start">
+            <div class="flex items-baseline gap-3">
+              <span class="font-mono text-5xl font-bold text-blue-500 headline tnum">{s.num}</span>
+            </div>
+            <p class="mt-2 font-mono text-xs uppercase tracking-wider text-ink-300">{s.day}</p>
+          </div>
+
+          <div class="border-l border-ink-100 pl-8">
+            <p class="font-mono text-xs uppercase tracking-wider text-spark">Schritt {s.num}</p>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-bold text-ink-900 headline">{s.title}</h2>
+            <p class="mt-3 text-lg font-medium text-ink-700">{s.headline}</p>
+            <p class="mt-4 text-[15px] leading-relaxed text-ink-500">{s.description}</p>
+            <p class="mt-5 inline-flex items-center gap-2 rounded-full border border-ink-100 px-3 py-1.5 text-xs text-ink-500">
+              <span class="inline-block h-1.5 w-1.5 rounded-full bg-spark"></span>
+              {s.duration}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  {/* WAS DU LIEFERN MUSST */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Was wir von dir brauchen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Maximal 1 Stunde Aufwand. Garantiert.
+    </h2>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      <div class="rounded-2xl border-2 border-blue-200 bg-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Pflicht</div>
+        <h3 class="mt-3 text-lg font-bold text-ink-900 headline">Bis Tag 2 spätestens</h3>
+        <ul class="mt-4 space-y-2 text-[15px] text-ink-900">
+          <li class="flex gap-2"><span class="text-success">✓</span> Logo (SVG, AI, PDF) ODER „kein Logo"</li>
+          <li class="flex gap-2"><span class="text-success">✓</span> Stichpunkte zu deinen Leistungen</li>
+          <li class="flex gap-2"><span class="text-success">✓</span> Kontaktdaten (Adresse, Telefon, E-Mail)</li>
+          <li class="flex gap-2"><span class="text-success">✓</span> Impressums-Daten</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-ink-100 bg-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">Optional</div>
+        <h3 class="mt-3 text-lg font-bold text-ink-900 headline">Nice to have</h3>
+        <ul class="mt-4 space-y-2 text-[15px] text-ink-500">
+          <li>Bestehende Texte / Marketing-Materialien</li>
+          <li>Eigene Bilder (Team, Office, Werkstatt)</li>
+          <li>Brand-Guidelines (falls vorhanden)</li>
+          <li>3–5 Referenz-Websites, die dir gefallen</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-dashed border-ink-200 bg-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-error">Nicht nötig</div>
+        <h3 class="mt-3 text-lg font-bold text-ink-900 headline">Spar dir die Mühe</h3>
+        <ul class="mt-4 space-y-2 text-[15px] text-ink-500">
+          <li>Detaillierte Wireframes</li>
+          <li>Fertige Texte für jede Seite</li>
+          <li>Stockfoto-Sammlung</li>
+          <li>Markenrechtliche Recherche</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  {/* GRENZEN */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Ehrliche Grenzen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Drei Dinge, bei denen wir „nein" sagen.
+    </h2>
+
+    <div class="mt-10 space-y-4">
+      {[
+        { num: '01', title: 'Strategie-Workshop', body: 'Wir bauen Websites, keine Marken-Strategien. Wenn du noch nicht weißt, was dein Angebot ist, empfehlen wir vorab einen Strategie-Berater.' },
+        { num: '02', title: 'Mehrere Iterationen', body: 'Eine Feedback-Schleife. Mehr nicht. Wenn du mehrere Runden brauchst, ist klassische Agentur besser.' },
+        { num: '03', title: 'Sehr individuelle Animationen', body: 'Wir bauen schnelle, klare, conversion-starke Websites. Für Award-würdige Custom-Animationen sind spezialisierte Studios besser.' },
+      ].map((item) => (
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-6">
+          <div class="flex items-baseline gap-3">
+            <span class="font-mono text-2xl font-bold text-error/80">{item.num}</span>
+            <h3 class="text-lg font-bold text-ink-900 headline">{item.title}</h3>
+          </div>
+          <p class="mt-2 text-[15px] leading-relaxed text-ink-500">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* FAQ */}
+  <Section variant="warm-white" size="lg" id="faq">
+    <p class="section-cap">Prozess-Fragen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">Die häufigsten Bedenken.</h2>
+    <div class="mt-10 max-w-3xl">
+      <FaqAccordion items={faqItems} />
+    </div>
+  </Section>
+
+  {/* FINAL CTA */}
+  <Section variant="ink" size="xl">
+    <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">
+      Klingt machbar? Dann lass uns starten.
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+      30 Minuten Briefing-Call. Termine binnen 48 Stunden verfügbar.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt" variant="spark" size="lg" arrow>In 30 Min gebrieft</Button>
+      <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+    </div>
+  </Section>
+</BaseLayout>

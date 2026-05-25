@@ -1,0 +1,272 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Kontakt & 30-Min-Briefing · webhype';
+const description =
+  'Briefing-Formular ausfüllen (5 Min), wir melden uns binnen 24 Stunden mit Terminvorschlägen für deinen 30-Min-Onboarding-Call.';
+
+// Default values (empty for static prerender — actual prefill happens client-side via JS)
+const paket = '';
+const branche = '';
+
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Kontakt webhype',
+  url: 'https://webhype.de/kontakt',
+};
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: '/' },
+    { name: 'Kontakt', url: '/kontakt' },
+  ]),
+  contactPageSchema,
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="In 30 Minuten gebrieft — jetzt Termin sichern."
+  ogDescription="Kurzes Formular. Kein Funnel. Wir antworten heute."
+  ogImage="/og/kontakt.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <p class="section-cap">Schritt 1 von 5</p>
+    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">
+      In 5 Minuten gebrieft. In 30 Min besprochen. In 7 Tagen live.
+    </h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Fülle das Briefing-Formular aus. Wir melden uns binnen 24 Stunden — meistens innerhalb von 4 Stunden während der Werktage — mit drei Terminvorschlägen für deinen 30-Min-Onboarding-Call.
+    </p>
+  </Section>
+
+  {/* FORMULAR */}
+  <Section variant="white" size="lg">
+    <div class="grid gap-12 lg:grid-cols-[2fr_1fr]">
+      <form
+        id="contact-form"
+        action="/api/contact"
+        method="POST"
+        class="space-y-6 rounded-2xl border border-ink-100 bg-white p-7 sm:p-10"
+        novalidate
+      >
+        <fieldset class="space-y-5">
+          <legend class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Block 1 · Kontakt</legend>
+
+          <div>
+            <label for="name" class="block text-sm font-medium text-ink-700 mb-1.5">Wie heißt du? <span class="text-error">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+            <p class="mt-1 text-xs text-ink-300">Wir sprechen dich namentlich an.</p>
+          </div>
+
+          <div>
+            <label for="company" class="block text-sm font-medium text-ink-700 mb-1.5">Wie heißt dein Geschäft? <span class="text-error">*</span></label>
+            <input type="text" id="company" name="company" required autocomplete="organization" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="email" class="block text-sm font-medium text-ink-700 mb-1.5">E-Mail <span class="text-error">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-ink-700 mb-1.5">Telefon (optional)</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="space-y-5 border-t border-ink-100 pt-6">
+          <legend class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Block 2 · Projekt</legend>
+
+          <div>
+            <label class="block text-sm font-medium text-ink-700 mb-2.5">Welches Paket passt vermutlich? <span class="text-error">*</span></label>
+            <div class="space-y-2">
+              {[
+                { value: 'starter', label: 'Starter · 499 € · bis zu 5 Unterseiten' },
+                { value: 'business', label: 'Business · 999 € · bis zu 10 Unterseiten' },
+                { value: 'unsicher', label: 'Bin mir noch unsicher — beratet mich' },
+              ].map((opt) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-md border border-ink-100 px-4 py-3 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                  <input type="radio" name="paket" value={opt.value} checked={paket === opt.value} required class="h-4 w-4 accent-blue-500" />
+                  <span class="text-[15px] text-ink-900">{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label for="branche" class="block text-sm font-medium text-ink-700 mb-1.5">Welche Branche?</label>
+            <select id="branche" name="branche" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100">
+              <option value="">— Bitte wählen —</option>
+              <option value="handwerk" selected={branche === 'handwerk'}>Handwerk</option>
+              <option value="arztpraxis" selected={branche === 'arztpraxis'}>Arztpraxis</option>
+              <option value="kanzlei" selected={branche === 'kanzlei'}>Kanzlei / Beratung</option>
+              <option value="anderes">Anderes Mittelstands-Geschäft</option>
+              <option value="keine_angabe">Bevorzuge nicht zu nennen</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink-700 mb-2.5">Hast du schon eine Website? <span class="text-error">*</span></label>
+            <div class="space-y-2">
+              {[
+                { value: 'neu', label: 'Nein, brauche eine neue' },
+                { value: 'ersetzen', label: 'Ja, soll komplett ersetzt werden' },
+              ].map((opt) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-md border border-ink-100 px-4 py-3 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                  <input type="radio" name="bestand" value={opt.value} required class="h-4 w-4 accent-blue-500" />
+                  <span class="text-[15px] text-ink-900">{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-ink-700 mb-1.5">Was soll deine neue Website können? <span class="text-error">*</span></label>
+            <textarea id="message" name="message" required rows="4" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" placeholder="3–5 Stichpunkte reichen. Beispiel: Anrufe generieren, Mitarbeiter rekrutieren, Vertrauen aufbauen."></textarea>
+            <p class="mt-1 text-xs text-ink-300">Keine Roman-Antworten — Stichpunkte sind perfekt.</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="space-y-5 border-t border-ink-100 pt-6">
+          <legend class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Block 3 · Abschluss</legend>
+
+          <label class="flex cursor-pointer items-start gap-3">
+            <input type="checkbox" name="dsgvo" required class="mt-1 h-4 w-4 accent-blue-500" />
+            <span class="text-sm text-ink-700">
+              Ich habe die <a href="/datenschutz" class="font-medium text-blue-500 underline hover:text-blue-600">Datenschutzerklärung</a> gelesen und stimme der Datenverarbeitung zur Bearbeitung meiner Anfrage zu. <span class="text-error">*</span>
+            </span>
+          </label>
+
+          {/* Honeypot anti-spam */}
+          <input type="text" name="company_url" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+        </fieldset>
+
+        <div class="flex flex-col gap-3 border-t border-ink-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-xs text-ink-500">Wir antworten binnen 24 Stunden, meistens am selben Werktag.</p>
+          <Button type="submit" variant="primary" size="lg" arrow id="submit-button">Anfrage absenden</Button>
+        </div>
+
+        <div id="form-success" class="hidden rounded-md border border-success/30 bg-success/10 p-4 text-sm text-ink-900">
+          <strong>Danke!</strong> Wir haben deine Anfrage erhalten. Eine Bestätigungs-Mail ist gerade unterwegs zu dir. Wir melden uns spätestens morgen mit Terminvorschlägen.
+        </div>
+        <div id="form-error" class="hidden rounded-md border border-error/30 bg-error/10 p-4 text-sm text-ink-900">
+          <strong>Hoppla,</strong> da ging etwas schief auf unserer Seite. Bitte schreib uns direkt an <a href="mailto:hallo@webhype.de" class="font-medium text-blue-500 underline">hallo@webhype.de</a>.
+        </div>
+      </form>
+
+      <aside class="space-y-5">
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-6">
+          <h2 class="text-lg font-bold text-ink-900 headline">Was nach dem Absenden passiert</h2>
+          <ol class="mt-4 space-y-4 text-[15px] text-ink-500">
+            <li class="flex gap-3">
+              <span class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 font-mono text-xs font-bold text-blue-500">1</span>
+              <div>
+                <strong class="text-ink-900">Sofort:</strong> Du bekommst eine Bestätigungs-Mail.
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <span class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 font-mono text-xs font-bold text-blue-500">2</span>
+              <div>
+                <strong class="text-ink-900">Binnen 24 h:</strong> Wir lesen die Anfrage und sichten.
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <span class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 font-mono text-xs font-bold text-blue-500">3</span>
+              <div>
+                <strong class="text-ink-900">Terminvorschläge:</strong> Drei Slots binnen 5 Werktagen.
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-6">
+          <h2 class="text-lg font-bold text-ink-900 headline">Andere Kanäle</h2>
+          <ul class="mt-4 space-y-3 text-[15px]">
+            <li>
+              <strong class="text-ink-900">E-Mail:</strong><br/>
+              <a href="mailto:hallo@webhype.de" class="font-medium text-blue-500 hover:text-blue-600">hallo@webhype.de</a>
+            </li>
+          </ul>
+          <p class="mt-4 text-xs text-ink-500">
+            Egal welcher Kanal — wir bitten dich vor dem Onboarding-Call das Briefing-Formular auszufüllen.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border-l-4 border-blue-500 bg-blue-50 p-6 text-sm">
+          <p class="font-bold text-ink-900">Was wir mit deinen Daten machen</p>
+          <ul class="mt-3 space-y-2 text-ink-700">
+            <li>Nur für die Bearbeitung deiner Anfrage</li>
+            <li>Nach 6 Monaten automatische Löschung</li>
+            <li>Kein Newsletter, kein Re-Marketing</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </Section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-button') as HTMLButtonElement | null;
+  const successBox = document.getElementById('form-success');
+  const errorBox = document.getElementById('form-error');
+
+  // Prefill from query parameters (?paket=starter|business, ?branche=handwerk|...)
+  if (form) {
+    const params = new URLSearchParams(window.location.search);
+    const paketParam = params.get('paket');
+    const brancheParam = params.get('branche');
+
+    if (paketParam) {
+      const paketInput = form.querySelector<HTMLInputElement>(`input[name="paket"][value="${paketParam}"]`);
+      if (paketInput) paketInput.checked = true;
+    }
+    if (brancheParam) {
+      const brancheSelect = form.querySelector<HTMLSelectElement>('select[name="branche"]');
+      if (brancheSelect && Array.from(brancheSelect.options).some((o) => o.value === brancheParam)) {
+        brancheSelect.value = brancheParam;
+      }
+    }
+  }
+
+  if (form && submitBtn && successBox && errorBox) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      successBox.classList.add('hidden');
+      errorBox.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wir nehmen deine Anfrage auf …';
+
+      try {
+        const data = Object.fromEntries(new FormData(form));
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (!res.ok) throw new Error('submit failed');
+
+        successBox.classList.remove('hidden');
+        form.reset();
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        errorBox.classList.remove('hidden');
+        errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Anfrage absenden <span aria-hidden="true">→</span>';
+      }
+    });
+  }
+</script>

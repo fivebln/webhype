@@ -1,0 +1,37 @@
+---
+export interface Props {
+  id?: string;
+  variant?: 'white' | 'warm-white' | 'ink' | 'blue-tint';
+  class?: string;
+  /** Increase vertical padding for hero-like sections */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const {
+  id,
+  variant = 'warm-white',
+  class: className = '',
+  size = 'md',
+} = Astro.props;
+
+const variants: Record<string, string> = {
+  white: 'bg-white border-t border-ink-100',
+  'warm-white': 'bg-warm-white',
+  ink: 'bg-ink-900 text-white relative overflow-hidden',
+  'blue-tint': 'bg-blue-50',
+};
+
+const sizes: Record<string, string> = {
+  sm: 'py-10 sm:py-14',
+  md: 'py-14 sm:py-20',
+  lg: 'py-16 sm:py-24',
+  xl: 'py-20 sm:py-28',
+};
+---
+
+<section id={id} class:list={[variants[variant], sizes[size], className]}>
+  {variant === 'ink' && <div class="absolute inset-0 grid-overlay opacity-30 pointer-events-none" aria-hidden="true" />}
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
+    <slot />
+  </div>
+</section>

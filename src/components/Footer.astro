@@ -1,0 +1,78 @@
+---
+import Logo from './Logo.astro';
+
+const year = new Date().getFullYear();
+
+const linkGroups = [
+  {
+    heading: 'Angebot',
+    links: [
+      { label: 'Pakete', href: '/pakete' },
+      { label: 'Prozess', href: '/prozess' },
+      { label: 'Kontakt', href: '/kontakt' },
+    ],
+  },
+  {
+    heading: 'Branchen',
+    links: [
+      { label: 'Handwerk', href: '/branchen/handwerk' },
+      { label: 'Arztpraxis', href: '/branchen/arztpraxis' },
+      { label: 'Kanzlei', href: '/branchen/kanzlei' },
+    ],
+  },
+  {
+    heading: 'webhype',
+    links: [
+      { label: 'Über uns', href: '/ueber' },
+      { label: 'Impressum', href: '/impressum' },
+      { label: 'Datenschutz', href: '/datenschutz' },
+    ],
+  },
+];
+---
+
+<footer class="bg-ink-900 text-blue-100">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <Logo variant="dark" class="h-9 w-auto" />
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-blue-100/80">
+          Websites für mittelständische Unternehmen — 30 Min Briefing, 7 Tage Lieferung, Festpreis.
+        </p>
+        <a
+          href="/kontakt"
+          class="mt-6 inline-flex items-center gap-2 rounded-md bg-spark px-5 py-2.5 text-sm font-semibold text-ink-900 transition hover:bg-cyan-300"
+        >
+          In 30 Min gebrieft →
+        </a>
+      </div>
+
+      {linkGroups.map((group) => (
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-spark">
+            {group.heading}
+          </h2>
+          <ul class="mt-4 flex flex-col gap-2.5 text-sm">
+            {group.links.map((link) => (
+              <li>
+                <a href={link.href} class="text-blue-100/80 transition hover:text-white">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <hr class="my-10 border-t border-white/10" />
+
+    <div class="flex flex-col items-start justify-between gap-3 text-xs text-blue-100/60 sm:flex-row sm:items-center">
+      <p>© {year} webhype — Ein Produkt der Gil Miguel Holding UG (haftungsbeschränkt), Berlin</p>
+      <p class="flex items-center gap-2">
+        <span class="inline-flex h-2 w-2 rounded-full bg-success"></span>
+        Lighthouse 100 · DSGVO-konform · Hosted on Vercel
+      </p>
+    </div>
+  </div>
+</footer>

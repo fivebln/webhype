@@ -1,0 +1,98 @@
+---
+import Logo from './Logo.astro';
+
+interface Props {
+  currentPath?: string;
+}
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { label: 'Pakete', href: '/pakete' },
+  { label: 'Prozess', href: '/prozess' },
+  { label: 'Branchen', href: '/branchen/handwerk' },
+  { label: 'Über', href: '/ueber' },
+];
+
+const isActive = (href: string) => currentPath === href || currentPath.startsWith(href + '/');
+---
+
+<header class="sticky top-0 z-40 border-b border-ink-100 bg-warm-white/85 backdrop-blur-md no-print">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+    <a href="/" class="flex items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-blue-500" aria-label="webhype — zur Startseite">
+      <Logo variant="primary" class="h-7 w-auto" />
+    </a>
+
+    <nav class="hidden items-center gap-6 text-[15px] md:flex" aria-label="Hauptnavigation">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'relative transition-colors duration-200',
+            isActive(item.href) ? 'text-blue-500 font-medium' : 'text-ink-500 hover:text-ink-900',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="/kontakt"
+        class="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-xs transition-all duration-200 ease-[cubic-bezier(0.2,0.7,0.2,1)] hover:bg-blue-400 hover:shadow-glow focus-visible:outline-2 focus-visible:outline-blue-500"
+      >
+        <span class="hidden sm:inline">In 30 Min gebrieft</span>
+        <span class="sm:hidden">Kontakt</span>
+      </a>
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        class="rounded-md p-2 text-ink-500 transition hover:bg-ink-50 md:hidden"
+        aria-label="Menü öffnen"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-ink-100 bg-warm-white px-4 py-4 md:hidden"
+    aria-label="Mobile Navigation"
+  >
+    <ul class="flex flex-col gap-3 text-base">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'block rounded-md px-3 py-2 transition',
+              isActive(item.href) ? 'bg-blue-50 text-blue-500 font-medium' : 'text-ink-700 hover:bg-ink-50',
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+</script>

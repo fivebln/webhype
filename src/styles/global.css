@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* Self-hosted fonts (WOFF2) — Latin subset only (DE-only site, Umlaute via latin-ext fallback).
+   Drops Cyrillic / Greek / Vietnamese subsets → smaller bundle, fewer @font-face rules. */
+@import "@fontsource/geist-sans/latin-500.css";
+@import "@fontsource/geist-sans/latin-600.css";
+@import "@fontsource/geist-sans/latin-700.css";
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/jetbrains-mono/latin-400.css";
+
+/* ============================================================
+   webhype · Design Tokens (CI 1.0)
+   Source: /webhype/01_brand/ci-guide.md §13
+   ============================================================ */
+
+@theme {
+  /* ===== COLOR · Primary (Electric Blue) ===== */
+  --color-blue-50:  #EAF1FF;
+  --color-blue-100: #C7DCFF;
+  --color-blue-200: #99BEFF;
+  --color-blue-300: #6699FF;
+  --color-blue-400: #3372FE;
+  --color-blue-500: #0051FD;
+  --color-blue-600: #003FCC;
+  --color-blue-700: #002E96;
+  --color-blue-800: #001D63;
+  --color-blue-900: #00102F;
+
+  /* ===== COLOR · Ink (Anker-Neutrale) ===== */
+  --color-ink-50:  #F4F5F8;
+  --color-ink-100: #E0E3EC;
+  --color-ink-200: #C2C8D6;
+  --color-ink-300: #8A91A6;
+  --color-ink-500: #4A5168;
+  --color-ink-700: #1F2433;
+  --color-ink-900: #0A0E1A;
+
+  /* ===== COLOR · Neutrals ===== */
+  --color-warm-white: #FAF9F9;
+
+  /* ===== COLOR · Accent (sparsam!) ===== */
+  --color-spark: #00D4FF;
+
+  /* ===== COLOR · Semantic ===== */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error:   #EF4444;
+
+  /* ===== TYPOGRAPHY · Font Families ===== */
+  --font-headline: "Geist Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:     "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:     "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --default-font-family: var(--font-body);
+
+  /* ===== TYPOGRAPHY · Font Sizes ===== */
+  --text-display: clamp(3rem, 5vw + 1rem, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+
+  --text-h1: clamp(2.25rem, 3vw + 0.5rem, 3rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.75rem, 2vw + 0.5rem, 2.25rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--font-weight: 600;
+
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.3;
+  --text-h4--font-weight: 600;
+
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.55;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.45;
+  --text-caption--letter-spacing: 0.01em;
+
+  --text-section-cap: 0.75rem;
+  --text-section-cap--line-height: 1.4;
+  --text-section-cap--letter-spacing: 0.15em;
+  --text-section-cap--font-weight: 600;
+
+  /* ===== SPACING · 4-px Grid ===== */
+  --spacing: 0.25rem;
+  /* Tailwind 4 generates: --spacing-0 .. --spacing-128 automatically */
+
+  /* ===== RADII ===== */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ===== SHADOWS ===== */
+  --shadow-xs: 0 1px 2px rgb(10 14 26 / 0.04);
+  --shadow-sm: 0 2px 6px rgb(10 14 26 / 0.06);
+  --shadow-md: 0 6px 16px rgb(10 14 26 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(10 14 26 / 0.12);
+  --shadow-glow:       0 0 32px rgb(0 81 253 / 0.32);
+  --shadow-glow-spark: 0 0 24px rgb(0 212 255 / 0.40);
+
+  /* ===== MOTION ===== */
+  --ease-out-snap:       cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce-soft:    cubic-bezier(0.34, 1.32, 0.64, 1);
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background-color: var(--color-warm-white);
+  line-height: var(--text-body--line-height);
+  font-feature-settings: "kern", "liga", "calt";
+}
+
+/* Only set font-family on headings — let color inherit from parent
+   so Tailwind utilities (text-white, text-blue-100, …) work via inheritance. */
+:where(h1, h2, h3, h4, h5, h6, .headline) {
+  font-family: var(--font-headline);
+}
+
+/* Tabular numbers for prices */
+.tnum {
+  font-feature-settings: "tnum" 1, "kern", "liga";
+}
+
+/* Section eyebrow */
+.section-cap {
+  font-family: var(--font-headline);
+  font-size: var(--text-section-cap);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-blue-500);
+}
+
+/* Inline code */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-ink-50);
+  color: var(--color-ink-900);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-blue-500);
+  color: white;
+}
+
+/* Focus-visible (Accessibility) */
+:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   Component Helpers
+   ============================================================ */
+
+/* Hero gradient (dark) */
+.hero-gradient {
+  background:
+    radial-gradient(70% 50% at 15% 0%, rgb(0 212 255 / 0.10) 0%, rgb(0 212 255 / 0) 60%),
+    radial-gradient(50% 60% at 95% 100%, rgb(0 81 253 / 0.30) 0%, rgb(0 81 253 / 0) 70%),
+    linear-gradient(135deg, #00102F 0%, #001D63 50%, #002E96 100%);
+}
+
+/* Grid overlay (used on dark sections) */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Logo aspect ratios */
+.logo-wordmark { aspect-ratio: 195 / 45; }
+.logo-icon { aspect-ratio: 1 / 1; }
+
+/* Print styles */
+@media print {
+  body { background: white; }
+  .no-print { display: none !important; }
+  .hero-gradient { background: #00102F !important; }
+}

@@ -1,0 +1,287 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import PaketCard from '../components/PaketCard.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import BranchenCard from '../components/BranchenCard.astro';
+import { faqSchema, serviceSchema } from '../lib/schema';
+
+const title = 'webhype – Website in 7 Tagen, Festpreis 499 € oder 999 €';
+const description =
+  'Moderne Websites für mittelständische Unternehmen. 30 Min Briefing, 7 Tage live, Festpreis. Keine Agentur-Schleifen. Lighthouse 100 inklusive.';
+
+const faqItems = [
+  {
+    question: 'Was kostet eine Website bei webhype?',
+    answer:
+      '499 € oder 999 €. Festpreis, kein „ab". Starter (499 €) deckt bis zu 5 Unterseiten ab, Business (999 €) bis zu 10. Hosting und Domain im ersten Jahr inklusive.',
+  },
+  {
+    question: 'Wie lange dauert eine Website wirklich?',
+    answer:
+      '7 Tage ab Onboarding-Call. Verbindlich, nicht „ungefähr". Voraussetzung: Du lieferst die Pflicht-Assets (Logo, Texte oder Stichpunkte, Bilder optional) vor oder im Call. Wir halten die Deadline in 95 %+ aller Fälle — und wenn nicht, ist das Paket kostenlos.',
+  },
+  {
+    question: 'Für wen ist webhype geeignet?',
+    answer:
+      'Mittelständische Unternehmen mit etablierten Strukturen — Praxen, Kanzleien, Beratungen, Handwerksbetriebe, Selbstständige mit eigenem Geschäft. Wenn du Inhaber:in bist und schnell eine professionelle Website brauchst, ohne dich wochenlang darum zu kümmern, passt webhype.',
+  },
+  {
+    question: 'Was unterscheidet webhype von einer klassischen Agentur?',
+    answer:
+      'Geschwindigkeit, Festpreis und die ehrliche Disqualifikation. Klassische Agenturen brauchen Wochen und liefern auf Stundenbasis. Wir bauen in 7 Tagen für einen festen Preis. Wer mehr Komplexität braucht (Shop, Mehrsprachigkeit), ist nicht webhype-Kundschaft — und wir sagen das vorab.',
+  },
+];
+
+const processSteps = [
+  { step: 1, title: 'Briefing-Formular', meta: 'Tag 0 · 5 Min', description: 'Vor dem Call ausfüllen. Pflicht-Assets gesammelt.' },
+  { step: 2, title: '30-Min-Onboarding-Call', meta: 'Tag 1 · 30 Min', description: 'Wir verstehen dein Geschäft. Vertrag, Anzahlung, fertig.' },
+  { step: 3, title: 'Wir bauen', meta: 'Tag 1–6 · asynchron', description: '7 Tage. Asynchron. Du musst nichts tun.' },
+  { step: 4, title: 'Preview & 1 Iteration', meta: 'Tag 7 · 24 h Feedback', description: 'Du siehst die Vorschau. Wir nehmen dein Feedback ein.' },
+  { step: 5, title: 'Go-Live', meta: 'Tag 8 · DNS oder Übernahme', description: 'DNS-Anleitung oder volle Domain-Übernahme. Du wählst.' },
+];
+
+const jsonLd = [
+  serviceSchema({
+    name: 'webhype Starter',
+    description: 'Festpreis-Website mit bis zu 5 Unterseiten, 7 Tage Lieferung, Lighthouse 100',
+    url: '/pakete',
+    price: 499,
+    pages: '5',
+    deliveryDays: 7,
+  }),
+  serviceSchema({
+    name: 'webhype Business',
+    description: 'Festpreis-Website mit bis zu 10 Unterseiten, 7 Tage Lieferung, vollem SEO + AEO',
+    url: '/pakete',
+    price: 999,
+    pages: '10',
+    deliveryDays: 7,
+  }),
+  faqSchema(faqItems),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="7 Tage. Festpreis. Punkt."
+  ogDescription="Wir bauen deine Website in einer Woche – für 499 € oder 999 €. 30 Minuten Briefing, dann übernehmen wir."
+  ogImage="/og/index.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <section class="hero-gradient relative overflow-hidden text-white">
+    <div class="absolute inset-0 grid-overlay opacity-50" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-28 md:py-32">
+      <p class="section-cap" style="color:#00D4FF;">Websites für mittelständische Unternehmen</p>
+
+      <h1 class="mt-4 text-4xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-[-0.02em] headline">
+        Deine Website.<br/>
+        In 7 Tagen.<br/>
+        <span style="color:#00D4FF;">Festpreis.</span>
+      </h1>
+
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-blue-100">
+        30 Minuten Briefing. Dann übernehmen wir. Sieben Tage später ist deine neue Website live. Ohne Agentur-Schleifen, ohne versteckte Stunden, ohne „kommt drauf an".
+      </p>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <Button href="/pakete" variant="spark" size="lg" arrow>Pakete ansehen</Button>
+        <Button href="/prozess" variant="inverted" size="lg">So läuft es ab</Button>
+      </div>
+
+      <ul class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-blue-100/80">
+        <li class="flex items-center gap-1.5">
+          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-spark/20 text-spark" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="2 6 5 9 10 3"/>
+            </svg>
+          </span>
+          Lighthouse 100
+        </li>
+        <li class="flex items-center gap-1.5">
+          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-spark/20 text-spark" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="2 6 5 9 10 3"/>
+            </svg>
+          </span>
+          DSGVO-konform
+        </li>
+        <li class="flex items-center gap-1.5">
+          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-spark/20 text-spark" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="2 6 5 9 10 3"/>
+            </svg>
+          </span>
+          Festpreis. Kein Abo.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {/* WAS WEBHYPE ANDERS MACHT */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Kein Briefing-Dschungel</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Du sagst uns, was dein Geschäft macht. Wir bauen den Rest.
+    </h2>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Klassische Agenturen brauchen Wochen für Discoveries, Workshops und Iterationen. Discount-Anbieter liefern Templates, die aussehen wie alle anderen. webhype macht etwas Drittes: wir bauen schnell, weil wir wissen, was funktioniert — und wir bauen für dich, weil du der Inhaber bist, der die Marke kennt.
+    </p>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {[
+        { num: '01', title: '30 Minuten Briefing', body: 'Ein Onboarding-Call. Mehr brauchen wir nicht. Strukturierte Pflicht-Liste vorab, kein endloses Hin und Her.' },
+        { num: '02', title: '7 Tage Lieferung', body: 'Verbindlich ab Onboarding-Call. Kein „ca. 14 Tage". Sieben Tage, dann ist deine Website live.' },
+        { num: '03', title: 'Festpreis. Punkt.', body: '499 € oder 999 €. Du kennst den Preis, bevor du Hallo sagst. Keine Stundenabrechnung, keine Nachverhandlung.' },
+      ].map((card) => (
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-7 transition hover:shadow-md">
+          <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">{card.num}</div>
+          <h3 class="mt-3 text-xl font-bold text-ink-900 headline">{card.title}</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{card.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* PAKETE TEASER */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Zwei Pakete · Keine Stufen dazwischen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">499 € oder 999 €. Du wählst.</h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+      Zwei Preise. Zwei Größen. Keine Add-ons. Keine Sonderangebote. Was du auf der Karte siehst, ist drin.
+    </p>
+
+    <div class="mt-12 grid gap-5 lg:grid-cols-2">
+      <PaketCard variant="starter" />
+      <PaketCard variant="business" featured />
+    </div>
+
+    <div class="mt-8 text-center">
+      <Button href="/pakete" variant="ghost" arrow>Beide Pakete im Detail vergleichen</Button>
+    </div>
+  </Section>
+
+  {/* PROZESS TEASER */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">So läuft es ab</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Vom Briefing zur Live-Website in 7 Tagen.
+    </h2>
+
+    <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {processSteps.map((step) => (
+        <li class="contents">
+          <ProcessStep step={step.step} title={step.title} description={step.description} meta={step.meta} />
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-8 text-center">
+      <Button href="/prozess" variant="ghost" arrow>Den vollen Prozess ansehen</Button>
+    </div>
+  </Section>
+
+  {/* BRANCHEN TEASER */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Für wen wir bauen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">Drei Welten. Eine Marke.</h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+      Wir bauen für mittelständische Unternehmen mit etablierten Strukturen — Praxen, Kanzleien, Betriebe. Wenn du selbstständig bist und deine Online-Präsenz endlich professionell aussehen soll, sind wir richtig.
+    </p>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      <BranchenCard
+        href="/branchen/handwerk"
+        title="Handwerksbetriebe"
+        description="Mobile-first. Telefon prominent. Echte Werkstattszenen statt Stock-Bilder."
+        iconType="handwerk"
+        ctaLabel="Für Handwerker"
+      />
+      <BranchenCard
+        href="/branchen/arztpraxis"
+        title="Arzt- & Zahnarztpraxen"
+        description="DSGVO-konform. Team sichtbar. Behandlungen verständlich."
+        iconType="arztpraxis"
+        ctaLabel="Für Praxen"
+      />
+      <BranchenCard
+        href="/branchen/kanzlei"
+        title="Kanzleien & Beratungen"
+        description="Lighthouse 100. Conversion-stark. Keine Aktenfoto-Klischees."
+        iconType="kanzlei"
+        ctaLabel="Für Kanzleien"
+      />
+    </div>
+  </Section>
+
+  {/* TRUST / BEWEISE */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Warum es funktioniert</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Die schnellste seriöse Website am Markt.
+    </h2>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">Beweis 01</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Lighthouse 100. Live.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
+          Du musst uns nicht glauben. Klick auf <a href="https://pagespeed.web.dev/analysis/https-webhype-de" rel="noopener noreferrer" target="_blank" class="underline text-blue-500 hover:text-blue-600">PageSpeed Insights</a>. Du siehst den aktuellen Score dieser Website — Performance, SEO, Accessibility, Best Practices.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-blue-200 bg-blue-50 p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Beweis 02</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Wenn wir's nicht halten, ist es kostenlos.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
+          Sieben Tage ab Onboarding-Call. Wenn wir die Deadline nicht halten — solange du deine Pflicht-Assets pünktlich lieferst — bekommst du das Paket kostenlos.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">Beweis 03</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Was draufsteht, ist drin.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
+          499 € oder 999 €. Mit allem, was auf der Pakete-Seite gelistet ist. Keine Nachrechnung. Keine versteckten Hosting-Gebühren im Kleingedruckten.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  {/* FAQ */}
+  <Section variant="warm-white" size="lg" id="faq">
+    <p class="section-cap">Häufig gefragt</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">Die kurzen Antworten.</h2>
+
+    <div class="mt-10 max-w-3xl">
+      <FaqAccordion items={faqItems} />
+    </div>
+
+    <p class="mt-6 text-sm text-ink-500">
+      Mehr Fragen?
+      <a href="/pakete#faq" class="font-medium text-blue-500 hover:text-blue-600">Paket-Fragen</a>
+      <span class="mx-1">·</span>
+      <a href="/prozess#faq" class="font-medium text-blue-500 hover:text-blue-600">Prozess-Fragen</a>
+    </p>
+  </Section>
+
+  {/* FINAL CTA */}
+  <Section variant="ink" size="xl">
+    <div class="text-center sm:text-left">
+      <p class="section-cap" style="color:#00D4FF;">Ende der Erklärungen</p>
+      <h2 class="mt-3 text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">
+        Bereit für eine Website in 7 Tagen?
+      </h2>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+        30 Minuten Briefing. Festpreis. Live nächste Woche.
+      </p>
+      <div class="mt-9 flex flex-wrap justify-center sm:justify-start gap-3">
+        <Button href="/kontakt" variant="spark" size="lg" arrow>In 30 Min gebrieft</Button>
+        <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

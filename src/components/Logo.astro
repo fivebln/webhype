@@ -1,0 +1,48 @@
+---
+/**
+ * Logo · webhype
+ *
+ * Renders the webhype logo via an inline SVG <use href> reference.
+ * The full sprite library is rendered once per page (in BaseLayout)
+ * via <LogoSprite />. Logo components only emit a small <svg><use> block.
+ *
+ * Variants:
+ *   - "primary"  → for LIGHT backgrounds (.st1 = ink-900 #0A0E1A)
+ *   - "dark"     → for DARK  backgrounds (.st1 = warm-white #FAF9F9)
+ *   - "icon"     → square ">>" symbol mark (favicon / avatar)
+ *
+ * Default sizing: wordmark uses aspect-ratio 195/45.
+ */
+export interface Props {
+  variant?: 'primary' | 'dark' | 'icon';
+  class?: string;
+  ariaLabel?: string;
+  height?: string; // CSS height — e.g. "2.25rem", "h-9" via class
+}
+
+const {
+  variant = 'primary',
+  class: className = '',
+  ariaLabel = 'webhype',
+  height,
+} = Astro.props;
+
+const symbolId =
+  variant === 'icon'
+    ? 'logo-webhype-icon'
+    : variant === 'dark'
+    ? 'logo-webhype-dark'
+    : 'logo-webhype';
+
+const aspectClass = variant === 'icon' ? 'logo-icon' : 'logo-wordmark';
+const inlineStyle = height ? `height:${height};` : '';
+---
+
+<svg
+  class={`${aspectClass} ${className}`}
+  style={inlineStyle}
+  role="img"
+  aria-label={ariaLabel}
+>
+  <use href={`#${symbolId}`} />
+</svg>

@@ -1,0 +1,160 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Über webhype – Der Gründer & die Idee';
+const description =
+  'webhype ist ein Produkt der Gil Miguel Holding UG aus Berlin. Wir bauen schnelle, ehrliche Websites für mittelständische Unternehmen.';
+
+const haltungen = [
+  { num: '01', title: 'Wir versprechen weniger und liefern mehr.', body: '„Bis zu 5 Unterseiten" heißt: 1, 2, 3, 4 oder 5 — nicht „eigentlich 7, aber dann diskutieren wir nachher". 7 Tage heißt 7 Tage, nicht 14. 499 € heißt 499 €, nicht „ab".' },
+  { num: '02', title: 'Wir disqualifizieren ehrlich.', body: 'Wenn wir merken, dass dein Projekt nicht zu unserer Mechanik passt — Shop, Mehrsprachigkeit, komplexes Mandanten-Portal — sagen wir das vor der Buchung. Du verlierst keine Zeit, kein Geld.' },
+  { num: '03', title: 'Wir bauen so, wie wir selbst kaufen würden.', body: 'Lighthouse 100, weil schnelle Sites einfach besser sind. AEO-Setup, weil 2026 KI-Suchen wichtig werden. Ehrliche „Was-nicht-drin-ist"-Sektionen, weil Transparenz dauerhaft Trust schafft.' },
+];
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'Über', url: '/ueber' },
+]);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="Hinter webhype steht ein Mensch."
+  ogDescription="Direkt. Klar. Keine Funnel-Tricks."
+  ogImage="/og/ueber.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <p class="section-cap">Wer steckt hinter webhype</p>
+    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">
+      Eine Person. Eine klare Idee. Kein Agentur-Apparat.
+    </h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      webhype ist ein Produkt der Gil Miguel Holding UG aus Berlin. Hinter der Marke steht ein einzelner Gründer, der das Web-Business-Modell so umbauen wollte, wie er es selbst als Kunde gerne erlebt hätte: schnell, klar, mit festem Preis und ohne Rückfragen-Pingpong.
+    </p>
+  </Section>
+
+  {/* IDEE */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Warum webhype existiert</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Die Webdesign-Branche ist 2026 in zwei Lagern.
+    </h2>
+    <div class="mt-8 max-w-3xl space-y-4 text-lg leading-relaxed text-ink-500">
+      <p>
+        Auf der einen Seite: Discount-Anbieter mit Templates ab 99 €. Die Websites sehen alle gleich aus, die Lieferversprechen werden selten gehalten, das Hosting ist ein verstecktes Abo.
+      </p>
+      <p>
+        Auf der anderen Seite: klassische Agenturen mit 8-Wochen-Discoveries und 10.000-€-Budgets. Großartige Arbeit für die, die Zeit und Geld haben. Aber nicht für die meisten mittelständischen Unternehmen, die einfach nur eine moderne Website brauchen, ohne sich monatelang darum kümmern zu müssen.
+      </p>
+      <p>
+        <strong class="text-ink-900">Zwischen den beiden Lagern</strong> lag eine offene Lücke: Premium-Qualität ohne Premium-Aufwand. Mid-Agency-Performance in der Mechanik einer Standardisierung. Wir füllen die Lücke.
+      </p>
+    </div>
+  </Section>
+
+  {/* GRÜNDER */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Die Person dahinter</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Gil Miguel Peixoto Cordeiro · Gründer & Builder
+    </h2>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_2fr]">
+      <div class="rounded-2xl border border-ink-100 bg-white p-7">
+        <div class="aspect-square rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+          <span class="font-mono text-xs text-ink-300">Foto folgt</span>
+        </div>
+        <div class="mt-5 text-sm text-ink-500">
+          <p class="font-semibold text-ink-900">Gil Miguel Peixoto Cordeiro</p>
+          <p class="mt-1">Gründer & Geschäftsführer</p>
+          <p class="mt-1">Berlin</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-lg leading-relaxed text-ink-500">
+        <p>
+          Gil Miguel Peixoto Cordeiro ist der Gründer von webhype und Geschäftsführer der Gil Miguel Holding UG (haftungsbeschränkt) aus Berlin.
+        </p>
+        <p>
+          Mit Hintergrund in digitalem Aufbau und produktisiertem Service-Design hat er die typischen Web-Projekt-Probleme aus beiden Perspektiven erlebt — als Kunde, der wochenlang auf Designs wartet, und als Anbieter, der den Kunden mit immer neuen Discovery-Calls überfordert.
+        </p>
+        <p>
+          webhype ist die Antwort: ein <strong class="text-ink-900">Produkt, kein Service</strong>. Ein klarer Preis, klare Erwartungen, schnelle Lieferung.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  {/* FIRMA */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Rechtsträger</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Wer steht im Vertrag?
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+      webhype ist ein Produkt der <strong class="text-ink-900">Gil Miguel Holding UG (haftungsbeschränkt)</strong>.
+    </p>
+
+    <div class="mt-10 rounded-2xl border border-ink-100 bg-warm-white p-7 max-w-2xl">
+      <dl class="divide-y divide-ink-100 text-[15px]">
+        <div class="grid grid-cols-[140px_1fr] gap-4 py-3">
+          <dt class="text-ink-500">Geschäftsführer</dt>
+          <dd class="text-ink-900">Gil Miguel Peixoto Cordeiro</dd>
+        </div>
+        <div class="grid grid-cols-[140px_1fr] gap-4 py-3">
+          <dt class="text-ink-500">Sitz</dt>
+          <dd class="text-ink-900">Westfälische Str. 46, 10711 Berlin</dd>
+        </div>
+        <div class="grid grid-cols-[140px_1fr] gap-4 py-3">
+          <dt class="text-ink-500">Handelsregister</dt>
+          <dd class="text-ink-900 font-mono">HRB 247654B</dd>
+        </div>
+        <div class="grid grid-cols-[140px_1fr] gap-4 py-3">
+          <dt class="text-ink-500">USt.-ID</dt>
+          <dd class="text-ink-900 font-mono">DE 359941428</dd>
+        </div>
+      </dl>
+      <p class="mt-5 text-sm text-ink-500">
+        Vollständiges Impressum: <a href="/impressum" class="font-medium text-blue-500 hover:text-blue-600">/impressum</a>
+      </p>
+    </div>
+  </Section>
+
+  {/* HALTUNGEN */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Drei Haltungen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Drei Dinge, an denen man uns erkennt.
+    </h2>
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {haltungen.map((h) => (
+        <div class="rounded-2xl border border-ink-100 bg-white p-7">
+          <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">{h.num}</div>
+          <h3 class="mt-3 text-xl font-bold text-ink-900 headline">{h.title}</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{h.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* FINAL CTA */}
+  <Section variant="ink" size="xl">
+    <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">
+      Bereit für ein erstes Gespräch?
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+      30 Minuten Briefing-Call. Du sprichst direkt mit dem Gründer.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt" variant="spark" size="lg" arrow>Termin sichern</Button>
+      <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+    </div>
+  </Section>
+</BaseLayout>

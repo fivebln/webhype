@@ -1,0 +1,127 @@
+---
+export const prerender = true;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import { breadcrumbSchema, serviceSchema } from '../../lib/schema';
+
+const title = 'Website für Handwerker – Festpreis & 7 Tage · webhype';
+const description =
+  'Moderne Website für Handwerksbetriebe. 7 Tage Lieferung, Festpreis 499 € oder 999 €. Mobile-first, Telefon prominent, echte Werkstattszenen.';
+
+const pains = [
+  { title: '„Meine Website ist von 2014 und sieht so aus."', body: 'Junge Kunden googeln zuerst. Wenn deine Website wie vor 10 Jahren aussieht, gehen sie zur Konkurrenz. Auch wenn dein Handwerk besser ist.' },
+  { title: '„Mein Webmaster ist nicht mehr erreichbar."', body: 'Du hast keine Kontrolle über deine eigene Website. Änderungen sind unmöglich, der Hosting-Vertrag läuft weiter, niemand hilft.' },
+  { title: '„Meine Telefonnummer ist nur im Impressum."', body: 'Wenn Kunden dich anrufen sollen, muss die Nummer überall sichtbar sein. Idealerweise klickbar auf dem Smartphone.' },
+];
+
+const differentiators = [
+  { num: '01', title: 'Telefonnummer prominent', body: 'Die Nummer steht in der Navigation, im Hero, in jedem Section-Footer. Auf Smartphones klickbar (Click-to-Call). Auf Desktop kopierbar mit einem Klick.' },
+  { num: '02', title: 'Mobile-First, immer', body: '80 % deiner Kunden öffnen die Website mit dem Smartphone — auf der Baustelle, im Auto, abends auf der Couch. Wir designen mobil zuerst, dann nach oben.' },
+  { num: '03', title: 'Echte Bilder, keine Stock-Anzug-Männer', body: 'Wenn du eigene Bilder hast (Werkstatt, Team, Projekte), nutzen wir die. Sonst suchen wir aus Unsplash echte Werkstattszenen — keine Stockfotos mit lachenden Anzug-Trägern am Whiteboard.' },
+  { num: '04', title: 'Du übernimmst die Kontrolle', body: 'Nach Go-Live bekommst du Zugang zum Code, zur Domain und zum Hosting. Kein Lock-in. Wenn du irgendwann eine andere Agentur willst, gehört dir alles.' },
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: '/' },
+    { name: 'Branchen', url: '/branchen/handwerk' },
+    { name: 'Handwerk', url: '/branchen/handwerk' },
+  ]),
+  serviceSchema({
+    name: 'Website für Handwerksbetriebe',
+    description: 'Mobile-first Websites mit Click-to-Call, echten Werkstattszenen und 7 Tage Lieferung',
+    url: '/branchen/handwerk',
+    price: 499,
+    pages: '5–10',
+    deliveryDays: 7,
+  }),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="Website für Handwerker · 7 Tage · Festpreis"
+  ogDescription="Mobile-first, mit Click-to-Call und echten Bildern aus deinem Betrieb. Keine Stock-Anzug-Männer."
+  ogImage="/og/branche-handwerk.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <p class="section-cap">Für Handwerksbetriebe</p>
+    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">
+      Die Website, die deine Kunden anruft.
+    </h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Wir bauen Websites für Handwerksbetriebe — Sanitär, Heizung, Elektrik, Maler, Dachdecker, Schreiner. Mobile-first, mit gut sichtbarer Telefonnummer, echten Bildern aus deinem Betrieb. 7 Tage Lieferung. Festpreis 499 € oder 999 €.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt?branche=handwerk" variant="primary" size="lg" arrow>In 30 Min gebrieft</Button>
+      <Button href="/pakete" variant="secondary" size="lg">Pakete ansehen</Button>
+    </div>
+  </Section>
+
+  {/* PAIN POINTS */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Kennst du das?</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Drei Sätze, die uns ständig begegnen.
+    </h2>
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {pains.map((p) => (
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+          <h3 class="text-lg font-bold text-ink-900 italic headline">{p.title}</h3>
+          <p class="mt-4 text-[15px] leading-relaxed text-ink-500">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* WAS WIR ANDERS MACHEN */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">So bauen wir für Handwerk</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Vier Dinge, die wir bei jedem Handwerks-Auftrag fix machen.
+    </h2>
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {differentiators.map((d) => (
+        <div class="rounded-2xl border border-ink-100 bg-white p-7">
+          <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">{d.num}</div>
+          <h3 class="mt-3 text-xl font-bold text-ink-900 headline">{d.title}</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{d.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* TRUST */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Warum es bei Kunden ankommt</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Performance ist nicht Show.
+    </h2>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Wir bauen jede Website mit Lighthouse-Score 100 für Performance. Eine schnelle Website bedeutet, dass Kunden NICHT abspringen, bevor sie deine Nummer gesehen haben. Auf dem Smartphone in einer Baustellen-Funkloch-Situation lädt unsere Seite trotzdem in unter 2 Sekunden.
+    </p>
+    <div class="mt-8">
+      <Button href="https://pagespeed.web.dev/analysis/https-webhype-de-branchen-handwerk" variant="ghost" arrow>
+        Lighthouse-Score live prüfen
+      </Button>
+    </div>
+  </Section>
+
+  {/* FINAL CTA */}
+  <Section variant="ink" size="xl">
+    <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">
+      Bereit für eine Website, die anruft, statt nur dazustehen?
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+      30 Min Briefing-Call. Wir verstehen Handwerk, weil wir Handwerker briefen.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt?branche=handwerk" variant="spark" size="lg" arrow>Jetzt anfragen</Button>
+      <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+    </div>
+  </Section>
+</BaseLayout>

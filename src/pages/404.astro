@@ -1,0 +1,27 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+
+const title = '404 – Seite nicht gefunden · webhype';
+const description = 'Die gesuchte Seite gibt es nicht. Zurück zur Startseite oder direkt zu den Paketen.';
+---
+
+<BaseLayout title={title} description={description} robots="noindex, follow">
+  <Section variant="ink" size="xl">
+    <p class="section-cap" style="color:#00D4FF;">Fehler 404</p>
+    <h1 class="mt-3 text-5xl sm:text-7xl md:text-8xl font-bold text-white headline tnum">404.</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+      Die Seite, die du suchst, gibt es nicht. Vielleicht verlinkt? Vielleicht umbenannt? Vielleicht nie gebaut?
+    </p>
+    <p class="mt-3 text-sm text-blue-100/70">
+      Gute Nachricht: Die meisten Antworten findest du sowieso auf einer dieser drei Seiten.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/" variant="spark" size="lg" arrow>Zur Startseite</Button>
+      <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+      <Button href="/kontakt" variant="inverted" size="lg">Kontakt</Button>
+    </div>
+  </Section>
+</BaseLayout>

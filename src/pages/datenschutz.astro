@@ -1,0 +1,156 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Datenschutzerklärung · webhype';
+const description = 'Wir erheben nur die Daten, die wir für deine Anfrage brauchen. Keine Tracking-Cookies, kein Re-Marketing. Volle Transparenz.';
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'Datenschutz', url: '/datenschutz' },
+]);
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">DSGVO-Information</p>
+    <h1 class="mt-3 text-4xl sm:text-5xl font-bold text-ink-900 headline">Datenschutzerklärung</h1>
+    <p class="mt-4 text-sm text-ink-500">Stand: 24. Mai 2026</p>
+  </Section>
+
+  <Section variant="white" size="lg">
+    <article class="prose-content mx-auto max-w-3xl space-y-10 text-[15px] leading-relaxed text-ink-700">
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">1. Verantwortlicher</h2>
+        <p class="mt-3">Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
+        <p class="mt-3">
+          <strong class="text-ink-900">Gil Miguel Holding UG (haftungsbeschränkt)</strong><br/>
+          Westfälische Straße 46<br/>
+          10711 Berlin · Deutschland<br/>
+          E-Mail: <a href="mailto:hallo@webhype.de" class="text-blue-500 underline">hallo@webhype.de</a><br/>
+          Geschäftsführer: Gil Miguel Peixoto Cordeiro
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">2. Allgemeines zur Datenverarbeitung</h2>
+        <p class="mt-3">
+          Wir verarbeiten personenbezogene Daten unserer Nutzer:innen grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist.
+        </p>
+        <p class="mt-3"><strong>Rechtsgrundlagen:</strong></p>
+        <ul class="mt-2 ml-5 list-disc space-y-1">
+          <li>Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) — Kontaktformular, optionale Tools</li>
+          <li>Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) — Anfragen für Vertragsschluss</li>
+          <li>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) — Server-Logs, IT-Sicherheit</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">3. Hosting & Server-Logs</h2>
+        <p class="mt-3">
+          Diese Website wird gehostet bei der Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA. Vercel verarbeitet personenbezogene Daten (insbesondere IP-Adressen) zur Auslieferung der Website. Die Datenübertragung in die USA erfolgt auf Basis der EU-Standardvertragsklauseln.
+        </p>
+        <p class="mt-3">Datenschutzerklärung Vercel: <a href="https://vercel.com/legal/privacy-policy" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">vercel.com/legal/privacy-policy</a></p>
+
+        <p class="mt-5">Beim Aufruf werden temporär folgende Server-Logs gespeichert (max. 14 Tage):</p>
+        <ul class="mt-2 ml-5 list-disc space-y-1">
+          <li>IP-Adresse (anonymisiert nach 24 Stunden)</li>
+          <li>Datum und Uhrzeit des Zugriffs</li>
+          <li>Aufgerufene URL · Referrer-URL</li>
+          <li>Browser-Typ, Version, Betriebssystem</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">4. Kontaktformular und E-Mail</h2>
+        <p class="mt-3">
+          Wenn du uns über das Kontaktformular oder per E-Mail kontaktierst, werden die mitgeteilten Daten (Name, E-Mail, Firma, ggf. Telefon, Inhalt) zur Bearbeitung deiner Anfrage gespeichert.
+        </p>
+        <p class="mt-3"><strong>Zweck:</strong> Bearbeitung der Anfrage und ggf. Vertragsanbahnung.</p>
+        <p class="mt-3"><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO bzw. Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <p class="mt-3"><strong>Empfänger:</strong></p>
+        <ul class="mt-2 ml-5 list-disc space-y-1">
+          <li>Formspree Inc. — Form-Handling-Dienst (USA, EU-Standardvertragsklauseln)</li>
+          <li>Resend — Transaktionale Mail-Zustellung</li>
+        </ul>
+        <p class="mt-3"><strong>Speicherdauer:</strong> 6 Monate nach Abschluss der Kommunikation. Bei Vertragsschluss: gesetzliche Aufbewahrungsfristen (i. d. R. 10 Jahre).</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">5. Cookies</h2>
+        <p class="mt-3">
+          Diese Website nutzt <strong>keine</strong> Tracking-Cookies, <strong>keine</strong> Marketing-Cookies, <strong>keine</strong> Third-Party-Analyse-Cookies ohne deine Einwilligung.
+        </p>
+        <p class="mt-3">Technisch notwendige Cookies (kein Consent nötig):</p>
+        <ul class="mt-2 ml-5 list-disc space-y-1">
+          <li><span class="font-mono text-xs">_vercel_*</span> — Session-Routing (Vercel)</li>
+          <li><span class="font-mono text-xs">cookie-consent</span> — speichert deine Cookie-Auswahl (12 Monate)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">6. Vercel Web Analytics (optional, mit Consent)</h2>
+        <p class="mt-3">
+          Anonymisierte Nutzungsanalyse: Seitenaufrufe (ohne Personenbezug), Geräte-Typ, Browser, ungefähre Region. <strong>Cookielos</strong> und ohne IP-Adressen-Speicherung. Verarbeitung auf Basis Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">7. Microsoft Clarity (optional, mit Consent)</h2>
+        <p class="mt-3">
+          Heatmaps und Session-Recordings zur Verbesserung der Benutzerfreundlichkeit. Sitzungs-Aufzeichnungen mit Masking sensibler Felder. Anbieter: Microsoft Corporation, USA, EU-Standardvertragsklauseln.
+        </p>
+        <p class="mt-3">Datenschutzerklärung: <a href="https://privacy.microsoft.com/de-de/privacystatement" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">privacy.microsoft.com</a></p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">8. Schriften (Fonts)</h2>
+        <p class="mt-3">
+          Wir laden Schriften (Geist, Inter, JetBrains Mono) <strong>selbst-gehostet</strong> von unserem eigenen Server. Es findet <strong>keine</strong> Verbindung zu Google Fonts statt. Es werden keine IP-Adressen an Dritte übermittelt.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">9. Deine Rechte</h2>
+        <p class="mt-3">Du hast jederzeit das Recht auf:</p>
+        <ul class="mt-2 ml-5 list-disc space-y-1">
+          <li>Auskunft (Art. 15 DSGVO)</li>
+          <li>Berichtigung (Art. 16 DSGVO)</li>
+          <li>Löschung (Art. 17 DSGVO)</li>
+          <li>Einschränkung (Art. 18 DSGVO)</li>
+          <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+          <li>Widerspruch (Art. 21 DSGVO)</li>
+          <li>Widerruf einer Einwilligung (Art. 7 Abs. 3 DSGVO)</li>
+          <li>Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)</li>
+        </ul>
+        <p class="mt-3">
+          Kontakt: <a href="mailto:hallo@webhype.de" class="text-blue-500 underline">hallo@webhype.de</a>
+        </p>
+        <p class="mt-3">
+          <strong>Zuständige Aufsichtsbehörde:</strong><br/>
+          Berliner Beauftragte für Datenschutz und Informationsfreiheit<br/>
+          Friedrichstr. 219, 10969 Berlin<br/>
+          Telefon: 030 / 13889-0<br/>
+          E-Mail: <a href="mailto:mailbox@datenschutz-berlin.de" class="text-blue-500 underline">mailbox@datenschutz-berlin.de</a>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">10. Datensicherheit</h2>
+        <ul class="mt-3 ml-5 list-disc space-y-1">
+          <li>TLS / HTTPS auf allen Seiten</li>
+          <li>HSTS (HTTP Strict Transport Security)</li>
+          <li>CSP (Content Security Policy)</li>
+          <li>Regelmäßige Sicherheits-Updates</li>
+          <li>Zugriffsbegrenzung auf das Notwendige</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">11. Aktualität</h2>
+        <p class="mt-3">Stand 24.05.2026. Die jeweils aktuelle Datenschutzerklärung ist auf dieser Seite einsehbar.</p>
+      </section>
+    </article>
+  </Section>
+</BaseLayout>

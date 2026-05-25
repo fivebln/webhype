@@ -1,0 +1,161 @@
+---
+export const prerender = true;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import { breadcrumbSchema, serviceSchema } from '../../lib/schema';
+
+const title = 'Praxis-Website DSGVO-konform – 7 Tage · webhype';
+const description =
+  'Moderne Website für Arzt-, Zahnarzt- und Tierarztpraxen. DSGVO-konform, mit Team-Vorstellung, Behandlungs-Übersicht. 7 Tage Lieferung, Festpreis.';
+
+const pains = [
+  { title: '„Mein Cookie-Banner ist nicht DSGVO-konform."', body: 'Kollegen wurden abgemahnt. Die Datenschutzerklärung ist veraltet. Das Kontaktformular speichert Daten ohne ausreichende Hinweise. Jede falsche Zeile kann ein Abmahn-Risiko sein.' },
+  { title: '„Wir suchen ZFA / MFA — aber unsere Karriereseite sieht aus wie 2010."', body: 'Fachkräfte googeln Praxen, bevor sie sich bewerben. Wenn deine Website unprofessionell wirkt, denken sie: hier kann ich nicht arbeiten.' },
+  { title: '„Die Fotos sind alle Stock — das wirkt nicht wie wir."', body: 'Patienten kommen, weil sie dir vertrauen. Vertrauen entsteht durch echte Bilder von echten Menschen — nicht durch Lachende-Ärzte-aus-Photoshop-Land.' },
+];
+
+const differentiators = [
+  { num: '01', title: 'DSGVO-konforme Datenschutzerklärung', body: 'Wir setzen eine Datenschutzerklärung auf, die genau die Daten abdeckt, die deine Praxis-Website wirklich verarbeitet. Mit den aktuellen TTDSG-Anforderungen 2026. Externen DSB-Check empfehlen wir trotzdem.' },
+  { num: '02', title: 'Echte Team-Fotos statt Stock', body: 'Wir richten den Fototermin mit ein. Oder du hast bereits welche — perfekt. Falls du wirklich keine bekommen kannst, nutzen wir neutrale, ruhige Praxisbilder ohne Personen.' },
+  { num: '03', title: 'Behandlungs-Seiten verständlich', body: 'Patienten googeln nach Symptomen, nicht nach Fachbegriffen. Wir formulieren deine Behandlungs-Seiten so, dass Laien sie verstehen — und gleichzeitig korrekt bleiben.' },
+  { num: '04', title: 'Karriere-Seite professionell', body: 'Wenn du Personal suchst (und das tut so gut wie jede Praxis), bauen wir eine Karriere-Seite, die Bewerber überzeugt. Mit echten Argumenten, nicht mit „familiäres Team"-Floskeln.' },
+];
+
+const dsgvoIncluded = [
+  'Cookie-Consent (TTDSG-konform, keine Pre-Checked-Boxen)',
+  'Datenschutzerklärung mit konkreten Hinweisen',
+  'Impressum vollständig nach §5 TMG',
+  'HTTPS / SSL (automatisch via Vercel)',
+  'Keine externen Tracking-Pixel ohne Consent',
+  'Self-hosted Fonts (kein Google-Fonts-CDN)',
+];
+
+const dsgvoNotIncluded = [
+  'Google Reviews Widget (datenschutzrechtlich problematisch)',
+  'Eingebettete Termin-Tools ohne AVV-Prüfung',
+  'Facebook-Pixel ohne Consent',
+  'Google Ads Conversion-Tracking ohne Consent',
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: '/' },
+    { name: 'Branchen', url: '/branchen/arztpraxis' },
+    { name: 'Arztpraxis', url: '/branchen/arztpraxis' },
+  ]),
+  serviceSchema({
+    name: 'Praxis-Website DSGVO-konform',
+    description: 'Websites für Arzt-, Zahnarzt- und Tierarztpraxen mit DSGVO-konformer Datenschutzerklärung und Team-Vorstellung',
+    url: '/branchen/arztpraxis',
+    price: 499,
+    pages: '5–10',
+    deliveryDays: 7,
+  }),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="Praxis-Website · DSGVO · 7 Tage"
+  ogDescription="Vertrauenswürdig wie deine Praxis. Mit Team-Fotos statt Stock-Bildern. DSGVO ohne Abmahn-Risiko."
+  ogImage="/og/branche-arztpraxis.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <p class="section-cap">Für Arzt-, Zahnarzt- und Tierarztpraxen</p>
+    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">
+      Deine Praxis online — vertrauenswürdig, klar, DSGVO-konform.
+    </h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Wir bauen Websites für Praxen, die seriös wirken müssen, weil sie es sind. Mit echten Team-Fotos, klarer Behandlungs-Übersicht und einer Datenschutzerklärung, die abmahnsicher ist. 7 Tage Lieferung. Festpreis 499 € oder 999 €.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt?branche=arztpraxis" variant="primary" size="lg" arrow>Termin für 30-Min-Briefing</Button>
+      <Button href="/pakete" variant="secondary" size="lg">Pakete ansehen</Button>
+    </div>
+  </Section>
+
+  {/* PAIN POINTS */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Kennst du das?</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Drei Bedenken, die wir oft hören.
+    </h2>
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {pains.map((p) => (
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+          <h3 class="text-lg font-bold text-ink-900 italic headline">{p.title}</h3>
+          <p class="mt-4 text-[15px] leading-relaxed text-ink-500">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* WAS WIR ANDERS MACHEN */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">So bauen wir für Praxen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Vier Dinge, die wir immer mitliefern.
+    </h2>
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {differentiators.map((d) => (
+        <div class="rounded-2xl border border-ink-100 bg-white p-7">
+          <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">{d.num}</div>
+          <h3 class="mt-3 text-xl font-bold text-ink-900 headline">{d.title}</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{d.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  {/* DSGVO */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Compliance</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Was wir bei jeder Praxis-Website abdecken.
+    </h2>
+
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      <div class="rounded-2xl border-2 border-success/30 bg-white p-7">
+        <div class="text-xs font-bold uppercase tracking-wider text-success">Was wir immer einbauen</div>
+        <ul class="mt-4 space-y-2 text-[15px] text-ink-900">
+          {dsgvoIncluded.map((item) => (
+            <li class="flex gap-2"><span class="text-success">✓</span> {item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-dashed border-error/40 bg-white p-7">
+        <div class="text-xs font-bold uppercase tracking-wider text-error">Was wir bewusst NICHT einbauen</div>
+        <ul class="mt-4 space-y-2 text-[15px] text-ink-700">
+          {dsgvoNotIncluded.map((item) => (
+            <li class="flex gap-2"><span class="text-error">✗</span> {item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-2xl border-l-4 border-warning bg-warning/5 p-5">
+      <p class="text-sm leading-relaxed text-ink-700">
+        <strong class="text-ink-900">Wichtig:</strong> Wir sind keine Anwälte. Wir empfehlen einen externen Datenschutzbeauftragten zu konsultieren, besonders wenn du Online-Terminbuchung mit Gesundheitsdaten-Übertragung planst. Wir setzen die technisch korrekte Basis — du sicherst die rechtliche Abdeckung.
+      </p>
+    </div>
+  </Section>
+
+  {/* FINAL CTA */}
+  <Section variant="ink" size="xl">
+    <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">
+      Bereit für eine Praxis-Website, die wie deine Praxis wirkt?
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+      30 Min Briefing. Wir verstehen Praxen-Branding, weil wir wissen, dass Patienten anders suchen als Online-Shop-Kunden.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt?branche=arztpraxis" variant="spark" size="lg" arrow>Termin für 30-Min-Briefing</Button>
+      <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+    </div>
+  </Section>
+</BaseLayout>

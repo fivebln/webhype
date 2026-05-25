@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /og/
+
+# LLM / KI-Suchmaschinen — explizit erlaubt
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: anthropic-ai
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://webhype.de/sitemap-index.xml

@@ -1,0 +1,102 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Impressum · webhype';
+const description = 'Anbieterkennzeichnung gemäß §5 TMG für webhype, ein Produkt der Gil Miguel Holding UG (haftungsbeschränkt).';
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'Impressum', url: '/impressum' },
+]);
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Pflichtangaben</p>
+    <h1 class="mt-3 text-4xl sm:text-5xl font-bold text-ink-900 headline">Impressum</h1>
+  </Section>
+
+  <Section variant="white" size="lg">
+    <article class="prose-content mx-auto max-w-3xl space-y-10 text-[15px] leading-relaxed text-ink-700">
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Anbieter</h2>
+        <p class="mt-3">Angaben gemäß § 5 TMG:</p>
+        <p class="mt-3">
+          <strong class="text-ink-900">Gil Miguel Holding UG (haftungsbeschränkt)</strong><br/>
+          Westfälische Straße 46<br/>
+          10711 Berlin<br/>
+          Deutschland
+        </p>
+        <p class="mt-3"><strong>Vertreten durch:</strong> Gil Miguel Peixoto Cordeiro (Geschäftsführer)</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Kontakt</h2>
+        <p class="mt-3">
+          <strong>E-Mail:</strong> <a href="mailto:hallo@webhype.de" class="text-blue-500 underline">hallo@webhype.de</a>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Registereintrag</h2>
+        <p class="mt-3">
+          <strong>Eintragung im Handelsregister:</strong><br/>
+          Registergericht: Amtsgericht Berlin (Charlottenburg)<br/>
+          Registernummer: <span class="font-mono">HRB 247654B</span>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Umsatzsteuer-ID</h2>
+        <p class="mt-3">
+          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br/>
+          <span class="font-mono">DE359941428</span>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+        <p class="mt-3">Gil Miguel Peixoto Cordeiro, Anschrift wie oben.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">EU-Streitschlichtung</h2>
+        <p class="mt-3">
+          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+          <a href="https://ec.europa.eu/consumers/odr/" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">ec.europa.eu/consumers/odr/</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Verbraucherstreitbeilegung</h2>
+        <p class="mt-3">Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Haftung für Inhalte</h2>
+        <p class="mt-3">
+          Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
+        </p>
+        <p class="mt-3">
+          Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Haftung für Links</h2>
+        <p class="mt-3">
+          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">Urheberrecht</h2>
+        <p class="mt-3">
+          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+        </p>
+      </section>
+    </article>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,228 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import PaketCard from '../components/PaketCard.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { faqSchema, serviceSchema, breadcrumbSchema } from '../lib/schema';
+
+const title = 'Pakete: 499 € oder 999 € – Festpreis · webhype';
+const description =
+  'Zwei Pakete. Zwei Preise. Starter 499 € (bis 5 Unterseiten), Business 999 € (bis 10). 7 Tage Lieferung. Festpreis. Kein Abo.';
+
+const compareRows = [
+  { label: 'Unterseiten', starter: 'bis zu 5', business: 'bis zu 10' },
+  { label: 'Lieferzeit', starter: '7 Tage', business: '7 Tage' },
+  { label: 'Briefing', starter: '30 Min Call', business: '30 Min Call' },
+  { label: 'Kontaktformular', starter: true, business: true },
+  { label: 'DSGVO + Impressum', starter: true, business: true },
+  { label: 'SSL & sichere Auslieferung', starter: true, business: true },
+  { label: 'Mobile-First Responsive', starter: true, business: true },
+  { label: 'Lighthouse 100 Performance', starter: true, business: true },
+  { label: 'Basis-SEO (Meta, Sitemap)', starter: true, business: true },
+  { label: 'Erweiterte SEO + AEO-Setup', starter: false, business: true },
+  { label: 'CRO-Architektur', starter: false, business: true },
+  { label: 'Tracking-Setup', starter: false, business: true },
+  { label: 'Mini-CMS (Sanity) optional', starter: false, business: true },
+  { label: 'Branchen-Landing möglich', starter: false, business: true },
+  { label: 'Eine Feedback-Schleife', starter: true, business: true },
+  { label: 'Domain & Hosting (1. Jahr)', starter: true, business: true },
+];
+
+const faqItems = [
+  {
+    question: 'Was passiert, wenn ich mehr als 10 Unterseiten brauche?',
+    answer: 'Dann sind wir vermutlich nicht die richtige Wahl. Mehr als 10 Unterseiten heißt: komplexere Informations-Architektur, längere Briefing-Zyklen, andere Pricing-Mechanik. Wir empfehlen dir dann eine klassische Webagentur — und sagen das ehrlich, nicht erst nachdem du gezahlt hast.',
+  },
+  {
+    question: 'Sind Hosting und Domain inklusive?',
+    answer: 'Im ersten Jahr ja, ohne Aufpreis. Danach übernimmst du entweder selbst oder buchst unser Wartungspaket (39 €/Mt., monatlich kündbar). Kein Lock-in.',
+  },
+  {
+    question: 'Was, wenn die Website nach Go-Live geändert werden soll?',
+    answer: 'Kleine Änderungen (Texte, Bilder tauschen): im Wartungspaket bis 30 Min/Monat inklusive. Größere Änderungen (neue Sektionen, neue Seiten): nach Aufwand, transparenter Festpreis pro Anfrage. Du musst nichts pauschal buchen.',
+  },
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: '/' },
+    { name: 'Pakete', url: '/pakete' },
+  ]),
+  serviceSchema({ name: 'webhype Starter', description: 'Festpreis-Website mit bis zu 5 Unterseiten, 7 Tage Lieferung', url: '/pakete', price: 499, pages: '5', deliveryDays: 7 }),
+  serviceSchema({ name: 'webhype Business', description: 'Festpreis-Website mit bis zu 10 Unterseiten, 7 Tage Lieferung, vollem SEO + AEO', url: '/pakete', price: 999, pages: '10', deliveryDays: 7 }),
+  faqSchema(faqItems),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="499 € oder 999 €. Du kennst den Preis, bevor du Hallo sagst."
+  ogDescription="Festpreis. 7 Tage Lieferung. Keine Add-ons. Keine Sonderangebote."
+  ogImage="/og/pakete.png"
+  jsonLd={jsonLd}
+>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <p class="section-cap">Zwei Pakete · Keine Stufen dazwischen</p>
+    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">499 € oder 999 €. Du wählst.</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+      Festpreis bedeutet Festpreis. Du kennst die Zahl, bevor wir telefonieren. Du kennst den Inhalt, bevor du buchst. Keine Add-on-Karusells, keine Mehrkosten beim Live-Gehen.
+    </p>
+  </Section>
+
+  {/* PAKETE-KARTEN */}
+  <Section variant="white" size="lg">
+    <div class="grid gap-5 lg:grid-cols-2">
+      <PaketCard variant="starter" />
+      <PaketCard variant="business" featured />
+    </div>
+  </Section>
+
+  {/* DETAIL-VERGLEICH */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Detail-Vergleich</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Alles, was drin ist. Alles, was nicht drin ist.
+    </h2>
+
+    <div class="mt-10 overflow-x-auto rounded-2xl border border-ink-100 bg-white">
+      <table class="w-full text-left text-[15px]">
+        <thead class="bg-ink-50">
+          <tr>
+            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-ink-500">Feature</th>
+            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-ink-500">Starter · 499 €</th>
+            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-blue-500">Business · 999 €</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-ink-100">
+          {compareRows.map((row) => (
+            <tr>
+              <td class="px-6 py-3.5 text-ink-700">{row.label}</td>
+              <td class="px-6 py-3.5">
+                {row.starter === true ? (
+                  <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success/15 text-success" aria-label="enthalten">
+                    <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+                  </span>
+                ) : row.starter === false ? (
+                  <span class="text-ink-300" aria-label="nicht enthalten">—</span>
+                ) : (
+                  <span class="font-mono text-sm text-ink-900">{row.starter}</span>
+                )}
+              </td>
+              <td class="px-6 py-3.5">
+                {row.business === true ? (
+                  <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success/15 text-success" aria-label="enthalten">
+                    <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+                  </span>
+                ) : row.business === false ? (
+                  <span class="text-ink-300" aria-label="nicht enthalten">—</span>
+                ) : (
+                  <span class="font-mono text-sm text-ink-900">{row.business}</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  {/* WAS NICHT ENTHALTEN IST */}
+  <Section variant="white" size="lg">
+    <p class="section-cap">Ehrliche Disqualifikation</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Was wir bewusst nicht anbieten.
+    </h2>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
+      Wir sind keine klassische Agentur. Wenn du eines der folgenden Dinge brauchst, sind wir nicht die richtige Wahl — und wir sagen das vorab, nicht nachdem du gezahlt hast.
+    </p>
+
+    <div class="mt-10 overflow-x-auto rounded-2xl border border-dashed border-ink-200 bg-white">
+      <table class="w-full text-left text-[15px]">
+        <thead class="bg-ink-50/50">
+          <tr>
+            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-error">Was nicht drin ist</th>
+            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-ink-500">Wenn du das brauchst →</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-ink-100">
+          {[
+            ['Online-Shop / E-Commerce', 'Shopify, WooCommerce, eine klassische E-Commerce-Agentur'],
+            ['Mehrsprachigkeit', 'Klassische Agentur mit i18n-Erfahrung'],
+            ['Custom-Animationen (Lottie, komplexe Scroll-Effekte)', 'Spezialisiertes Studio oder freier Motion-Designer'],
+            ['Große Bild-/Video-Galerien (mehr als 30 Assets)', 'DAM-Lösung + eigene Implementierung'],
+            ['Komplexe Filter / Suche / Produktkonfiguratoren', 'Custom-Entwicklung'],
+            ['Mitglieder-Bereich / Login', 'Klassische App-Entwicklung'],
+            ['Live-Chat', 'Crisp, Intercom — wir können sie einbinden, aber gegen Aufpreis nach V1'],
+            ['A/B-Testing-Setup', 'Spezialisiertes CRO-Team'],
+          ].map(([item, recommendation]) => (
+            <tr>
+              <td class="px-6 py-3.5 font-medium text-ink-900">{item}</td>
+              <td class="px-6 py-3.5 text-ink-500">{recommendation}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-6 max-w-3xl text-sm leading-relaxed text-ink-500">
+      <strong class="text-ink-900">Warum diese Disqualifikation?</strong> Damit wir das 7-Tage-Versprechen halten können. Komplexität braucht Zeit. Wir wollen nicht nachträglich nachverhandeln — wir wollen lieber „nein, das passt nicht zu uns" sagen, bevor du buchst.
+    </p>
+  </Section>
+
+  {/* WARTUNG */}
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Optional · Nach Go-Live</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
+      Wartung & Hosting bleiben optional.
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+      Hosting und Domain sind im ersten Jahr inklusive — ohne Aufpreis. Danach hast du zwei Optionen:
+    </p>
+
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      <div class="rounded-2xl border border-ink-100 bg-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">Option A</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Du machst das selbst</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
+          Wir übergeben dir Repository, Vercel-Zugang und Domain-Daten. Du kümmerst dich. Kein Lock-in. Kein Abo.
+        </p>
+      </div>
+      <div class="rounded-2xl border-2 border-blue-200 bg-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Option B</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Wir kümmern uns · 39 € / Monat</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
+          Hosting + Domain + Performance-Monitoring + kleine Content-Updates (bis 30 Min/Monat). Kündbar monatlich.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-6 text-sm text-ink-500">
+      <strong class="text-ink-900">Bewusst kein Pflicht-Wartungsabo.</strong> Das ist nicht webhype-Stil.
+    </p>
+  </Section>
+
+  {/* FAQ */}
+  <Section variant="white" size="lg" id="faq">
+    <p class="section-cap">Paket-Fragen</p>
+    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">Die Fragen, die du jetzt hast.</h2>
+    <div class="mt-10 max-w-3xl">
+      <FaqAccordion items={faqItems} />
+    </div>
+  </Section>
+
+  {/* FINAL CTA */}
+  <Section variant="ink" size="xl">
+    <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">Welches Paket passt zu dir?</h2>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
+      30 Minuten Briefing. Wir empfehlen dir das passende Paket. Wenn keines passt, sagen wir das.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <Button href="/kontakt" variant="spark" size="lg" arrow>In 30 Min gebrieft</Button>
+      <Button href="/prozess" variant="inverted" size="lg">Prozess ansehen</Button>
+    </div>
+  </Section>
+</BaseLayout>
