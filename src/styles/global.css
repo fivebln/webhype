@@ -228,19 +228,14 @@ code {
 }
 
 /* ============================================================
-   Performance: CSS Containment
-   Tells the browser sections don't affect each other for
-   layout/style/paint → drastically reduces work on slow CPUs.
+   Performance: CSS Containment (conservative)
+   `contain: layout style` only — tells browser layout/style work
+   in one section doesn't affect siblings.
+   `content-visibility: auto` was tried but caused TBT regressions
+   on Lighthouse Mobile (4.2s TBT vs 0.5s before) because async
+   render-on-scroll work counted as main-thread blocking.
    ============================================================ */
-main > section {
-  contain: layout style;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
-}
-
-/* Footer is below-fold — let browser skip rendering until scrolled */
+main > section,
 footer {
   contain: layout style;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 400px;
 }
