@@ -226,3 +226,21 @@ code {
   .no-print { display: none !important; }
   .hero-gradient { background: #00102F !important; }
 }
+
+/* ============================================================
+   Performance: CSS Containment
+   Tells the browser sections don't affect each other for
+   layout/style/paint → drastically reduces work on slow CPUs.
+   ============================================================ */
+main > section {
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Footer is below-fold — let browser skip rendering until scrolled */
+footer {
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
