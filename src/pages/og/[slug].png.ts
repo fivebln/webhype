@@ -12,12 +12,12 @@ const ogContent: Record<string, OgConfig> = {
   default: { title: '7 Tage. Festpreis. Punkt.', subtitle: 'Website in einer Woche · 499 € oder 999 €' },
   index: { title: '7 Tage. Festpreis. Punkt.', subtitle: 'Website in einer Woche · 499 € oder 999 €' },
   pakete: { title: '499 € oder 999 €', subtitle: 'Festpreis. Kein Abo. Keine Stunden.' },
-  prozess: { title: '30 Min Briefing. 7 Tage Live.', subtitle: 'So einfach läuft es ab.' },
+  prozess: { title: 'Kurzes Gespräch. 7 Tage später fertig.', subtitle: 'So einfach läuft es ab.' },
   'branche-handwerk': { title: 'Website für Handwerker', subtitle: '7 Tage · Festpreis · Mobile-First' },
   'branche-arztpraxis': { title: 'Praxis-Website · DSGVO-konform', subtitle: '7 Tage · Festpreis · vertrauenswürdig' },
   'branche-kanzlei': { title: 'Kanzlei mit Lighthouse 100', subtitle: 'Festpreis · 7 Tage · Conversion-stark' },
   ueber: { title: 'Hinter webhype steht ein Mensch.', subtitle: 'Direkt. Klar. Keine Funnel-Tricks.' },
-  kontakt: { title: 'In 30 Minuten gebrieft.', subtitle: 'Schreib uns. Wir antworten heute.' },
+  kontakt: { title: 'Schreib uns.', subtitle: 'Wir antworten heute. Service aus Berlin.' },
 };
 
 export const GET: APIRoute = async ({ params }) => {

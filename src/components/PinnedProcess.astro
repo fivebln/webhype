@@ -1,0 +1,128 @@
+---
+/**
+ * PinnedProcess — the signature pinned scroll section (Clayo-style).
+ * Desktop: section pins; steps auto-advance as you scroll; click a step to jump.
+ * Mobile: graceful stacked stepper (no scroll-jacking).
+ * Business content unchanged (the 5-step webhype process).
+ */
+import Section from './Section.astro';
+import ProcessVisual from './mockups/ProcessVisual.astro';
+
+const steps = [
+  { n: '01', title: 'Kurzer Fragebogen', meta: 'Tag 0 · 5 Min', desc: 'Du beantwortest vorab ein paar einfache Fragen zu deinem Betrieb. Das spart uns beiden im Gespräch Zeit — kein Fragebogen-Marathon.', type: 'briefing' },
+  { n: '02', title: 'Ein kurzes Gespräch', meta: 'Tag 1 · max. 30 Min', desc: 'Wir telefonieren oder machen einen Videocall. Du erzählst, was du machst, wir klären alles. Danach beginnt die eine Woche.', type: 'call' },
+  { n: '03', title: 'Wir bauen deine Website', meta: 'Tag 1–6', desc: 'Sechs Tage lang bauen wir — ohne dass du etwas tun musst. Du bekommst jeden Tag eine kurze Info, wie weit wir sind.', type: 'build' },
+  { n: '04', title: 'Du schaust drüber', meta: 'Tag 7', desc: 'Du bekommst deine fertige Website zum Anschauen. Du hast einen Wunsch? Sag Bescheid — eine Korrekturrunde ist im Preis dabei.', type: 'preview' },
+  { n: '05', title: 'Deine Seite geht online', meta: 'Tag 8', desc: 'Wir kümmern uns um die ganze Technik und schalten deine Website live. Du musst dich um nichts kümmern.', type: 'golive' },
+];
+---
+
+<section class="pin-track is-pinned" data-pin-track style={`--steps:${steps.length}`}>
+  <div class="pin-sticky">
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6">
+      <div class="hidden lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+        {/* LEFT — step list */}
+        <div>
+          <p class="eyebrow">So läuft es ab</p>
+          <h2 class="display-lg text-ink-900 mt-3">Von der Anfrage zur fertigen Website — in einer Woche.</h2>
+
+          <ol class="mt-10 pin-rail relative pl-6">
+            <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-ink-100"></div>
+            <div class="pin-rail-fill" data-pin-rail-fill style="height:20%"></div>
+            {steps.map((s, i) => (
+              <li class="pin-step py-3.5" data-pin-step data-idx={i}>
+                <div class="flex items-baseline gap-3">
+                  <span class="pin-num font-mono text-xs font-bold">{s.n}</span>
+                  <span class="pin-meta font-mono text-[11px] uppercase tracking-wider text-ink-300">{s.meta}</span>
+                </div>
+                <h3 class="pin-title mt-1 text-2xl font-bold headline">{s.title}</h3>
+                <p class="pin-desc mt-2 max-w-md text-[15px] leading-relaxed">{s.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* RIGHT — switching stage */}
+        <div class="relative">
+          <div class="relative aspect-square rounded-3xl bg-ink-50 border border-ink-100 flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 grid-overlay opacity-[0.04]"></div>
+            {steps.map((s, i) => (
+              <div class:list={['pin-panel flex items-center justify-center', i === 0 ? 'is-active' : '']} data-pin-panel>
+                <div class="float-a"><ProcessVisual type={s.type} /></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* MOBILE — stacked stepper (no pin) */}
+  <Section variant="white" size="md" class="lg:hidden">
+    <p class="eyebrow">So läuft es ab</p>
+    <h2 class="display-lg text-ink-900 mt-3">Von der Anfrage zur fertigen Website — in einer Woche.</h2>
+    <ol class="mt-10 space-y-10">
+      {steps.map((s) => (
+        <li data-reveal>
+          <div class="flex items-baseline gap-3">
+            <span class="font-mono text-xs font-bold text-blue-500">{s.n}</span>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-ink-300">{s.meta}</span>
+          </div>
+          <h3 class="mt-1 text-2xl font-bold headline text-ink-900">{s.title}</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-ink-500">{s.desc}</p>
+          <div class="mt-5 flex justify-center rounded-2xl bg-ink-50 border border-ink-100 p-6">
+            <ProcessVisual type={s.type} />
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Section>
+</section>
+
+<script is:inline>
+  (() => {
+    const track = document.querySelector('[data-pin-track]');
+    if (!track) return;
+    const steps = [...track.querySelectorAll('[data-pin-step]')];
+    const panels = [...track.querySelectorAll('[data-pin-panel]')];
+    const rail = track.querySelector('[data-pin-rail-fill]');
+    const N = panels.length;
+    if (!N) return;
+    let active = -1;
+
+    function setActive(i) {
+      if (i === active) return;
+      active = i;
+      steps.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+      panels.forEach((p, idx) => p.classList.toggle('is-active', idx === i));
+      if (rail) rail.style.height = (((i + 1) / N) * 100) + '%';
+    }
+
+    function onScroll() {
+      if (window.innerWidth < 1024) return;
+      const rect = track.getBoundingClientRect();
+      const total = track.offsetHeight - window.innerHeight;
+      if (total <= 0) { setActive(0); return; }
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      let i = Math.floor((scrolled / total) * N);
+      if (i >= N) i = N - 1;
+      if (i < 0) i = 0;
+      setActive(i);
+    }
+
+    setActive(0);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    steps.forEach((s, idx) => {
+      s.addEventListener('click', () => {
+        if (window.innerWidth < 1024) return;
+        const total = track.offsetHeight - window.innerHeight;
+        const targetProgress = (idx + 0.5) / N;
+        const y = window.scrollY + track.getBoundingClientRect().top + targetProgress * total;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    });
+  })();
+</script>

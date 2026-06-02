@@ -5,13 +5,13 @@ import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import { breadcrumbSchema } from '../lib/schema';
 
-const title = 'Kontakt & 30-Min-Briefing · webhype';
+const title = 'Kontakt – schreib uns kurz · webhype';
 const description =
-  'Briefing-Formular ausfüllen (5 Min), wir melden uns binnen 24 Stunden mit Terminvorschlägen für deinen 30-Min-Onboarding-Call.';
+  'Kurzes Formular ausfüllen (5 Min), wir melden uns binnen 24 Stunden mit Terminvorschlägen für ein kurzes Gespräch (max. 30 Minuten). Service aus Berlin.';
 
 // Default values (empty for static prerender — actual prefill happens client-side via JS)
-const paket = '';
-const branche = '';
+const paket: string = '';
+const branche: string = '';
 
 const contactPageSchema = {
   '@context': 'https://schema.org',
@@ -32,19 +32,19 @@ const jsonLd = [
 <BaseLayout
   title={title}
   description={description}
-  ogTitle="In 30 Minuten gebrieft — jetzt Termin sichern."
-  ogDescription="Kurzes Formular. Kein Funnel. Wir antworten heute."
+  ogTitle="Schreib uns — wir melden uns heute."
+  ogDescription="Kurzes Formular. Keine Verpflichtung. Service aus Berlin."
   ogImage="/og/kontakt.png"
   jsonLd={jsonLd}
 >
   {/* HERO */}
   <Section variant="warm-white" size="xl">
-    <p class="section-cap">Schritt 1 von 5</p>
-    <h1 class="mt-3 text-4xl sm:text-6xl font-bold text-ink-900 headline">
-      In 5 Minuten gebrieft. In 30 Min besprochen. In 7 Tagen live.
+    <p class="eyebrow">Lass uns reden</p>
+    <h1 class="mt-3 display-xl text-ink-900">
+      Schreib uns kurz — wir melden uns heute.
     </h1>
     <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
-      Fülle das Briefing-Formular aus. Wir melden uns binnen 24 Stunden — meistens innerhalb von 4 Stunden während der Werktage — mit drei Terminvorschlägen für deinen 30-Min-Onboarding-Call.
+      Fülle das kurze Formular aus. Wir melden uns innerhalb von 24 Stunden — meist schon nach wenigen Stunden — mit Terminvorschlägen für ein kurzes Gespräch (max. 30 Minuten).
     </p>
   </Section>
 
@@ -198,7 +198,7 @@ const jsonLd = [
             </li>
           </ul>
           <p class="mt-4 text-xs text-ink-500">
-            Egal welcher Kanal — wir bitten dich vor dem Onboarding-Call das Briefing-Formular auszufüllen.
+            Egal welcher Kanal — am einfachsten ist es, wenn du kurz das Formular ausfüllst.
           </p>
         </div>
 

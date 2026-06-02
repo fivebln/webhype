@@ -109,5 +109,29 @@ const pageJsonLd = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
     </main>
 
     {!hideFooter && <Footer />}
+
+    {/* Global scroll-reveal: fade + slide-up on viewport entry (Clayo-style) */}
+    <script is:inline>
+      (() => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const els = document.querySelectorAll('[data-reveal], [data-reveal-group]');
+        if (reduce || !('IntersectionObserver' in window)) {
+          els.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+    </script>
   </body>
 </html>

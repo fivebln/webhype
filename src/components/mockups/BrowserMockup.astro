@@ -1,0 +1,62 @@
+---
+/**
+ * BrowserMockup — a clean mini browser window showing a stylised
+ * webhype-style website. Pure CSS/HTML, CI colors. No images.
+ */
+export interface Props {
+  url?: string;
+  class?: string;
+  variant?: 'hero' | 'simple';
+}
+const { url = 'webhype.de', class: className = '', variant = 'hero' } = Astro.props;
+---
+
+<div class={`mockup-card overflow-hidden w-full ${className}`}>
+  {/* chrome */}
+  <div class="flex items-center gap-3 border-b border-ink-100 bg-warm-white px-4 py-2.5">
+    <div class="browser-dots flex gap-1.5"><span></span><span></span><span></span></div>
+    <div class="flex-1">
+      <div class="mx-auto flex w-fit items-center gap-1.5 rounded-full bg-white px-3 py-1 text-[11px] text-ink-500 border border-ink-100">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        {url}
+      </div>
+    </div>
+  </div>
+
+  {/* page content */}
+  <div class="bg-white p-5">
+    {/* mini nav */}
+    <div class="flex items-center justify-between">
+      <div class="h-2.5 w-14 rounded-full bg-ink-900"></div>
+      <div class="flex gap-2">
+        <div class="h-2 w-8 rounded-full bg-ink-100"></div>
+        <div class="h-2 w-8 rounded-full bg-ink-100"></div>
+        <div class="h-5 w-12 rounded-md bg-blue-500"></div>
+      </div>
+    </div>
+
+    {/* mini hero */}
+    <div class="mt-6 grid grid-cols-[1.4fr_1fr] gap-4">
+      <div>
+        <div class="h-3.5 w-[85%] rounded-full bg-ink-900"></div>
+        <div class="mt-2 h-3.5 w-[60%] rounded-full bg-blue-500"></div>
+        <div class="mt-4 h-2 w-full rounded-full bg-ink-100"></div>
+        <div class="mt-1.5 h-2 w-[80%] rounded-full bg-ink-100"></div>
+        <div class="mt-4 flex gap-2">
+          <div class="h-6 w-20 rounded-md bg-blue-500"></div>
+          <div class="h-6 w-16 rounded-md border border-ink-200"></div>
+        </div>
+      </div>
+      <div class="rounded-lg bg-warm-white border border-ink-100 p-3">
+        <div class="h-2 w-10 rounded-full bg-ink-200"></div>
+        <div class="mt-2 flex items-end gap-1 h-12">
+          <div class="w-2 rounded-t bg-blue-200" style="height:40%"></div>
+          <div class="w-2 rounded-t bg-blue-200" style="height:65%"></div>
+          <div class="w-2 rounded-t bg-blue-500" style="height:100%"></div>
+          <div class="w-2 rounded-t bg-blue-200" style="height:55%"></div>
+          <div class="w-2 rounded-t bg-blue-200" style="height:75%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

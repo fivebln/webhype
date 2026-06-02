@@ -1,0 +1,254 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+
+const title = 'Finde dein Paket – kostenloser Vorschlag · webhype';
+const description =
+  'Du weißt nicht, welche Website du brauchst? Beantworte ein paar einfache Fragen — wir schlagen dir in 2 Minuten das passende Paket vor. Kostenlos und unverbindlich.';
+
+// Each step: question + tiles. Tiles set an answer on a given "axis".
+const steps = [
+  {
+    key: 'ziel',
+    q: 'Was brauchst du?',
+    hint: 'Wähle, was am besten passt.',
+    tiles: [
+      { value: 'neu', title: 'Eine ganz neue Website', sub: 'Ich starte komplett neu', icon: 'sparkle' },
+      { value: 'erneuern', title: 'Meine alte Website erneuern', sub: 'Sie ist veraltet und soll besser werden', icon: 'refresh' },
+      { value: 'einzeln', title: 'Eine einzelne Seite', sub: 'Für mehr Anrufe und Anfragen', icon: 'target' },
+    ],
+  },
+  {
+    key: 'groesse',
+    q: 'Wie groß soll sie ungefähr werden?',
+    hint: 'Eine grobe Einschätzung reicht — das ändern wir später gemeinsam.',
+    tiles: [
+      { value: 'starter', title: 'Nur das Wichtigste', sub: 'Bis zu 5 Seiten (Start, Leistungen, Kontakt …)', icon: 'small' },
+      { value: 'business', title: 'Etwas ausführlicher', sub: 'Bis zu 10 Seiten (einzelne Leistungen, Team …)', icon: 'big' },
+      { value: 'unklar', title: 'Ich weiß es noch nicht', sub: 'Schlagt mir etwas vor', icon: 'question' },
+    ],
+  },
+  {
+    key: 'technik',
+    q: 'Wer soll sich um die Technik kümmern?',
+    hint: 'Hosting, Sicherheit, dass alles läuft.',
+    tiles: [
+      { value: 'service', title: 'Macht ihr alles', sub: 'Ich will mich um nichts kümmern müssen', icon: 'shield' },
+      { value: 'handover', title: 'Ich kümmere mich selbst', sub: 'Ich habe eigenes Hosting / jemanden dafür', icon: 'wrench' },
+      { value: 'unklar', title: 'Was ist besser für mich?', sub: 'Schlagt mir das Sinnvolle vor', icon: 'question' },
+    ],
+  },
+  {
+    key: 'branche',
+    q: 'In welcher Branche bist du?',
+    hint: 'Jede Branche hat eigene Anforderungen — wir kennen sie.',
+    tiles: [
+      { value: 'handwerk', title: 'Handwerk & Betrieb', sub: 'Sanitär, Elektrik, Maler …', icon: 'wrench' },
+      { value: 'arztpraxis', title: 'Arzt- oder Zahnarztpraxis', sub: 'Praxis, Tierarzt …', icon: 'heart' },
+      { value: 'kanzlei', title: 'Kanzlei & Beratung', sub: 'Anwalt, Steuerberater …', icon: 'scale' },
+      { value: 'anderes', title: 'Etwas anderes', sub: 'Selbstständig, kleiner Betrieb …', icon: 'sparkle' },
+    ],
+  },
+];
+
+const icons: Record<string, string> = {
+  sparkle: '<path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  small: '<rect x="4" y="6" width="16" height="4" rx="1"/><rect x="4" y="14" width="9" height="4" rx="1"/>',
+  big: '<rect x="4" y="5" width="16" height="3" rx="1"/><rect x="4" y="11" width="16" height="3" rx="1"/><rect x="4" y="17" width="10" height="3" rx="1"/>',
+  question: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7"/><line x1="12" y1="17" x2="12" y2="17"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  scale: '<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/>',
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="bg-warm-white py-12 sm:py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      {/* intro */}
+      <div class="text-center" data-reveal>
+        <p class="eyebrow justify-center">Kostenloser Vorschlag</p>
+        <h1 class="display-lg mt-3 text-ink-900">Welche Website passt zu dir?</h1>
+        <p class="mt-4 text-lg leading-relaxed text-ink-500">
+          Beantworte ein paar einfache Fragen — wir schlagen dir das passende Paket vor.
+        </p>
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-3 text-xs text-ink-500">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-ink-100 px-3 py-1.5">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Ca. 2 Minuten
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-ink-100 px-3 py-1.5">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Kostenlos &amp; unverbindlich
+          </span>
+        </div>
+      </div>
+
+      {/* quiz card */}
+      <div class="mt-10 rounded-3xl border border-ink-100 bg-white p-6 sm:p-10 shadow-sm" data-reveal>
+        {/* progress */}
+        <div class="flex items-center justify-between">
+          <button type="button" data-quiz-back class="inline-flex items-center gap-1 text-sm text-ink-400 hover:text-ink-700 transition disabled:opacity-0" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Zurück
+          </button>
+          <span class="font-mono text-xs uppercase tracking-wider text-ink-300" data-quiz-counter>Schritt 1 von {steps.length}</span>
+        </div>
+        <div class="mt-3 h-1 w-full overflow-hidden rounded-full bg-ink-100">
+          <div class="h-full rounded-full bg-blue-500 transition-all duration-300" data-quiz-progress style={`width:${100 / steps.length}%`}></div>
+        </div>
+
+        {/* steps */}
+        {steps.map((step, i) => (
+          <div class="quiz-step mt-8" data-step={i} hidden={i !== 0}>
+            <h2 class="text-2xl font-bold text-ink-900 headline">{step.q}</h2>
+            <p class="mt-1.5 text-[15px] text-ink-500">{step.hint}</p>
+            <div class="mt-6 space-y-3">
+              {step.tiles.map((tile) => (
+                <button
+                  type="button"
+                  class="quiz-tile group flex w-full items-center gap-4 rounded-2xl border border-ink-100 bg-warm-white p-4 text-left transition-all duration-200 hover:border-blue-500 hover:bg-blue-50/40 focus-visible:outline-2 focus-visible:outline-blue-500"
+                  data-axis={step.key}
+                  data-value={tile.value}
+                >
+                  <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition group-hover:bg-blue-500 group-hover:text-white">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={icons[tile.icon]} />
+                  </span>
+                  <span class="flex-1">
+                    <span class="block font-semibold text-ink-900">{tile.title}</span>
+                    <span class="block text-[13px] text-ink-500">{tile.sub}</span>
+                  </span>
+                  <span class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-ink-200 text-transparent transition group-hover:border-blue-500 group-hover:text-blue-500">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {/* result */}
+        <div class="quiz-result mt-2" hidden>
+          <div class="text-center">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+              Dein Vorschlag steht
+            </span>
+            <h2 class="mt-4 text-2xl sm:text-3xl font-bold text-ink-900 headline" data-result-title>—</h2>
+            <div class="mt-3 flex items-baseline justify-center gap-2">
+              <span class="text-5xl font-bold text-ink-900 headline tnum" data-result-price>—</span>
+              <span class="text-sm text-ink-500" data-result-pricenote></span>
+            </div>
+            <p class="mt-4 max-w-md mx-auto text-[15px] leading-relaxed text-ink-500" data-result-reason></p>
+          </div>
+
+          <div class="mt-8 flex flex-col items-center gap-3">
+            <Button href="/kontakt" id="result-cta" variant="primary" size="lg" arrow>Unverbindlich anfragen</Button>
+            <button type="button" data-quiz-restart class="text-sm text-ink-400 hover:text-ink-700 transition">Von vorne beginnen</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-6 text-center text-xs text-ink-400" data-reveal>
+        Service aus Berlin · deine Daten bleiben in Deutschland
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const root = document;
+    const stepEls = [...root.querySelectorAll('.quiz-step')];
+    const resultEl = root.querySelector('.quiz-result');
+    const counter = root.querySelector('[data-quiz-counter]');
+    const progress = root.querySelector('[data-quiz-progress]');
+    const backBtn = root.querySelector('[data-quiz-back]');
+    const restartBtn = root.querySelector('[data-quiz-restart]');
+    const cta = root.querySelector('#result-cta');
+    if (!stepEls.length || !resultEl) return;
+
+    const total = stepEls.length;
+    const answers = {};
+    let current = 0;
+    const history = [];
+
+    const models = {
+      'starter-service':  { title: 'Starter mit Rundum-Service', price: '499 €', note: 'einmalig + 19 € / Monat', paket: 'starter' },
+      'starter-handover': { title: 'Starter zur Übergabe',       price: '699 €', note: 'einmalig, kein Monatsbeitrag', paket: 'starter' },
+      'business-service': { title: 'Business mit Rundum-Service', price: '999 €', note: 'einmalig + 29 € / Monat', paket: 'business' },
+      'business-handover':{ title: 'Business zur Übergabe',       price: '1.199 €', note: 'einmalig, kein Monatsbeitrag', paket: 'business' },
+    };
+
+    function show(i) {
+      stepEls.forEach((s, idx) => (s.hidden = idx !== i));
+      resultEl.hidden = true;
+      counter.hidden = false;
+      counter.textContent = `Schritt ${i + 1} von ${total}`;
+      progress.style.width = `${((i + 1) / total) * 100}%`;
+      backBtn.disabled = history.length === 0;
+    }
+
+    function computeResult() {
+      const size = answers.groesse === 'business' ? 'business' : 'starter';
+      const care = answers.technik === 'handover' ? 'handover' : 'service';
+      const m = models[`${size}-${care}`];
+      root.querySelector('[data-result-title]').textContent = m.title;
+      root.querySelector('[data-result-price]').textContent = m.price;
+      root.querySelector('[data-result-pricenote]').textContent = m.note;
+      const reasons = [];
+      reasons.push(size === 'business' ? 'Du brauchst etwas mehr Platz — bis zu 10 Seiten.' : 'Für dich reicht das Wichtigste — bis zu 5 Seiten.');
+      reasons.push(care === 'handover' ? 'Du kümmerst dich selbst um die Technik — einmalig, kein Monatsbeitrag.' : 'Wir kümmern uns um alles — du musst dich um nichts sorgen.');
+      root.querySelector('[data-result-reason]').textContent = reasons.join(' ');
+      const params = new URLSearchParams();
+      params.set('paket', m.paket);
+      if (answers.branche && answers.branche !== 'anderes') params.set('branche', answers.branche);
+      cta.setAttribute('href', `/kontakt?${params.toString()}`);
+      // show result
+      stepEls.forEach((s) => (s.hidden = true));
+      resultEl.hidden = false;
+      counter.hidden = true;
+      progress.style.width = '100%';
+      backBtn.disabled = false;
+    }
+
+    root.querySelectorAll('.quiz-tile').forEach((tile) => {
+      tile.addEventListener('click', () => {
+        const axis = tile.getAttribute('data-axis');
+        answers[axis] = tile.getAttribute('data-value');
+        history.push(current);
+        if (current < total - 1) {
+          current += 1;
+          show(current);
+        } else {
+          computeResult();
+        }
+      });
+    });
+
+    backBtn.addEventListener('click', () => {
+      if (resultEl.hidden === false) {
+        current = total - 1;
+        show(current);
+        return;
+      }
+      if (history.length) {
+        current = history.pop();
+        show(current);
+      }
+    });
+
+    restartBtn.addEventListener('click', () => {
+      history.length = 0;
+      current = 0;
+      for (const k in answers) delete answers[k];
+      show(0);
+    });
+
+    show(0);
+  })();
+</script>

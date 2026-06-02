@@ -85,7 +85,7 @@ export const POST: APIRoute = async ({ request }) => {
   const internalHtml = `
     <div style="font-family:Inter,system-ui,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
       <h1 style="font-family:Geist,Inter,sans-serif;color:#0051FD;font-size:24px;margin-bottom:8px;">Neue webhype-Anfrage</h1>
-      <p style="color:#4A5168;margin-bottom:24px;">Eingegangen über das Briefing-Formular auf webhype.de/kontakt</p>
+      <p style="color:#4A5168;margin-bottom:24px;">Eingegangen über das Kontaktformular auf webhype.de/kontakt</p>
 
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;width:140px;">Name</td><td style="padding:10px 0;font-weight:500;">${safeName}</td></tr>
@@ -112,7 +112,7 @@ export const POST: APIRoute = async ({ request }) => {
       <p style="margin-top:20px;"><strong>Was als Nächstes passiert:</strong></p>
       <ol style="padding-left:20px;color:#4A5168;">
         <li>Wir lesen deine Anfrage spätestens am nächsten Werktag.</li>
-        <li>Wir schicken dir <strong>drei Terminvorschläge</strong> für den 30-Min-Onboarding-Call.</li>
+        <li>Wir schicken dir <strong>drei Terminvorschläge</strong> für ein kurzes Gespräch (max. 30 Minuten).</li>
         <li>Im Call besprechen wir das passende Paket. Danach startet der 7-Tage-Countdown.</li>
       </ol>
 

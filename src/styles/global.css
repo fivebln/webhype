@@ -239,3 +239,183 @@ main > section,
 footer {
   contain: layout style;
 }
+
+/* ============================================================
+   REDESIGN (Clayo-style structure · webhype CI)
+   Scroll-reveals · press buttons · floating mockups · pinned scroll
+   All within CI tokens. Motion respects prefers-reduced-motion.
+   ============================================================ */
+
+/* ----- Eyebrow with bullet ----- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-headline);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-500);
+}
+.eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-blue-500);
+}
+.eyebrow.is-spark::before { background: var(--color-spark); }
+.eyebrow.is-light { color: var(--color-blue-100); }
+
+/* ----- Big display headline (Clayo elegance, CI font) ----- */
+.display-xl {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5.5vw + 0.5rem, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+.display-lg {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+/* ----- Scroll reveal ----- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* staggered children */
+[data-reveal-group] > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+[data-reveal-group].is-visible > * { opacity: 1; transform: none; }
+[data-reveal-group].is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+[data-reveal-group].is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+[data-reveal-group].is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+[data-reveal-group].is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+[data-reveal-group].is-visible > *:nth-child(6) { transition-delay: 0.40s; }
+
+/* ----- Press-in button feel (Clayo signature) ----- */
+.press {
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.press:hover { transform: scale(0.97); }
+.press:active { transform: scale(0.95); }
+
+/* ----- Floating mockups ----- */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes float-soft-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+.float-a { animation: float-soft 6s ease-in-out infinite; }
+.float-b { animation: float-soft-2 7.5s ease-in-out infinite; animation-delay: -2s; }
+.float-c { animation: float-soft 8s ease-in-out infinite; animation-delay: -4s; }
+
+.mockup-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 12px 40px rgb(10 14 26 / 0.10), 0 2px 8px rgb(10 14 26 / 0.04);
+  border: 1px solid var(--color-ink-100);
+}
+
+/* mini browser chrome */
+.browser-dots span {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-ink-200);
+}
+
+/* ----- Grey rhythm block (CI: ink-50) ----- */
+.block-grey { background: var(--color-ink-50); }
+
+/* ----- Pricing mode toggle (Service vs Übergabe) ----- */
+[data-pricing-mode="service"] .price-handover { display: none; }
+[data-pricing-mode="handover"] .price-service { display: none; }
+.pricing-toggle-btn {
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ----- Stat divider ----- */
+.stat-col + .stat-col { border-left: 1px solid var(--color-ink-100); }
+@media (max-width: 640px) {
+  .stat-col + .stat-col { border-left: none; border-top: 1px solid var(--color-ink-100); }
+}
+
+/* ----- Pinned process section (desktop-only pin; mobile stacks) ----- */
+.pin-track { position: relative; }
+.pin-sticky { display: none; }
+@media (min-width: 1024px) {
+  .pin-track.is-pinned { height: calc(var(--steps, 5) * 85vh); }
+  .pin-sticky {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+}
+.pin-step {
+  cursor: pointer;
+  transition: color 0.4s ease, opacity 0.4s ease;
+}
+.pin-num { color: var(--color-ink-300); transition: color 0.4s ease; }
+.pin-step.is-active .pin-num { color: var(--color-blue-500); }
+.pin-title { color: var(--color-ink-300); transition: color 0.4s ease; }
+.pin-step.is-active .pin-title { color: var(--color-ink-900); }
+.pin-desc { color: var(--color-ink-300); transition: color 0.4s ease; max-height: 0; overflow: hidden; opacity: 0; }
+.pin-step.is-active .pin-desc { color: var(--color-ink-500); max-height: 200px; opacity: 1; transition: color 0.4s ease, max-height 0.5s ease, opacity 0.5s ease; }
+.pin-meta { opacity: 0; transition: opacity 0.4s ease; }
+.pin-step.is-active .pin-meta { opacity: 1; }
+.pin-panel {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.98);
+  transition: opacity 0.5s cubic-bezier(0.2,0.7,0.2,1), transform 0.5s cubic-bezier(0.2,0.7,0.2,1);
+  position: absolute;
+  inset: 0;
+}
+.pin-panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* progress rail */
+.pin-rail { position: relative; }
+.pin-rail-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--color-blue-500);
+  transform-origin: top;
+  transition: height 0.3s linear;
+}
+
+/* ----- Reduce/disable all the above motion when requested ----- */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-reveal-group] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .float-a, .float-b, .float-c { animation: none !important; }
+  .press:hover, .press:active { transform: none !important; }
+  .pin-panel { transition: none !important; }
+}

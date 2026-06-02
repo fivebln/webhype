@@ -1,0 +1,83 @@
+---
+/**
+ * PricingTable — two packages (Starter / Business) with a toggle that
+ * switches all cards between two pricing models:
+ *   - "service":  one-time + monthly care (499+19 / 999+29)
+ *   - "handover": one-time only, you get everything (899 / 1.699)
+ * = 4 models total. Business model & CI unchanged.
+ */
+import PaketCard from './PaketCard.astro';
+
+export interface Props {
+  id?: string;
+}
+const { id = 'preise' } = Astro.props;
+---
+
+<div id={id}>
+  {/* toggle */}
+  <div class="flex justify-center" data-reveal>
+    <div class="inline-flex rounded-full border border-ink-100 bg-warm-white p-1" role="tablist" aria-label="Preismodell wählen">
+      <button
+        type="button"
+        class="pricing-toggle-btn rounded-full px-4 py-2 text-sm font-semibold"
+        data-mode-btn="service"
+        aria-selected="true"
+      >
+        Mit Rundum-Service
+      </button>
+      <button
+        type="button"
+        class="pricing-toggle-btn rounded-full px-4 py-2 text-sm font-semibold"
+        data-mode-btn="handover"
+        aria-selected="false"
+      >
+        Einmalig &amp; fertig
+      </button>
+    </div>
+  </div>
+
+  {/* helper line */}
+  <p class="mt-4 text-center text-sm text-ink-500" data-reveal>
+    <span data-mode-text="service"><strong class="text-ink-900">Rundum-Service:</strong> Wir hosten, prüfen täglich und du änderst selbst — monatlich kündbar.</span>
+    <span data-mode-text="handover" hidden><strong class="text-ink-900">Einmalig:</strong> Du bekommst alles und kümmerst dich danach selbst. Kein Monatsbeitrag.</span>
+  </p>
+
+  {/* cards */}
+  <div class="mt-10 grid gap-5 lg:grid-cols-2 lg:max-w-4xl lg:mx-auto" data-pricing-mode="service" data-pricing-cards data-reveal-group>
+    <PaketCard variant="starter" />
+    <PaketCard variant="business" featured />
+  </div>
+
+  <p class="mt-8 text-center text-sm text-ink-500" data-reveal>
+    Monatlich kündbar · Deine Domain gehört dir · Du kannst jederzeit wechseln
+  </p>
+</div>
+
+<script is:inline>
+  (() => {
+    const btns = document.querySelectorAll('[data-mode-btn]');
+    const cards = document.querySelector('[data-pricing-cards]');
+    const texts = document.querySelectorAll('[data-mode-text]');
+    if (!cards || !btns.length) return;
+
+    const ACTIVE = ['bg-blue-500', 'text-white', 'shadow-xs'];
+    const INACTIVE = ['text-ink-500'];
+
+    function setMode(mode) {
+      cards.setAttribute('data-pricing-mode', mode);
+      btns.forEach((b) => {
+        const on = b.getAttribute('data-mode-btn') === mode;
+        b.setAttribute('aria-selected', String(on));
+        ACTIVE.forEach((c) => b.classList.toggle(c, on));
+        INACTIVE.forEach((c) => b.classList.toggle(c, !on));
+      });
+      texts.forEach((t) => {
+        t.hidden = t.getAttribute('data-mode-text') !== mode;
+      });
+    }
+
+    btns.forEach((b) => b.addEventListener('click', () => setMode(b.getAttribute('data-mode-btn'))));
+    setMode('service');
+  })();
+</script>

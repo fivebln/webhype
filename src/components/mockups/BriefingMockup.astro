@@ -1,0 +1,35 @@
+---
+/**
+ * BriefingMockup — a stylised 30-minute briefing form.
+ * Pure CSS, CI colors.
+ */
+export interface Props { class?: string; }
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`mockup-card p-5 w-[250px] ${className}`}>
+  <div class="flex items-center justify-between">
+    <span class="text-xs font-medium text-ink-500">Deine Angaben</span>
+    <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-500">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      5 Min
+    </span>
+  </div>
+
+  <div class="mt-4 space-y-3">
+    <div>
+      <div class="h-1.5 w-12 rounded-full bg-ink-200 mb-1.5"></div>
+      <div class="h-7 rounded-md border border-ink-100 bg-warm-white"></div>
+    </div>
+    <div>
+      <div class="h-1.5 w-16 rounded-full bg-ink-200 mb-1.5"></div>
+      <div class="h-7 rounded-md border-2 border-blue-500 bg-white flex items-center px-2">
+        <div class="h-1.5 w-20 rounded-full bg-blue-200"></div>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <div class="flex-1 rounded-md border border-blue-500 bg-blue-50 px-2 py-1.5 text-center text-[10px] font-semibold text-blue-500">499 €</div>
+      <div class="flex-1 rounded-md border border-ink-100 px-2 py-1.5 text-center text-[10px] font-medium text-ink-300">999 €</div>
+    </div>
+  </div>
+</div>

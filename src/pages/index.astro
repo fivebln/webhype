@@ -3,64 +3,49 @@ export const prerender = true;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
-import PaketCard from '../components/PaketCard.astro';
+import PricingTable from '../components/PricingTable.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import ProcessStep from '../components/ProcessStep.astro';
 import BranchenCard from '../components/BranchenCard.astro';
+import StatRow from '../components/StatRow.astro';
+import PinnedProcess from '../components/PinnedProcess.astro';
+import BrowserMockup from '../components/mockups/BrowserMockup.astro';
+import GaugeMockup from '../components/mockups/GaugeMockup.astro';
+import SevenDayMockup from '../components/mockups/SevenDayMockup.astro';
 import { faqSchema, serviceSchema } from '../lib/schema';
 
-const title = 'webhype – Website in 7 Tagen, Festpreis 499 € oder 999 €';
+const title = 'webhype – Website in 7 Tagen, Festpreis · Service aus Berlin';
 const description =
-  'Moderne Websites für mittelständische Unternehmen. 30 Min Briefing, 7 Tage live, Festpreis. Keine Agentur-Schleifen. Lighthouse 100 inklusive.';
+  'Professionelle Websites für mittelständische Unternehmen. Ein kurzes Gespräch, 7 Tage später fertig. Fester Preis, echter Service aus Berlin.';
 
 const faqItems = [
   {
     question: 'Was kostet eine Website bei webhype?',
-    answer:
-      '499 € oder 999 €. Festpreis, kein „ab". Starter (499 €) deckt bis zu 5 Unterseiten ab, Business (999 €) bis zu 10. Hosting und Domain im ersten Jahr inklusive.',
+    answer: '499 € oder 999 € einmalig — plus 19 € bzw. 29 € im Monat. Das ist ein fester Preis, den du vorher kennst, ohne böse Überraschung am Ende. Im Monatspreis ist alles drin: Deine Seite ist immer online, wir prüfen sie täglich und halten sie sicher — und du kannst Texte und Bilder selbst ändern.',
   },
   {
-    question: 'Wie lange dauert eine Website wirklich?',
-    answer:
-      '7 Tage ab Onboarding-Call. Verbindlich, nicht „ungefähr". Voraussetzung: Du lieferst die Pflicht-Assets (Logo, Texte oder Stichpunkte, Bilder optional) vor oder im Call. Wir halten die Deadline in 95 %+ aller Fälle — und wenn nicht, ist das Paket kostenlos.',
+    question: 'Wie lange dauert das wirklich?',
+    answer: '7 Tage, nachdem wir miteinander gesprochen haben. Verbindlich, nicht „ungefähr". Das Einzige, was wir von dir brauchen: ein kurzes Gespräch und ein paar Unterlagen (zum Beispiel dein Logo und Stichpunkte zu deinem Betrieb). Wenn wir die 7 Tage nicht halten, bekommst du deine Website kostenlos.',
   },
   {
-    question: 'Für wen ist webhype geeignet?',
-    answer:
-      'Mittelständische Unternehmen mit etablierten Strukturen — Praxen, Kanzleien, Beratungen, Handwerksbetriebe, Selbstständige mit eigenem Geschäft. Wenn du Inhaber:in bist und schnell eine professionelle Website brauchst, ohne dich wochenlang darum zu kümmern, passt webhype.',
+    question: 'Muss ich mich mit Technik auskennen?',
+    answer: 'Nein, überhaupt nicht. Du erzählst uns einmal von deinem Betrieb, den Rest machen wir. Wenn deine Seite fertig ist und du später selbst etwas ändern möchtest — etwa Öffnungszeiten oder ein Foto — zeigen wir dir das in einem kurzen Video. Einfacher als WhatsApp.',
   },
   {
-    question: 'Was unterscheidet webhype von einer klassischen Agentur?',
-    answer:
-      'Geschwindigkeit, Festpreis und die ehrliche Disqualifikation. Klassische Agenturen brauchen Wochen und liefern auf Stundenbasis. Wir bauen in 7 Tagen für einen festen Preis. Wer mehr Komplexität braucht (Shop, Mehrsprachigkeit), ist nicht webhype-Kundschaft — und wir sagen das vorab.',
+    question: 'Seid ihr ein deutsches Unternehmen?',
+    answer: 'Ja. webhype ist ein Service aus Berlin. Du sprichst mit echten Menschen aus Deutschland, deine Daten liegen auf deutschen Servern, und alles ist nach deutschem Datenschutz gemacht. Du bist nicht an uns gebunden: monatlich kündbar, und deine Domain gehört immer dir.',
   },
 ];
 
-const processSteps = [
-  { step: 1, title: 'Briefing-Formular', meta: 'Tag 0 · 5 Min', description: 'Vor dem Call ausfüllen. Pflicht-Assets gesammelt.' },
-  { step: 2, title: '30-Min-Onboarding-Call', meta: 'Tag 1 · 30 Min', description: 'Wir verstehen dein Geschäft. Vertrag, Anzahlung, fertig.' },
-  { step: 3, title: 'Wir bauen', meta: 'Tag 1–6 · asynchron', description: '7 Tage. Asynchron. Du musst nichts tun.' },
-  { step: 4, title: 'Preview & 1 Iteration', meta: 'Tag 7 · 24 h Feedback', description: 'Du siehst die Vorschau. Wir nehmen dein Feedback ein.' },
-  { step: 5, title: 'Go-Live', meta: 'Tag 8 · DNS oder Übernahme', description: 'DNS-Anleitung oder volle Domain-Übernahme. Du wählst.' },
+const stats = [
+  { value: '7 Tage', label: 'bis deine Website online ist' },
+  { value: 'max. 30 Min', label: 'mehr Zeit kostet es dich nicht' },
+  { value: '2 Preise', label: '499 € oder 999 € — fest, ohne Überraschung' },
+  { value: 'Berlin', label: 'echter Service aus Deutschland' },
 ];
 
 const jsonLd = [
-  serviceSchema({
-    name: 'webhype Starter',
-    description: 'Festpreis-Website mit bis zu 5 Unterseiten, 7 Tage Lieferung, Lighthouse 100',
-    url: '/pakete',
-    price: 499,
-    pages: '5',
-    deliveryDays: 7,
-  }),
-  serviceSchema({
-    name: 'webhype Business',
-    description: 'Festpreis-Website mit bis zu 10 Unterseiten, 7 Tage Lieferung, vollem SEO + AEO',
-    url: '/pakete',
-    price: 999,
-    pages: '10',
-    deliveryDays: 7,
-  }),
+  serviceSchema({ name: 'webhype Starter', description: 'Professionelle Website mit bis zu 5 Seiten, in 7 Tagen fertig, fester Preis, Service aus Berlin', url: '/pakete', price: 499, pages: '5', deliveryDays: 7 }),
+  serviceSchema({ name: 'webhype Business', description: 'Professionelle Website mit bis zu 10 Seiten, in 7 Tagen fertig, bei Google auffindbar, Service aus Berlin', url: '/pakete', price: 999, pages: '10', deliveryDays: 7 }),
   faqSchema(faqItems),
 ];
 ---
@@ -68,219 +53,262 @@ const jsonLd = [
 <BaseLayout
   title={title}
   description={description}
-  ogTitle="7 Tage. Festpreis. Punkt."
-  ogDescription="Wir bauen deine Website in einer Woche – für 499 € oder 999 €. 30 Minuten Briefing, dann übernehmen wir."
+  ogTitle="Deine Website. In 7 Tagen. Fester Preis."
+  ogDescription="Professionelle Websites für mittelständische Unternehmen. Ein kurzes Gespräch, eine Woche später fertig. Service aus Berlin."
   ogImage="/og/index.png"
   jsonLd={jsonLd}
 >
-  {/* HERO */}
-  <section class="hero-gradient relative overflow-hidden text-white">
-    <div class="absolute inset-0 grid-overlay opacity-50" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-28 md:py-32">
-      <p class="section-cap" style="color:#00D4FF;">Websites für mittelständische Unternehmen</p>
+  {/* ============ HERO ============ */}
+  <section class="bg-warm-white pt-12 sm:pt-16 pb-20 sm:pb-28 overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        {/* left */}
+        <div data-reveal>
+          <p class="eyebrow">Websites für mittelständische Unternehmen · aus Berlin</p>
+          <h1 class="display-xl mt-5 text-ink-900">
+            Deine Website.<br />In 7 Tagen.<br /><span class="text-blue-500">Fester Preis.</span>
+          </h1>
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-500">
+            Ein kurzes Gespräch von max. 30 Minuten — mehr brauchen wir nicht von dir. Eine Woche später ist deine neue Website fertig und im Internet. Kein Fachchinesisch, keine versteckten Kosten, kein wochenlanges Hin und Her.
+          </p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <Button href="/pakete" variant="primary" size="lg" arrow>Preise ansehen</Button>
+            <Button href="/prozess" variant="secondary" size="lg">So läuft es ab</Button>
+          </div>
+          <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-ink-500">
+            <li class="flex items-center gap-1.5"><span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-success/15 text-success"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span>In 7 Tagen fertig</li>
+            <li class="flex items-center gap-1.5"><span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-success/15 text-success"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span>Fester Preis</li>
+            <li class="flex items-center gap-1.5"><span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-success/15 text-success"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span>Service aus Berlin</li>
+          </ul>
+        </div>
 
-      <h1 class="mt-4 text-4xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-[-0.02em] headline">
-        Deine Website.<br/>
-        In 7 Tagen.<br/>
-        <span style="color:#00D4FF;">Festpreis.</span>
-      </h1>
-
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-blue-100">
-        30 Minuten Briefing. Dann übernehmen wir. Sieben Tage später ist deine neue Website live. Ohne Agentur-Schleifen, ohne versteckte Stunden, ohne „kommt drauf an".
-      </p>
-
-      <div class="mt-9 flex flex-wrap gap-3">
-        <Button href="/pakete" variant="spark" size="lg" arrow>Pakete ansehen</Button>
-        <Button href="/prozess" variant="inverted" size="lg">So läuft es ab</Button>
+        {/* right — floating mockups */}
+        <div class="relative mx-auto w-full max-w-md lg:max-w-none" data-reveal>
+          <div class="float-b"><BrowserMockup /></div>
+          <div class="absolute -top-8 -right-2 sm:-right-6 float-a hidden sm:block"><GaugeMockup /></div>
+          <div class="absolute -bottom-10 -left-2 sm:-left-8 float-c hidden sm:block"><SevenDayMockup /></div>
+        </div>
       </div>
-
-      <ul class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-blue-100/80">
-        <li class="flex items-center gap-1.5">
-          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-spark/20 text-spark" aria-hidden="true">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="2 6 5 9 10 3"/>
-            </svg>
-          </span>
-          Lighthouse 100
-        </li>
-        <li class="flex items-center gap-1.5">
-          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-spark/20 text-spark" aria-hidden="true">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="2 6 5 9 10 3"/>
-            </svg>
-          </span>
-          DSGVO-konform
-        </li>
-        <li class="flex items-center gap-1.5">
-          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-spark/20 text-spark" aria-hidden="true">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="2 6 5 9 10 3"/>
-            </svg>
-          </span>
-          Festpreis. Kein Abo.
-        </li>
-      </ul>
     </div>
   </section>
 
-  {/* WAS WEBHYPE ANDERS MACHT */}
-  <Section variant="white" size="lg">
-    <p class="section-cap">Kein Briefing-Dschungel</p>
-    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
-      Du sagst uns, was dein Geschäft macht. Wir bauen den Rest.
-    </h2>
-    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-500">
-      Klassische Agenturen brauchen Wochen für Discoveries, Workshops und Iterationen. Discount-Anbieter liefern Templates, die aussehen wie alle anderen. webhype macht etwas Drittes: wir bauen schnell, weil wir wissen, was funktioniert — und wir bauen für dich, weil du der Inhaber bist, der die Marke kennt.
-    </p>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      {[
-        { num: '01', title: '30 Minuten Briefing', body: 'Ein Onboarding-Call. Mehr brauchen wir nicht. Strukturierte Pflicht-Liste vorab, kein endloses Hin und Her.' },
-        { num: '02', title: '7 Tage Lieferung', body: 'Verbindlich ab Onboarding-Call. Kein „ca. 14 Tage". Sieben Tage, dann ist deine Website live.' },
-        { num: '03', title: 'Festpreis. Punkt.', body: '499 € oder 999 €. Du kennst den Preis, bevor du Hallo sagst. Keine Stundenabrechnung, keine Nachverhandlung.' },
-      ].map((card) => (
-        <div class="rounded-2xl border border-ink-100 bg-warm-white p-7 transition hover:shadow-md">
-          <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">{card.num}</div>
-          <h3 class="mt-3 text-xl font-bold text-ink-900 headline">{card.title}</h3>
-          <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{card.body}</p>
-        </div>
-      ))}
-    </div>
-  </Section>
-
-  {/* PAKETE TEASER */}
-  <Section variant="warm-white" size="lg">
-    <p class="section-cap">Zwei Pakete · Keine Stufen dazwischen</p>
-    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">499 € oder 999 €. Du wählst.</h2>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
-      Zwei Preise. Zwei Größen. Keine Add-ons. Keine Sonderangebote. Was du auf der Karte siehst, ist drin.
-    </p>
-
-    <div class="mt-12 grid gap-5 lg:grid-cols-2">
-      <PaketCard variant="starter" />
-      <PaketCard variant="business" featured />
-    </div>
-
-    <div class="mt-8 text-center">
-      <Button href="/pakete" variant="ghost" arrow>Beide Pakete im Detail vergleichen</Button>
-    </div>
-  </Section>
-
-  {/* PROZESS TEASER */}
-  <Section variant="white" size="lg">
-    <p class="section-cap">So läuft es ab</p>
-    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
-      Vom Briefing zur Live-Website in 7 Tagen.
-    </h2>
-
-    <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-      {processSteps.map((step) => (
-        <li class="contents">
-          <ProcessStep step={step.step} title={step.title} description={step.description} meta={step.meta} />
-        </li>
-      ))}
-    </ol>
-
-    <div class="mt-8 text-center">
-      <Button href="/prozess" variant="ghost" arrow>Den vollen Prozess ansehen</Button>
-    </div>
-  </Section>
-
-  {/* BRANCHEN TEASER */}
-  <Section variant="warm-white" size="lg">
-    <p class="section-cap">Für wen wir bauen</p>
-    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">Drei Welten. Eine Marke.</h2>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
-      Wir bauen für mittelständische Unternehmen mit etablierten Strukturen — Praxen, Kanzleien, Betriebe. Wenn du selbstständig bist und deine Online-Präsenz endlich professionell aussehen soll, sind wir richtig.
-    </p>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      <BranchenCard
-        href="/branchen/handwerk"
-        title="Handwerksbetriebe"
-        description="Mobile-first. Telefon prominent. Echte Werkstattszenen statt Stock-Bilder."
-        iconType="handwerk"
-        ctaLabel="Für Handwerker"
-      />
-      <BranchenCard
-        href="/branchen/arztpraxis"
-        title="Arzt- & Zahnarztpraxen"
-        description="DSGVO-konform. Team sichtbar. Behandlungen verständlich."
-        iconType="arztpraxis"
-        ctaLabel="Für Praxen"
-      />
-      <BranchenCard
-        href="/branchen/kanzlei"
-        title="Kanzleien & Beratungen"
-        description="Lighthouse 100. Conversion-stark. Keine Aktenfoto-Klischees."
-        iconType="kanzlei"
-        ctaLabel="Für Kanzleien"
-      />
-    </div>
-  </Section>
-
-  {/* TRUST / BEWEISE */}
-  <Section variant="white" size="lg">
-    <p class="section-cap">Warum es funktioniert</p>
-    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">
-      Die schnellste seriöse Website am Markt.
-    </h2>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
-        <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">Beweis 01</div>
-        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Lighthouse 100. Live.</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
-          Du musst uns nicht glauben. Klick auf <a href="https://pagespeed.web.dev/analysis/https-webhype-de" rel="noopener noreferrer" target="_blank" class="underline text-blue-500 hover:text-blue-600">PageSpeed Insights</a>. Du siehst den aktuellen Score dieser Website — Performance, SEO, Accessibility, Best Practices.
+  {/* ============ STAT BLOCK (rounded grey) ============ */}
+  <section class="bg-warm-white py-10 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="rounded-3xl bg-ink-50 px-6 py-12 sm:px-12 sm:py-16" data-reveal>
+        <p class="eyebrow">Warum webhype</p>
+        <h2 class="display-lg mt-3 max-w-3xl text-ink-900">
+          Schnell fertig. Fester Preis. Und echte Menschen aus Berlin.
+        </h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+          Du musst kein Computer-Experte sein. Du erzählst uns einmal kurz von deinem Betrieb — um den Rest kümmern wir uns. Und wenn du eine Frage hast, erreichst du bei uns einen echten Menschen, kein Callcenter.
         </p>
+        <div class="mt-12">
+          <StatRow stats={stats} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============ SO EINFACH (bento) ============ */}
+  <Section variant="white" size="lg">
+    <div class="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end" data-reveal>
+      <div>
+        <p class="eyebrow">So einfach ist es</p>
+        <h2 class="display-lg mt-3 text-ink-900">Du erzählst, was du machst. Wir bauen den Rest.</h2>
+      </div>
+      <p class="text-lg leading-relaxed text-ink-500">
+        Andere Anbieter reden wochenlang, schicken Fragebögen und Entwürfe hin und her. Bei uns erzählst du uns einmal kurz von deinem Betrieb — den Rest machen wir. Du musst dich um nichts kümmern.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3" data-reveal-group>
+      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">01</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Ein kurzes Gespräch</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Ein Telefonat oder Videocall, max. 30 Minuten. Du erzählst, was du machst. Mehr brauchen wir nicht — keinen langen Fragebogen.</p>
+      </div>
+      {/* accent card */}
+      <div class="rounded-2xl bg-blue-500 p-7 text-white relative overflow-hidden">
+        <div class="absolute inset-0 grid-overlay opacity-10"></div>
+        <div class="relative">
+          <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-100">02</div>
+          <h3 class="mt-3 text-xl font-bold headline">In 7 Tagen fertig</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-blue-100">Eine Woche, nachdem wir gesprochen haben, ist deine Website fertig und im Internet. Versprochen.</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">03</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Fester Preis</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">499 € oder 999 €. Du weißt vorher genau, was es kostet. Keine Rechnung mit Überraschungen am Ende.</p>
+      </div>
+    </div>
+  </Section>
+
+  {/* ============ IMMER DABEI (2x2) ============ */}
+  <Section variant="white" size="lg">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow justify-center">Immer dabei</p>
+      <h2 class="display-lg mt-3 text-ink-900">Vier Dinge, die immer drin sind.</h2>
+    </div>
+
+    <div class="mt-14 grid gap-5 md:grid-cols-2" data-reveal-group>
+      {/* schnell */}
+      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
+        <div class="float-a"><GaugeMockup /></div>
+        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Blitzschnell</h3>
+        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Deine Seite lädt sofort — auch auf älteren Handys und bei schlechtem Empfang. Wer warten muss, ist schnell wieder weg.</p>
+      </div>
+
+      {/* sicher */}
+      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
+        <div class="mockup-card p-6 w-[200px] float-b flex flex-col items-center">
+          <div class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-500">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div class="mt-3 text-sm font-semibold text-ink-900">Geschützt ✓</div>
+          <div class="mt-2 flex gap-1.5">
+            <span class="rounded-full bg-success/10 px-2 py-0.5 text-[9px] font-semibold text-success">Datenschutz</span>
+            <span class="rounded-full bg-success/10 px-2 py-0.5 text-[9px] font-semibold text-success">Impressum</span>
+          </div>
+        </div>
+        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Rechtlich auf der sicheren Seite</h3>
+        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Cookie-Hinweis, Datenschutz und Impressum — alles richtig gemacht, damit du keine teure Abmahnung bekommst.</p>
+      </div>
+
+      {/* bei Google gefunden */}
+      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
+        <div class="mockup-card p-4 w-[230px] float-c">
+          <div class="flex items-center gap-2 rounded-lg border border-ink-100 bg-warm-white px-3 py-1.5 text-[11px] text-ink-400">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            heizung berlin
+          </div>
+          <div class="mt-3 space-y-2 text-left">
+            <div class="rounded-lg border-2 border-blue-500 bg-blue-50 p-2">
+              <div class="h-1.5 w-10 rounded-full bg-blue-500"></div>
+              <div class="mt-1.5 h-1.5 w-24 rounded-full bg-blue-200"></div>
+            </div>
+            <div class="rounded-lg border border-ink-100 p-2 opacity-60">
+              <div class="h-1.5 w-10 rounded-full bg-ink-200"></div>
+              <div class="mt-1.5 h-1.5 w-20 rounded-full bg-ink-100"></div>
+            </div>
+          </div>
+        </div>
+        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Bei Google gefunden</h3>
+        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Wir richten deine Seite so ein, dass Kunden dich finden, wenn sie nach dir oder deinem Handwerk suchen.</p>
+      </div>
+
+      {/* mehr Anrufe */}
+      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
+        <div class="mockup-card p-5 w-[210px] float-a">
+          <div class="text-[11px] font-medium text-ink-500">Anfragen</div>
+          <div class="mt-2 flex items-end gap-1.5 h-16">
+            <div class="flex-1 rounded-t bg-blue-200" style="height:45%"></div>
+            <div class="flex-1 rounded-t bg-blue-200" style="height:60%"></div>
+            <div class="flex-1 rounded-t bg-blue-300" style="height:78%"></div>
+            <div class="flex-1 rounded-t bg-blue-500" style="height:100%"></div>
+          </div>
+          <div class="mt-3 inline-flex items-center gap-1 rounded-md bg-blue-500 px-2 py-1 text-[10px] font-semibold text-white">📞 Jetzt anrufen</div>
+        </div>
+        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Mehr Anrufe &amp; Anfragen</h3>
+        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Deine Telefonnummer und ein Kontakt-Knopf immer gut sichtbar — damit aus Besuchern echte Kunden werden.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center" data-reveal>
+      <Button href="/pakete" variant="ghost" arrow>Was in welchem Paket steckt</Button>
+    </div>
+  </Section>
+
+  {/* ============ ⭐ PINNED PROCESS ============ */}
+  <PinnedProcess />
+
+  {/* ============ BRANCHEN (grey) ============ */}
+  <section class="bg-ink-50 py-16 sm:py-24 border-t border-ink-100">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div data-reveal>
+        <p class="eyebrow">Für wen wir bauen</p>
+        <h2 class="display-lg mt-3 text-ink-900">Wir kennen deine Branche.</h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
+          Ob Handwerksbetrieb, Praxis oder Kanzlei — wir wissen, worauf es bei deiner Website ankommt. Such dir aus, was am besten zu dir passt.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-5 md:grid-cols-3" data-reveal-group>
+        <BranchenCard href="/branchen/handwerk" title="Handwerksbetriebe" description="Gut auf dem Handy. Telefonnummer immer sichtbar. Echte Bilder von dir — nicht aus dem Foto-Archiv." iconType="handwerk" ctaLabel="Für Handwerker" />
+        <BranchenCard href="/branchen/arztpraxis" title="Arzt- & Zahnarztpraxen" description="Datenschutz-konform. Dein Team mit echten Fotos. Behandlungen verständlich erklärt." iconType="arztpraxis" ctaLabel="Für Praxen" />
+        <BranchenCard href="/branchen/kanzlei" title="Kanzleien & Beratungen" description="Modern statt verstaubt. Bringt neue Mandanten. Bei Google gut auffindbar." iconType="kanzlei" ctaLabel="Für Kanzleien" />
+      </div>
+    </div>
+  </section>
+
+  {/* ============ PREISE ============ */}
+  <Section variant="white" size="lg" id="preise">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow justify-center">Einfache Preise</p>
+      <h2 class="display-lg mt-3 text-ink-900">Du weißt vorher, was es kostet.</h2>
+      <p class="mt-5 text-lg leading-relaxed text-ink-500">Such dir aus, wie du es haben willst: Wir kümmern uns dauerhaft um alles (kleiner Monatsbeitrag) — oder du bekommst die Website einmalig und machst dann selbst weiter.</p>
+    </div>
+
+    <div class="mt-12">
+      <PricingTable />
+    </div>
+
+    <div class="mt-10 rounded-2xl bg-ink-50 border border-ink-100 p-6 sm:p-7 text-center max-w-3xl mx-auto" data-reveal>
+      <h3 class="text-lg font-bold text-ink-900 headline">Du weißt nicht, was du brauchst?</h3>
+      <p class="mt-2 text-[15px] text-ink-500">Kein Problem. Beantworte ein paar einfache Fragen — wir schlagen dir das passende Paket vor.</p>
+      <div class="mt-5">
+        <Button href="/preis-finden" variant="primary" arrow>In 2 Minuten dein Paket finden</Button>
+      </div>
+    </div>
+  </Section>
+
+  {/* ============ VERTRAUEN ============ */}
+  <Section variant="white" size="lg">
+    <div data-reveal>
+      <p class="eyebrow">Darauf kannst du dich verlassen</p>
+      <h2 class="display-lg mt-3 text-ink-900">Du musst uns nicht blind vertrauen.</h2>
+    </div>
+    <div class="mt-12 grid gap-5 md:grid-cols-3" data-reveal-group>
+      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">01</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Schnell? Test es selbst.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Beim Tempo-Test von <a href="https://pagespeed.web.dev/analysis/https-webhype-de" rel="noopener noreferrer" target="_blank" class="underline text-blue-500 hover:text-blue-600">Google</a> bekommt diese Seite die Bestnote. Genauso schnell bauen wir deine.</p>
       </div>
       <div class="rounded-2xl border border-blue-200 bg-blue-50 p-7">
-        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Beweis 02</div>
-        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Wenn wir's nicht halten, ist es kostenlos.</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
-          Sieben Tage ab Onboarding-Call. Wenn wir die Deadline nicht halten — solange du deine Pflicht-Assets pünktlich lieferst — bekommst du das Paket kostenlos.
-        </p>
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">02</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">7 Tage — oder kostenlos.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Wenn wir die eine Woche nicht halten — solange du uns deine Unterlagen pünktlich gibst — bekommst du deine Website geschenkt.</p>
       </div>
       <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
-        <div class="font-mono text-xs font-bold uppercase tracking-wider text-spark">Beweis 03</div>
-        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Was draufsteht, ist drin.</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">
-          499 € oder 999 €. Mit allem, was auf der Pakete-Seite gelistet ist. Keine Nachrechnung. Keine versteckten Hosting-Gebühren im Kleingedruckten.
-        </p>
+        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">03</div>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Echte Menschen aus Berlin.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Kein Callcenter, kein Anbieter aus dem Ausland. Du sprichst mit echten Menschen aus Deutschland — und erreichst uns auch wirklich.</p>
       </div>
     </div>
   </Section>
 
-  {/* FAQ */}
-  <Section variant="warm-white" size="lg" id="faq">
-    <p class="section-cap">Häufig gefragt</p>
-    <h2 class="mt-3 text-3xl sm:text-5xl font-bold text-ink-900 headline">Die kurzen Antworten.</h2>
-
-    <div class="mt-10 max-w-3xl">
-      <FaqAccordion items={faqItems} />
+  {/* ============ FAQ ============ */}
+  <section class="bg-ink-50 py-16 sm:py-24 border-t border-ink-100" id="faq">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div data-reveal>
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="display-lg mt-3 text-ink-900">Die kurzen Antworten.</h2>
+      </div>
+      <div class="mt-10 max-w-3xl" data-reveal>
+        <FaqAccordion items={faqItems} />
+      </div>
     </div>
+  </section>
 
-    <p class="mt-6 text-sm text-ink-500">
-      Mehr Fragen?
-      <a href="/pakete#faq" class="font-medium text-blue-500 hover:text-blue-600">Paket-Fragen</a>
-      <span class="mx-1">·</span>
-      <a href="/prozess#faq" class="font-medium text-blue-500 hover:text-blue-600">Prozess-Fragen</a>
-    </p>
-  </Section>
-
-  {/* FINAL CTA */}
+  {/* ============ FINAL CTA (dark) ============ */}
   <Section variant="ink" size="xl">
-    <div class="text-center sm:text-left">
-      <p class="section-cap" style="color:#00D4FF;">Ende der Erklärungen</p>
-      <h2 class="mt-3 text-3xl sm:text-5xl md:text-6xl font-bold text-white headline">
-        Bereit für eine Website in 7 Tagen?
-      </h2>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">
-        30 Minuten Briefing. Festpreis. Live nächste Woche.
-      </p>
-      <div class="mt-9 flex flex-wrap justify-center sm:justify-start gap-3">
-        <Button href="/kontakt" variant="spark" size="lg" arrow>In 30 Min gebrieft</Button>
-        <Button href="/pakete" variant="inverted" size="lg">Pakete ansehen</Button>
+    <div data-reveal>
+      <p class="eyebrow is-spark is-light">Lass uns reden</p>
+      <h2 class="display-lg mt-3 text-white">Bereit für deine neue Website?</h2>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">Ein kurzes Gespräch. Fester Preis. Nächste Woche bist du online. Service aus Berlin.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <Button href="/kontakt" variant="spark" size="lg" arrow>Termin vereinbaren</Button>
+        <Button href="/pakete" variant="inverted" size="lg">Preise ansehen</Button>
       </div>
     </div>
   </Section>

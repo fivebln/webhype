@@ -7,10 +7,10 @@ interface Props {
 const { currentPath = Astro.url.pathname } = Astro.props;
 
 const navItems = [
-  { label: 'Pakete', href: '/pakete' },
-  { label: 'Prozess', href: '/prozess' },
+  { label: 'Preise', href: '/pakete' },
+  { label: 'Ablauf', href: '/prozess' },
   { label: 'Branchen', href: '/branchen/handwerk' },
-  { label: 'Über', href: '/ueber' },
+  { label: 'Über uns', href: '/ueber' },
 ];
 
 const isActive = (href: string) => currentPath === href || currentPath.startsWith(href + '/');
@@ -42,8 +42,8 @@ const isActive = (href: string) => currentPath === href || currentPath.startsWit
         href="/kontakt"
         class="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-xs transition-all duration-200 ease-[cubic-bezier(0.2,0.7,0.2,1)] hover:bg-blue-400 hover:shadow-glow focus-visible:outline-2 focus-visible:outline-blue-500"
       >
-        <span class="hidden sm:inline">In 30 Min gebrieft</span>
-        <span class="sm:hidden">Kontakt</span>
+        <span class="hidden sm:inline">Termin sichern</span>
+        <span class="sm:hidden">Termin</span>
       </a>
       <button
         type="button"

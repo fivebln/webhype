@@ -1,0 +1,23 @@
+---
+/**
+ * StatRow — 4 large stats separated by thin dividers (Clayo-style).
+ * Content-agnostic; pass your own stats.
+ */
+export interface Props {
+  stats: { value: string; label: string }[];
+  class?: string;
+}
+const { stats, class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={['grid gap-y-8 sm:grid-cols-2 lg:grid-cols-4', className]}
+  data-reveal-group
+>
+  {stats.map((s) => (
+    <div class="stat-col px-0 sm:px-8 first:pl-0">
+      <div class="text-4xl sm:text-5xl font-bold text-ink-900 headline tnum leading-none">{s.value}</div>
+      <p class="mt-3 text-[15px] leading-snug text-ink-500 max-w-[18ch]">{s.label}</p>
+    </div>
+  ))}
+</div>
