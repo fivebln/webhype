@@ -349,6 +349,45 @@ footer {
 /* ----- Grey rhythm block (CI: ink-50) ----- */
 .block-grey { background: var(--color-ink-50); }
 
+/* ----- Review marquee (hero social-proof band) ----- */
+.review-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.review-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: stretch;
+  gap: 0.75rem;
+  animation: marquee-x 60s linear infinite;
+}
+.review-marquee:hover .review-marquee-track { animation-play-state: paused; }
+.review-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.1rem;
+  white-space: nowrap;
+  border: 1px solid var(--color-ink-100);
+  background: #fff;
+  border-radius: 1rem;
+  padding: 0.6rem 1.15rem;
+  box-shadow: var(--shadow-xs);
+}
+.review-chip-top { display: inline-flex; align-items: center; gap: 0.5rem; }
+.review-chip .stars { color: var(--color-warning); letter-spacing: 0.08em; font-size: 0.8rem; }
+.review-chip .review-quote { font-size: 0.9rem; color: var(--color-ink-700); }
+.review-chip .review-name { align-self: flex-end; font-size: 0.78rem; font-weight: 600; color: var(--color-ink-300); }
+@media (prefers-reduced-motion: reduce) {
+  .review-marquee-track { animation: none !important; }
+}
+
 /* ----- Pricing mode toggle (Service vs Übergabe) ----- */
 [data-pricing-mode="service"] .price-handover { display: none; }
 [data-pricing-mode="handover"] .price-service { display: none; }
@@ -366,7 +405,7 @@ footer {
 .pin-track { position: relative; }
 .pin-sticky { display: none; }
 @media (min-width: 1024px) {
-  .pin-track.is-pinned { height: calc(var(--steps, 5) * 85vh); }
+  .pin-track.is-pinned { height: calc(var(--steps, 5) * 58vh); }
   .pin-sticky {
     position: sticky;
     top: 0;

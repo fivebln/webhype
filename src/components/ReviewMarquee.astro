@@ -1,0 +1,35 @@
+---
+/**
+ * ReviewMarquee — schmales, durchlaufendes Band mit Kundenstimmen (Hero unten).
+ * Bewegung zieht kurz Aufmerksamkeit; nichts muss gelesen werden.
+ * Pausiert bei Hover, respektiert prefers-reduced-motion.
+ *
+ * ⚠️ PLATZHALTER: Bis auf Felix K. & Max H. sind die Stimmen erfunden,
+ *    um das Band zu füllen. Vor Live durch echte, freigegebene Zitate ersetzen.
+ */
+const reviews = [
+  { quote: 'In einer Woche stand meine Seite — top.', name: 'Felix K.' },
+  { quote: 'So professionell wie meine eigene Arbeit.', name: 'Max H.' },
+  { quote: 'Endlich werde ich bei Google gefunden.', name: 'Sandra M.' },
+  { quote: 'Kein Fachchinesisch — einfach fertig.', name: 'Thomas R.' },
+  { quote: 'Fester Preis, keine böse Überraschung.', name: 'Andrea W.' },
+  { quote: 'Schnell, freundlich, unkompliziert.', name: 'Jürgen B.' },
+  { quote: 'Meine Kunden rufen wieder mehr an.', name: 'Petra L.' },
+];
+// zwei Kopien für nahtlose Schleife (Animation schiebt um -50 %)
+const loop = [...reviews, ...reviews];
+---
+
+<div class="review-marquee" role="region" aria-label="Kundenstimmen">
+  <div class="review-marquee-track">
+    {loop.map((r) => (
+      <span class="review-chip">
+        <span class="review-chip-top">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span class="review-quote">„{r.quote}"</span>
+        </span>
+        <span class="review-name">— {r.name}</span>
+      </span>
+    ))}
+  </div>
+</div>

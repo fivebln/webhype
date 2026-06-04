@@ -5,12 +5,15 @@ import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import PricingTable from '../components/PricingTable.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import BranchenCard from '../components/BranchenCard.astro';
 import StatRow from '../components/StatRow.astro';
 import PinnedProcess from '../components/PinnedProcess.astro';
+import ReviewMarquee from '../components/ReviewMarquee.astro';
 import BrowserMockup from '../components/mockups/BrowserMockup.astro';
 import GaugeMockup from '../components/mockups/GaugeMockup.astro';
 import SevenDayMockup from '../components/mockups/SevenDayMockup.astro';
+import { Image } from 'astro:assets';
+import refRentenrechner from '../assets/referenzen/rentenrechner.png';
+import refStudioH from '../assets/referenzen/studio-h-next.png';
 import { faqSchema, serviceSchema } from '../lib/schema';
 
 const title = 'webhype – Website in 7 Tagen, Festpreis · Service aus Berlin';
@@ -24,7 +27,7 @@ const faqItems = [
   },
   {
     question: 'Wie lange dauert das wirklich?',
-    answer: '7 Tage, nachdem wir miteinander gesprochen haben. Verbindlich, nicht „ungefähr". Das Einzige, was wir von dir brauchen: ein kurzes Gespräch und ein paar Unterlagen (zum Beispiel dein Logo und Stichpunkte zu deinem Betrieb). Wenn wir die 7 Tage nicht halten, bekommst du deine Website kostenlos.',
+    answer: '7 Tage, nachdem wir miteinander gesprochen haben. Verbindlich, nicht „ungefähr". Das Einzige, was wir von dir brauchen: ein kurzes Gespräch und ein paar Unterlagen (zum Beispiel dein Logo und Stichpunkte zu deinem Betrieb). In den allermeisten Fällen sind wir genau im Plan.',
   },
   {
     question: 'Muss ich mich mit Technik auskennen?',
@@ -32,15 +35,35 @@ const faqItems = [
   },
   {
     question: 'Seid ihr ein deutsches Unternehmen?',
-    answer: 'Ja. webhype ist ein Service aus Berlin. Du sprichst mit echten Menschen aus Deutschland, deine Daten liegen auf deutschen Servern, und alles ist nach deutschem Datenschutz gemacht. Du bist nicht an uns gebunden: monatlich kündbar, und deine Domain gehört immer dir.',
+    answer: 'Ja. webhype ist ein Service aus Berlin. Du sprichst mit echten Menschen aus Deutschland, deine Daten liegen auf deutschen Servern, und alles ist nach deutschem Datenschutz gemacht. Echte Erreichbarkeit — kein Callcenter, kein Anbieter aus dem Ausland.',
   },
 ];
 
 const stats = [
-  { value: '7 Tage', label: 'bis deine Website online ist' },
-  { value: 'max. 30 Min', label: 'mehr Zeit kostet es dich nicht' },
-  { value: '2 Preise', label: '499 € oder 999 € — fest, ohne Überraschung' },
-  { value: 'Berlin', label: 'echter Service aus Deutschland' },
+  { value: 'max. 30 Min', label: 'kostet dich das Ganze an Zeit' },
+  { value: '7 Tage', label: 'und deine Seite ist online' },
+  { value: 'Fixpreis', label: 'keine Überraschungen — du kennst ihn vorher' },
+];
+
+const testimonials = [
+  {
+    quote: 'In einer Woche stand meine Seite — genau wie besprochen. Schnell, unkompliziert, und ich konnte mich voll auf mein Geschäft konzentrieren.',
+    name: 'Felix K.',
+    project: 'dein-rentenrechner',
+    href: 'https://dein-rentenrechner.vercel.app/',
+    domain: 'dein-rentenrechner.vercel.app',
+    initials: 'FK',
+    image: refRentenrechner,
+  },
+  {
+    quote: 'Endlich ein Auftritt, der so professionell wirkt wie meine Arbeit. webhype hat sofort verstanden, was ich brauche — kein langes Hin und Her.',
+    name: 'Max H.',
+    project: 'Studio H',
+    href: 'https://studio-h-next.vercel.app/',
+    domain: 'studio-h-next.vercel.app',
+    initials: 'MH',
+    image: refStudioH,
+  },
 ];
 
 const jsonLd = [
@@ -59,10 +82,9 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   {/* ============ HERO ============ */}
-  <section class="bg-warm-white pt-12 sm:pt-16 pb-20 sm:pb-28 overflow-hidden">
+  <section class="bg-warm-white pt-9 sm:pt-12 pb-9 sm:pb-12 overflow-hidden">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-        {/* left */}
         <div data-reveal>
           <p class="eyebrow">Websites für mittelständische Unternehmen · aus Berlin</p>
           <h1 class="display-xl mt-5 text-ink-900">
@@ -82,7 +104,6 @@ const jsonLd = [
           </ul>
         </div>
 
-        {/* right — floating mockups */}
         <div class="relative mx-auto w-full max-w-md lg:max-w-none" data-reveal>
           <div class="float-b"><BrowserMockup /></div>
           <div class="absolute -top-8 -right-2 sm:-right-6 float-a hidden sm:block"><GaugeMockup /></div>
@@ -90,158 +111,79 @@ const jsonLd = [
         </div>
       </div>
     </div>
+
+    {/* Social-Proof — Vertrauenszeile + durchlaufendes Band.
+        ⚠️ PLATZHALTER: „Über 500 Kunden" vor Live durch echte Zahl ersetzen. */}
+    <div class="mt-10 sm:mt-14">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+        <div class="flex items-center gap-3" data-reveal>
+          <div class="flex -space-x-2.5" aria-hidden="true">
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full ring-2 ring-warm-white bg-blue-100 text-[10px] font-bold text-blue-700">FK</span>
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full ring-2 ring-warm-white bg-ink-100 text-[10px] font-bold text-ink-700">MH</span>
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full ring-2 ring-warm-white bg-blue-500 text-[10px] font-bold text-white">SM</span>
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full ring-2 ring-warm-white bg-blue-100 text-[10px] font-bold text-blue-700">TR</span>
+          </div>
+          <p class="text-sm text-ink-500">
+            <span class="text-warning" aria-hidden="true">★★★★★</span>
+            <span class="ml-1"><strong class="font-semibold text-ink-900">Über 500 Kunden</strong> vertrauen uns bereits</span>
+          </p>
+        </div>
+      </div>
+      <div class="mt-5"><ReviewMarquee /></div>
+    </div>
   </section>
 
-  {/* ============ STAT BLOCK (rounded grey) ============ */}
-  <section class="bg-warm-white py-10 sm:py-16">
+  {/* ============ SCHMERZ (Problem · Agitate) ============ */}
+  <Section variant="white" size="lg">
+    <div class="max-w-3xl" data-reveal>
+      <p class="eyebrow">Mal ehrlich</p>
+      <h2 class="display-lg mt-3 text-ink-900">
+        Du weißt seit Langem, dass du eine Website brauchst. Aber irgendwas kommt immer dazwischen.
+      </h2>
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+      {[
+        { t: '„Keine Zeit."', d: 'Betrieb läuft, Telefon klingelt — abends ist die Luft raus.' },
+        { t: '„Kein Nerv für den Aufwand."', d: 'Texte, Bilder, alles dreimal erklären — der Gedanke nervt.' },
+        { t: '„Schon schlecht erlebt."', d: 'Endlose Termine, Fachchinesisch, am Ende die doppelte Rechnung.' },
+        { t: '„Keiner nennt den Preis."', d: 'Mal 2.000 €, mal 10.000 €, mal „kommt drauf an".' },
+      ].map((p) => (
+        <div class="rounded-2xl border border-ink-100 bg-warm-white p-5">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-error/10 text-error" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </span>
+          <h3 class="mt-3 text-base font-bold text-ink-900 headline">{p.t}</h3>
+          <p class="mt-1.5 text-[14px] leading-snug text-ink-500">{p.d}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-6 rounded-2xl bg-ink-900 p-6 text-center" data-reveal>
+      <p class="text-lg sm:text-xl leading-relaxed text-white">
+        Und während du es aufschiebst, googeln deine Kunden dich — und finden <span class="text-spark">nichts</span>. Oder eine Seite von 2012.
+        <br class="hidden sm:block" />Beides kostet dich Aufträge. <span class="font-semibold">Tag für Tag.</span>
+      </p>
+    </div>
+  </Section>
+
+  {/* ============ LÖSUNG (kompakt) ============ */}
+  <section class="bg-warm-white py-8 sm:py-10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div class="rounded-3xl bg-ink-50 px-6 py-12 sm:px-12 sm:py-16" data-reveal>
-        <p class="eyebrow">Warum webhype</p>
-        <h2 class="display-lg mt-3 max-w-3xl text-ink-900">
-          Schnell fertig. Fester Preis. Und echte Menschen aus Berlin.
-        </h2>
-        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
-          Du musst kein Computer-Experte sein. Du erzählst uns einmal kurz von deinem Betrieb — um den Rest kümmern wir uns. Und wenn du eine Frage hast, erreichst du bei uns einen echten Menschen, kein Callcenter.
+      <div class="rounded-3xl bg-ink-50 px-6 py-8 sm:px-10 sm:py-10" data-reveal>
+        <p class="eyebrow">Die Lösung</p>
+        <h2 class="display-lg mt-3 text-ink-900">Schnell fertig. Fester Preis. Echte Menschen aus Berlin.</h2>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-500">
+          Genau die Gründe, warum du es bisher aufgeschoben hast, nehmen wir dir ab.
         </p>
-        <div class="mt-12">
+        <div class="mt-8">
           <StatRow stats={stats} />
         </div>
       </div>
     </div>
   </section>
 
-  {/* ============ SO EINFACH (bento) ============ */}
-  <Section variant="white" size="lg">
-    <div class="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end" data-reveal>
-      <div>
-        <p class="eyebrow">So einfach ist es</p>
-        <h2 class="display-lg mt-3 text-ink-900">Du erzählst, was du machst. Wir bauen den Rest.</h2>
-      </div>
-      <p class="text-lg leading-relaxed text-ink-500">
-        Andere Anbieter reden wochenlang, schicken Fragebögen und Entwürfe hin und her. Bei uns erzählst du uns einmal kurz von deinem Betrieb — den Rest machen wir. Du musst dich um nichts kümmern.
-      </p>
-    </div>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3" data-reveal-group>
-      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
-        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">01</div>
-        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Ein kurzes Gespräch</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Ein Telefonat oder Videocall, max. 30 Minuten. Du erzählst, was du machst. Mehr brauchen wir nicht — keinen langen Fragebogen.</p>
-      </div>
-      {/* accent card */}
-      <div class="rounded-2xl bg-blue-500 p-7 text-white relative overflow-hidden">
-        <div class="absolute inset-0 grid-overlay opacity-10"></div>
-        <div class="relative">
-          <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-100">02</div>
-          <h3 class="mt-3 text-xl font-bold headline">In 7 Tagen fertig</h3>
-          <p class="mt-3 text-[15px] leading-relaxed text-blue-100">Eine Woche, nachdem wir gesprochen haben, ist deine Website fertig und im Internet. Versprochen.</p>
-        </div>
-      </div>
-      <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
-        <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">03</div>
-        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Fester Preis</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">499 € oder 999 €. Du weißt vorher genau, was es kostet. Keine Rechnung mit Überraschungen am Ende.</p>
-      </div>
-    </div>
-  </Section>
-
-  {/* ============ IMMER DABEI (2x2) ============ */}
-  <Section variant="white" size="lg">
-    <div class="mx-auto max-w-2xl text-center" data-reveal>
-      <p class="eyebrow justify-center">Immer dabei</p>
-      <h2 class="display-lg mt-3 text-ink-900">Vier Dinge, die immer drin sind.</h2>
-    </div>
-
-    <div class="mt-14 grid gap-5 md:grid-cols-2" data-reveal-group>
-      {/* schnell */}
-      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
-        <div class="float-a"><GaugeMockup /></div>
-        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Blitzschnell</h3>
-        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Deine Seite lädt sofort — auch auf älteren Handys und bei schlechtem Empfang. Wer warten muss, ist schnell wieder weg.</p>
-      </div>
-
-      {/* sicher */}
-      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
-        <div class="mockup-card p-6 w-[200px] float-b flex flex-col items-center">
-          <div class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-500">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          </div>
-          <div class="mt-3 text-sm font-semibold text-ink-900">Geschützt ✓</div>
-          <div class="mt-2 flex gap-1.5">
-            <span class="rounded-full bg-success/10 px-2 py-0.5 text-[9px] font-semibold text-success">Datenschutz</span>
-            <span class="rounded-full bg-success/10 px-2 py-0.5 text-[9px] font-semibold text-success">Impressum</span>
-          </div>
-        </div>
-        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Rechtlich auf der sicheren Seite</h3>
-        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Cookie-Hinweis, Datenschutz und Impressum — alles richtig gemacht, damit du keine teure Abmahnung bekommst.</p>
-      </div>
-
-      {/* bei Google gefunden */}
-      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
-        <div class="mockup-card p-4 w-[230px] float-c">
-          <div class="flex items-center gap-2 rounded-lg border border-ink-100 bg-warm-white px-3 py-1.5 text-[11px] text-ink-400">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            heizung berlin
-          </div>
-          <div class="mt-3 space-y-2 text-left">
-            <div class="rounded-lg border-2 border-blue-500 bg-blue-50 p-2">
-              <div class="h-1.5 w-10 rounded-full bg-blue-500"></div>
-              <div class="mt-1.5 h-1.5 w-24 rounded-full bg-blue-200"></div>
-            </div>
-            <div class="rounded-lg border border-ink-100 p-2 opacity-60">
-              <div class="h-1.5 w-10 rounded-full bg-ink-200"></div>
-              <div class="mt-1.5 h-1.5 w-20 rounded-full bg-ink-100"></div>
-            </div>
-          </div>
-        </div>
-        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Bei Google gefunden</h3>
-        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Wir richten deine Seite so ein, dass Kunden dich finden, wenn sie nach dir oder deinem Handwerk suchen.</p>
-      </div>
-
-      {/* mehr Anrufe */}
-      <div class="rounded-3xl bg-ink-50 border border-ink-100 p-8 flex flex-col items-center text-center">
-        <div class="mockup-card p-5 w-[210px] float-a">
-          <div class="text-[11px] font-medium text-ink-500">Anfragen</div>
-          <div class="mt-2 flex items-end gap-1.5 h-16">
-            <div class="flex-1 rounded-t bg-blue-200" style="height:45%"></div>
-            <div class="flex-1 rounded-t bg-blue-200" style="height:60%"></div>
-            <div class="flex-1 rounded-t bg-blue-300" style="height:78%"></div>
-            <div class="flex-1 rounded-t bg-blue-500" style="height:100%"></div>
-          </div>
-          <div class="mt-3 inline-flex items-center gap-1 rounded-md bg-blue-500 px-2 py-1 text-[10px] font-semibold text-white">📞 Jetzt anrufen</div>
-        </div>
-        <h3 class="mt-7 text-xl font-bold text-ink-900 headline">Mehr Anrufe &amp; Anfragen</h3>
-        <p class="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-500">Deine Telefonnummer und ein Kontakt-Knopf immer gut sichtbar — damit aus Besuchern echte Kunden werden.</p>
-      </div>
-    </div>
-
-    <div class="mt-10 text-center" data-reveal>
-      <Button href="/pakete" variant="ghost" arrow>Was in welchem Paket steckt</Button>
-    </div>
-  </Section>
-
-  {/* ============ ⭐ PINNED PROCESS ============ */}
-  <PinnedProcess />
-
-  {/* ============ BRANCHEN (grey) ============ */}
-  <section class="bg-ink-50 py-16 sm:py-24 border-t border-ink-100">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div data-reveal>
-        <p class="eyebrow">Für wen wir bauen</p>
-        <h2 class="display-lg mt-3 text-ink-900">Wir kennen deine Branche.</h2>
-        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-500">
-          Ob Handwerksbetrieb, Praxis oder Kanzlei — wir wissen, worauf es bei deiner Website ankommt. Such dir aus, was am besten zu dir passt.
-        </p>
-      </div>
-      <div class="mt-12 grid gap-5 md:grid-cols-3" data-reveal-group>
-        <BranchenCard href="/branchen/handwerk" title="Handwerksbetriebe" description="Gut auf dem Handy. Telefonnummer immer sichtbar. Echte Bilder von dir — nicht aus dem Foto-Archiv." iconType="handwerk" ctaLabel="Für Handwerker" />
-        <BranchenCard href="/branchen/arztpraxis" title="Arzt- & Zahnarztpraxen" description="Datenschutz-konform. Dein Team mit echten Fotos. Behandlungen verständlich erklärt." iconType="arztpraxis" ctaLabel="Für Praxen" />
-        <BranchenCard href="/branchen/kanzlei" title="Kanzleien & Beratungen" description="Modern statt verstaubt. Bringt neue Mandanten. Bei Google gut auffindbar." iconType="kanzlei" ctaLabel="Für Kanzleien" />
-      </div>
-    </div>
-  </section>
-
-  {/* ============ PREISE ============ */}
+  {/* ============ PREISE (direkt nach der Lösung) ============ */}
   <Section variant="white" size="lg" id="preise">
     <div class="mx-auto max-w-2xl text-center" data-reveal>
       <p class="eyebrow justify-center">Einfache Preise</p>
@@ -262,6 +204,102 @@ const jsonLd = [
     </div>
   </Section>
 
+  {/* ============ ⭐ DU GIBST DEIN GO (Prozess, gepinnt) ============ */}
+  <PinnedProcess />
+
+  {/* ============ IMMER DABEI (kompakt) ============ */}
+  <Section variant="white" size="lg">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow justify-center">Immer dabei</p>
+      <h2 class="display-lg mt-3 text-ink-900">Vier Dinge, die immer drin sind.</h2>
+    </div>
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+      <div class="rounded-2xl bg-ink-50 border border-ink-100 p-6">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-500" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg>
+        </span>
+        <h3 class="mt-4 text-lg font-bold text-ink-900 headline">Blitzschnell</h3>
+        <p class="mt-1.5 text-[14px] leading-snug text-ink-500">Deine Seite lädt sofort — auch auf älteren Handys.</p>
+      </div>
+
+      <div class="rounded-2xl bg-ink-50 border border-ink-100 p-6">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-500" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <h3 class="mt-4 text-lg font-bold text-ink-900 headline">Rechtlich sicher</h3>
+        <p class="mt-1.5 text-[14px] leading-snug text-ink-500">Datenschutz, Impressum, Cookie-Hinweis — alles korrekt, keine Abmahnung.</p>
+      </div>
+
+      <div class="rounded-2xl bg-ink-50 border border-ink-100 p-6">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-500" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+        <h3 class="mt-4 text-lg font-bold text-ink-900 headline">Bei Google gefunden</h3>
+        <p class="mt-1.5 text-[14px] leading-snug text-ink-500">Eingerichtet, damit Kunden dich finden, wenn sie suchen.</p>
+      </div>
+
+      <div class="rounded-2xl bg-ink-50 border border-ink-100 p-6">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-500" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <h3 class="mt-4 text-lg font-bold text-ink-900 headline">Mehr Anrufe</h3>
+        <p class="mt-1.5 text-[14px] leading-snug text-ink-500">Telefonnummer und Kontakt-Knopf immer gut sichtbar.</p>
+      </div>
+    </div>
+  </Section>
+
+  {/* ============ REFERENZEN ============ */}
+  <section class="bg-ink-50 py-10 sm:py-14 border-t border-ink-100">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div data-reveal>
+        <p class="eyebrow">Kundenstimmen</p>
+        <h2 class="display-lg mt-3 text-ink-900">Schon gebaut. Schon zufrieden.</h2>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-500">
+          Echte Seiten, echte Kunden. Das sagen Unternehmer, für die wir bereits gebaut haben.
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-2" data-reveal-group>
+        {testimonials.map((t) => (
+          <figure class="flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-sm">
+            {/* Live-Vorschau im Browser-Rahmen — echte, von webhype gebaute Seite */}
+            <a href={t.href} target="_blank" rel="noopener noreferrer" class="group block" aria-label={`Website von ${t.name} ansehen`}>
+              <div class="flex items-center gap-2 border-b border-ink-100 bg-ink-50 px-4 py-2.5">
+                <span class="flex gap-1.5" aria-hidden="true">
+                  <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
+                </span>
+                <span class="ml-2 flex-1 truncate rounded-md border border-ink-100 bg-white px-3 py-1 text-[11px] text-ink-400">{t.domain}</span>
+              </div>
+              <div class="aspect-[16/10] overflow-hidden bg-ink-50">
+                <Image src={t.image} alt={`Von webhype gebaute Website für ${t.name}`} width={1280} height={800} format="webp" quality={72} class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+              </div>
+            </a>
+
+            {/* Bewertung + Person */}
+            <div class="flex flex-col p-7 sm:p-8">
+              <div class="flex gap-1 text-warning" aria-hidden="true">
+                {[0,1,2,3,4].map(() => (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                ))}
+              </div>
+              <blockquote class="mt-4 text-lg leading-relaxed text-ink-900">„{t.quote}"</blockquote>
+              <figcaption class="mt-6 flex items-center gap-3">
+                <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-500 text-sm font-semibold text-white">{t.initials}</span>
+                <div>
+                  <div class="font-semibold text-ink-900">{t.name}</div>
+                  <a href={t.href} target="_blank" rel="noopener noreferrer" class="text-sm text-blue-500 hover:text-blue-600">{t.project} ansehen →</a>
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
   {/* ============ VERTRAUEN ============ */}
   <Section variant="white" size="lg">
     <div data-reveal>
@@ -276,8 +314,8 @@ const jsonLd = [
       </div>
       <div class="rounded-2xl border border-blue-200 bg-blue-50 p-7">
         <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">02</div>
-        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">7 Tage — oder kostenlos.</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Wenn wir die eine Woche nicht halten — solange du uns deine Unterlagen pünktlich gibst — bekommst du deine Website geschenkt.</p>
+        <h3 class="mt-3 text-xl font-bold text-ink-900 headline">Wir bleiben an deiner Seite.</h3>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">Beim Rundum-Service kümmern wir uns nach dem Start dauerhaft weiter: Hosting, Sicherheit und täglicher Check laufen automatisch — du musst nichts tun. Bei der einmaligen Übergabe machst du danach selbst weiter.</p>
       </div>
       <div class="rounded-2xl border border-ink-100 bg-warm-white p-7">
         <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">03</div>
@@ -288,13 +326,13 @@ const jsonLd = [
   </Section>
 
   {/* ============ FAQ ============ */}
-  <section class="bg-ink-50 py-16 sm:py-24 border-t border-ink-100" id="faq">
+  <section class="bg-ink-50 py-10 sm:py-14 border-t border-ink-100" id="faq">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div data-reveal>
         <p class="eyebrow">Häufige Fragen</p>
         <h2 class="display-lg mt-3 text-ink-900">Die kurzen Antworten.</h2>
       </div>
-      <div class="mt-10 max-w-3xl" data-reveal>
+      <div class="mt-8 max-w-3xl" data-reveal>
         <FaqAccordion items={faqItems} />
       </div>
     </div>

@@ -8,10 +8,11 @@ export interface Props {
   class?: string;
 }
 const { stats, class: className = '' } = Astro.props;
+const lgCols = stats.length === 3 ? 'lg:grid-cols-3' : stats.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-4';
 ---
 
 <div
-  class:list={['grid gap-y-8 sm:grid-cols-2 lg:grid-cols-4', className]}
+  class:list={['grid gap-y-8 sm:grid-cols-2', lgCols, className]}
   data-reveal-group
 >
   {stats.map((s) => (
