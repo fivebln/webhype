@@ -1,27 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-const site = process.env.SITE_URL ?? 'https://webhype.de';
+// Live-Domain; per Env überschreibbar (Coolify setzt SITE_URL).
+const site = process.env.SITE_URL ?? 'https://web-hype.de';
 
 export default defineConfig({
   site,
   output: 'server',
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-    edgeMiddleware: false,
-    imageService: true,
-    imagesConfig: {
-      sizes: [360, 768, 1024, 1440, 1920],
-      formats: ['image/avif', 'image/webp'],
-    },
-    isr: {
-      expiration: 60 * 60 * 24, // 24h
-      exclude: ['/api/.*'],
-    },
-  }),
+  // Eigenständiger Node-Server für Docker/Coolify (kein Vercel mehr).
+  adapter: node({ mode: 'standalone' }),
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/api/') && !page.includes('/og/'),
@@ -29,7 +19,6 @@ export default defineConfig({
       priority: 0.7,
       lastmod: new Date(),
       serialize(item) {
-        // URLs in the sitemap have a trailing slash (e.g. /impressum/) — match both forms
         if (item.url.includes('/impressum') || item.url.includes('/datenschutz')) {
           item.priority = 0.2;
           // @ts-expect-error EnumChangefreq enum vs. string literal — runtime accepts both
