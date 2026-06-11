@@ -31,6 +31,8 @@ const fallbackStart = {
     'Ein kurzes Gespräch von max. 30 Minuten — mehr brauchen wir nicht von dir. Eine Woche später ist deine neue Website fertig und im Internet. Kein Fachchinesisch, keine versteckten Kosten, kein wochenlanges Hin und Her.',
   heroCtaPrimary: 'Preise ansehen',
   heroCtaSecondary: 'So läuft es ab',
+  positioningLine: 'Individueller als ein Baukasten. Günstiger als eine Agentur. Schneller als beide.',
+  claimTag1: 'Ab Tag 1 einsatzbereit — gebaut, damit Anfragen reinkommen.',
   trustBadges: [{ text: 'In 7 Tagen fertig' }, { text: 'Fester Preis' }, { text: 'Service aus Berlin' }],
   stats: [
     { value: 'max. 30 Min', label: 'kostet dich das Ganze an Zeit' },
@@ -94,7 +96,10 @@ const jsonLd = [
           <h1 class="display-xl mt-5 text-ink-900">
             {start.heroTitleLine1}<br />{start.heroTitleLine2}<br /><span class="text-blue-500">{start.heroTitleHighlight}</span>
           </h1>
-          <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-500">
+          {start.positioningLine && (
+            <p class="mt-5 max-w-xl text-lg sm:text-xl font-bold leading-snug text-ink-900">{start.positioningLine}</p>
+          )}
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-500">
             {start.heroSubline}
           </p>
           <div class="mt-9 flex flex-wrap gap-3">
@@ -180,6 +185,7 @@ const jsonLd = [
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-500">
           Genau die Gründe, warum du es bisher aufgeschoben hast, nehmen wir dir ab.
         </p>
+        {start.claimTag1 && <p class="mt-4 text-base sm:text-lg font-bold text-blue-500">{start.claimTag1}</p>}
         <div class="mt-8">
           <StatRow stats={stats} />
         </div>
