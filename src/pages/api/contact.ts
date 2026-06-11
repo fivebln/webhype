@@ -35,10 +35,14 @@ const paketLabel: Record<string, string> = {
 
 const brancheLabel: Record<string, string> = {
   handwerk: 'Handwerk',
-  arztpraxis: 'Arztpraxis',
-  kanzlei: 'Kanzlei / Beratung',
-  anderes: 'Anderes Mittelstands-Geschäft',
-  keine_angabe: 'Keine Angabe',
+  arztpraxis: 'Arztpraxis / Zahnarztpraxis',
+  kanzlei: 'Kanzlei / Steuerberatung',
+  gastronomie: 'Gastronomie',
+  einzelhandel: 'Einzelhandel',
+  beauty_fitness: 'Beauty / Fitness',
+  immobilien: 'Immobilien',
+  beratung: 'Beratung / Coaching',
+  anderes: 'Anderes Geschäft',
 };
 
 const bestandLabel: Record<string, string> = {
