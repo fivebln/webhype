@@ -4,7 +4,9 @@ import { Resend } from 'resend';
 export const prerender = false;
 
 interface ContactPayload {
-  name: string;
+  anrede: 'herr' | 'frau' | 'divers';
+  vorname: string;
+  nachname: string;
   company: string;
   email: string;
   phone?: string;
@@ -44,6 +46,12 @@ const bestandLabel: Record<string, string> = {
   ersetzen: 'Bestehende Website soll ersetzt werden',
 };
 
+const anredeLabel: Record<string, string> = {
+  herr: 'Herr',
+  frau: 'Frau',
+  divers: 'Divers',
+};
+
 export const POST: APIRoute = async ({ request }) => {
   let data: ContactPayload;
   try {
@@ -58,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // Required-field validation
-  if (!data.name || !data.email || !data.company || !data.paket || !data.bestand || !data.message || !data.dsgvo) {
+  if (!data.anrede || !data.vorname || !data.nachname || !data.email || !data.company || !data.paket || !data.bestand || !data.message || !data.dsgvo) {
     return new Response(JSON.stringify({ error: 'missing_fields' }), { status: 400 });
   }
 
@@ -76,7 +84,10 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const resend = new Resend(apiKey);
-  const safeName = escapeHtml(data.name);
+  const safeVorname = escapeHtml(data.vorname);
+  const safeNachname = escapeHtml(data.nachname);
+  const safeAnrede = anredeLabel[data.anrede] ?? '';
+  const safeName = `${safeVorname} ${safeNachname}`.trim();
   const safeCompany = escapeHtml(data.company);
   const safeEmail = escapeHtml(data.email);
   const safePhone = data.phone ? escapeHtml(data.phone) : '';
@@ -88,7 +99,9 @@ export const POST: APIRoute = async ({ request }) => {
       <p style="color:#4A5168;margin-bottom:24px;">Eingegangen über das Kontaktformular auf webhype.de/kontakt</p>
 
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
-        <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;width:140px;">Name</td><td style="padding:10px 0;font-weight:500;">${safeName}</td></tr>
+        <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;width:140px;">Anrede</td><td style="padding:10px 0;font-weight:500;">${safeAnrede}</td></tr>
+        <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Vorname</td><td style="padding:10px 0;font-weight:500;">${safeVorname}</td></tr>
+        <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Nachname</td><td style="padding:10px 0;font-weight:500;">${safeNachname}</td></tr>
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Geschäft</td><td style="padding:10px 0;font-weight:500;">${safeCompany}</td></tr>
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">E-Mail</td><td style="padding:10px 0;"><a href="mailto:${safeEmail}" style="color:#0051FD;">${safeEmail}</a></td></tr>
         ${safePhone ? `<tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Telefon</td><td style="padding:10px 0;">${safePhone}</td></tr>` : ''}
@@ -106,7 +119,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const customerHtml = `
     <div style="font-family:Inter,system-ui,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
-      <h1 style="font-family:Geist,Inter,sans-serif;color:#0051FD;font-size:24px;margin-bottom:8px;">Danke, ${safeName}!</h1>
+      <h1 style="font-family:Geist,Inter,sans-serif;color:#0051FD;font-size:24px;margin-bottom:8px;">Danke, ${safeVorname}!</h1>
       <p>Deine Anfrage ist bei uns angekommen.</p>
 
       <p style="margin-top:20px;"><strong>Was als Nächstes passiert:</strong></p>
