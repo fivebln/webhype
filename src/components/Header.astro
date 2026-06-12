@@ -17,6 +17,8 @@ const isActive = (href: string) => currentPath === href || currentPath.startsWit
 
 // Kundenportal-URL: lokal via PUBLIC_PORTAL_URL überschreibbar, sonst Produktion.
 const portalUrl = import.meta.env.PUBLIC_PORTAL_URL || 'https://mein.web-hype.de';
+// Direkt auf die Kunden-Anmeldung (nicht auf die App-Root → die führt sonst ins CRM).
+const portalLoginUrl = `${portalUrl.replace(/\/$/, '')}/portal/login`;
 ---
 
 <header class="sticky top-0 z-40 border-b border-ink-100 bg-warm-white/85 backdrop-blur-md no-print">
@@ -42,7 +44,7 @@ const portalUrl = import.meta.env.PUBLIC_PORTAL_URL || 'https://mein.web-hype.de
 
     <div class="flex items-center gap-3">
       <a
-        href={portalUrl}
+        href={portalLoginUrl}
         class="hidden items-center gap-1.5 rounded-md px-2 py-2 text-sm font-medium text-ink-500 transition hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 sm:inline-flex"
         aria-label="Zum Kundenlogin"
       >
@@ -94,7 +96,7 @@ const portalUrl = import.meta.env.PUBLIC_PORTAL_URL || 'https://mein.web-hype.de
         </li>
       ))}
       <li class="mt-1 border-t border-ink-100 pt-3">
-        <a href={portalUrl} class="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-ink-700 transition hover:bg-ink-50">
+        <a href={portalLoginUrl} class="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-ink-700 transition hover:bg-ink-50">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           Kundenlogin
         </a>
