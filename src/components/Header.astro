@@ -17,8 +17,10 @@ const isActive = (href: string) => currentPath === href || currentPath.startsWit
 
 // Kundenportal-URL: lokal via PUBLIC_PORTAL_URL überschreibbar, sonst Produktion.
 const portalUrl = import.meta.env.PUBLIC_PORTAL_URL || 'https://mein.web-hype.de';
-// Direkt auf die Kunden-Anmeldung (nicht auf die App-Root → die führt sonst ins CRM).
-const portalLoginUrl = `${portalUrl.replace(/\/$/, '')}/portal/login`;
+// Direkt auf die Kunden-Anmeldung. Robust gegen eine Env, die bereits auf /portal zeigt
+// (Basis = ohne Trailing-Slash und ohne vorhandenes /portal-Suffix → exakt ein /portal/login).
+const portalBase = portalUrl.replace(/\/+$/, '').replace(/\/portal$/, '');
+const portalLoginUrl = `${portalBase}/portal/login`;
 ---
 
 <header class="sticky top-0 z-40 border-b border-ink-100 bg-warm-white/85 backdrop-blur-md no-print">
