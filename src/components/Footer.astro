@@ -36,12 +36,12 @@ const linkGroups = [
     <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
       <div>
         <Logo variant="dark" class="h-9 w-auto" />
-        <p class="mt-5 max-w-xs text-sm leading-relaxed text-blue-100/80">
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/90">
           Professionelle Websites für mittelständische Unternehmen — in 7 Tagen fertig, fester Preis. Service aus Berlin.
         </p>
         <a
           href="/kontakt"
-          class="mt-6 inline-flex items-center gap-2 rounded-md bg-spark px-5 py-2.5 text-sm font-semibold text-ink-900 transition hover:bg-cyan-300"
+          class="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-400"
         >
           Termin vereinbaren →
         </a>
@@ -49,13 +49,13 @@ const linkGroups = [
 
       {linkGroups.map((group) => (
         <div>
-          <h2 class="text-xs font-semibold uppercase tracking-wider text-spark">
+          <h2 class="text-sm font-semibold text-white">
             {group.heading}
           </h2>
           <ul class="mt-4 flex flex-col gap-2.5 text-sm">
             {group.links.map((link) => (
               <li>
-                <a href={link.href} class="text-blue-100/80 transition hover:text-white">
+                <a href={link.href} class="text-white/85 transition hover:text-white">
                   {link.label}
                 </a>
               </li>
@@ -67,7 +67,7 @@ const linkGroups = [
 
     <hr class="my-10 border-t border-white/10" />
 
-    <div class="flex flex-col items-start justify-between gap-3 text-xs text-blue-100/60 sm:flex-row sm:items-center">
+    <div class="flex flex-col items-start justify-between gap-3 text-xs text-white/70 sm:flex-row sm:items-center">
       <p>© {year} webhype</p>
       <p class="flex items-center gap-2">
         <span class="inline-flex h-2 w-2 rounded-full bg-success"></span>

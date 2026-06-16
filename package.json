@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "webhype.de — Websites für mittelständische Unternehmen in 7 Tagen zum Festpreis",
+  "description": "web-hype.de — Websites für mittelständische Unternehmen in 7 Tagen zum Festpreis",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

@@ -1,4 +1,4 @@
-# webhype.de — Source Code
+# web-hype.de — Source Code
 
 > Astro 5 + Tailwind 4 + Vercel · Source-of-truth for everything that runs in production.
 
@@ -70,10 +70,10 @@ Configure in Vercel project settings (Production + Preview):
 
 | Variable | Example | Required | Purpose |
 |---|---|---|---|
-| `SITE_URL` | `https://webhype.de` | optional | Used for canonical URLs / sitemap |
+| `SITE_URL` | `https://web-hype.de` | optional | Used for canonical URLs / sitemap |
 | `RESEND_API_KEY` | `re_...` | yes (prod) | Mail delivery |
-| `RESEND_FROM` | `webhype <no-reply@webhype.de>` | yes (prod) | Verified sender |
-| `CONTACT_INBOX` | `hallo@webhype.de` | yes (prod) | Where internal notifications go |
+| `RESEND_FROM` | `webhype <no-reply@web-hype.de>` | yes (prod) | Verified sender |
+| `CONTACT_INBOX` | `hallo@web-hype.de` | yes (prod) | Where internal notifications go |
 
 **Local dev:** copy `.env.example` → `.env.local`.
 

@@ -4,22 +4,22 @@
 
 ## Hauptseiten
 
-- [Startseite](https://webhype.de/): Überblick, Pakete, Prozess, Branchen
-- [Pakete](https://webhype.de/pakete): Detail-Vergleich Starter / Business
-- [Prozess](https://webhype.de/prozess): 30 Min Briefing → 7 Tage Live (5 Schritte)
-- [Über uns](https://webhype.de/ueber): Gründer & Idee
+- [Startseite](https://web-hype.de/): Überblick, Pakete, Prozess, Branchen
+- [Pakete](https://web-hype.de/pakete): Detail-Vergleich Starter / Business
+- [Prozess](https://web-hype.de/prozess): 30 Min Briefing → 7 Tage Live (5 Schritte)
+- [Über uns](https://web-hype.de/ueber): Gründer & Idee
 
 ## Branchen-Lösungen
 
-- [Handwerk](https://webhype.de/branchen/handwerk): Für Handwerksbetriebe — mobile-first, Click-to-Call, echte Werkstattszenen
-- [Arztpraxis](https://webhype.de/branchen/arztpraxis): Für Arzt-, Zahnarzt- und Tierarztpraxen — DSGVO-konform, mit Team-Vorstellung
-- [Kanzlei](https://webhype.de/branchen/kanzlei): Für Kanzleien und Beratungen — Lighthouse 100, AEO-Setup, Tracking
+- [Handwerk](https://web-hype.de/branchen/handwerk): Für Handwerksbetriebe — mobile-first, Click-to-Call, echte Werkstattszenen
+- [Arztpraxis](https://web-hype.de/branchen/arztpraxis): Für Arzt-, Zahnarzt- und Tierarztpraxen — DSGVO-konform, mit Team-Vorstellung
+- [Kanzlei](https://web-hype.de/branchen/kanzlei): Für Kanzleien und Beratungen — Lighthouse 100, AEO-Setup, Tracking
 
 ## Kontakt
 
-- [Kontakt & Briefing](https://webhype.de/kontakt): 30-Min-Onboarding-Call buchen
+- [Kontakt & Briefing](https://web-hype.de/kontakt): 30-Min-Onboarding-Call buchen
 
 ## Pflichtangaben
 
-- [Impressum](https://webhype.de/impressum)
-- [Datenschutz](https://webhype.de/datenschutz)
+- [Impressum](https://web-hype.de/impressum)
+- [Datenschutz](https://web-hype.de/datenschutz)

@@ -8,12 +8,12 @@ import { faqSchema, howToSchema, breadcrumbSchema } from '../lib/schema';
 
 const title = 'So läuft es ab: kurzes Gespräch, 7 Tage später fertig · webhype';
 const description =
-  'Fünf einfache Schritte: Fragebogen, ein kurzes Gespräch, wir bauen, du schaust drüber, deine Seite geht online. In einer Woche fertig — du musst dich um nichts kümmern.';
+  'Fünf einfache Schritte: kurze Anfrage, ein kurzes Gespräch, wir bauen, du schaust drüber, deine Seite geht online. In einer Woche fertig — du musst dich um nichts kümmern.';
 
 const steps = [
-  { num: '01', day: 'Tag 0 · 5 Minuten', title: 'Kurzer Fragebogen', headline: 'Wir sammeln vorab das Wichtigste.', text: 'Du beantwortest ein paar einfache Fragen zu deinem Betrieb — was du machst, für wen, welche Seiten du brauchst. Das dauert 5 Minuten und ersetzt das lange Hin und Her anderer Anbieter.' },
+  { num: '01', day: 'Tag 0 · 2 Minuten', title: 'Du meldest dich', headline: 'Eine kurze Anfrage genügt.', text: 'Du schickst uns über das Formular ein paar Eckdaten zu deinem Betrieb — was du machst, für wen, welches Paket dich interessiert. Alles Weitere klären wir gemeinsam im Gespräch, ganz ohne Fragebogen-Marathon.' },
   { num: '02', day: 'Tag 1 · max. 30 Minuten', title: 'Ein kurzes Gespräch', headline: 'Wir reden einmal — dann übernehmen wir.', text: 'Wir telefonieren oder machen einen kurzen Videocall. Du erzählst von deinem Betrieb, wir klären alle Fragen und das passende Paket. Nach spätestens 30 Minuten ist alles besprochen — und die eine Woche beginnt.' },
-  { num: '03', day: 'Tag 1–6', title: 'Wir bauen deine Website', headline: 'Du machst dein Geschäft, wir machen die Website.', text: 'Sechs Tage lang bauen wir — ohne weitere Termine, ohne dass du etwas tun musst. Du bekommst jeden Tag eine kurze Info, wie weit wir sind.' },
+  { num: '03', day: 'Tag 1–6', title: 'Wir bauen deine Website', headline: 'Du machst dein Geschäft, wir machen die Website.', text: 'Sechs Tage lang bauen wir — ohne weitere Termine, ohne dass du etwas tun musst.' },
   { num: '04', day: 'Tag 7', title: 'Du schaust drüber', headline: 'Deine fertige Website zum Anschauen.', text: 'Du bekommst deine Website zu sehen. Etwas gefällt dir nicht oder fehlt? Sag Bescheid — eine Korrekturrunde ist im Preis dabei.' },
   { num: '05', day: 'Tag 8', title: 'Deine Seite geht online', headline: 'Wir kümmern uns um die Technik.', text: 'Wir schalten deine Website live und kümmern uns um alles Technische. Du musst nichts einrichten, nichts installieren — es läuft einfach.' },
 ];
@@ -48,7 +48,7 @@ const jsonLd = [
       <p class="eyebrow">So läuft es ab</p>
       <h1 class="display-xl mt-3 text-ink-900">Von der Anfrage zur fertigen Website — in einer Woche.</h1>
       <p class="mt-5 text-lg leading-relaxed text-ink-500">
-        Fünf einfache Schritte. Dein ganzer Aufwand: ein paar Minuten Fragebogen und ein kurzes Gespräch. Den Rest übernehmen wir.
+        Fünf einfache Schritte. Dein ganzer Aufwand: eine kurze Anfrage und ein kurzes Gespräch. Den Rest übernehmen wir.
       </p>
     </div>
   </Section>
@@ -120,7 +120,7 @@ const jsonLd = [
       <h2 class="display-lg mt-3 text-white">Dann lass uns starten.</h2>
       <p class="mt-5 max-w-2xl text-lg leading-relaxed text-blue-100">Ein kurzes Gespräch von max. 30 Minuten. Termine meist innerhalb von zwei Tagen.</p>
       <div class="mt-9 flex flex-wrap gap-3">
-        <Button href="/kontakt" variant="spark" size="lg" arrow>Termin vereinbaren</Button>
+        <Button href="/kontakt" variant="primary" size="lg" arrow>Termin vereinbaren</Button>
         <Button href="/pakete" variant="inverted" size="lg">Preise ansehen</Button>
       </div>
     </div>

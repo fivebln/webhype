@@ -34,7 +34,7 @@ const {
   hideFooter = false,
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://webhype.de';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://web-hype.de';
 const canonicalUrl = canonical ?? `${siteUrl}${Astro.url.pathname}`;
 // OG-Bilder werden als statische Assets nachgerüstet; bis dahin nur explizite absolute URLs ausgeben (keine 404s).
 const ogImageUrl = ogImage && ogImage.startsWith('http') ? ogImage : null;

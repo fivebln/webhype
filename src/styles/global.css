@@ -153,13 +153,12 @@ body {
   font-feature-settings: "tnum" 1, "kern", "liga";
 }
 
-/* Section eyebrow */
+/* Section eyebrow (de-slopped — normale Schreibweise, dezentes Tracking, kein All-Caps) */
 .section-cap {
   font-family: var(--font-headline);
   font-size: var(--text-section-cap);
   font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--color-blue-500);
 }
 
@@ -246,7 +245,7 @@ footer {
    All within CI tokens. Motion respects prefers-reduced-motion.
    ============================================================ */
 
-/* ----- Eyebrow with bullet ----- */
+/* ----- Eyebrow (kleines Label, kein führender Punkt — de-slopped) ----- */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -257,14 +256,6 @@ footer {
   letter-spacing: 0.02em;
   color: var(--color-ink-500);
 }
-.eyebrow::before {
-  content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 9999px;
-  background: var(--color-blue-500);
-}
-.eyebrow.is-spark::before { background: var(--color-spark); }
 .eyebrow.is-light { color: var(--color-blue-100); }
 
 /* ----- Big display headline (Clayo elegance, CI font) ----- */

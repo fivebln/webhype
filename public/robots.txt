@@ -28,4 +28,4 @@ Allow: /
 User-Agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://webhype.de/sitemap-index.xml
+Sitemap: https://web-hype.de/sitemap-index.xml

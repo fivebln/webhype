@@ -5,7 +5,7 @@
  * Source: ci-guide.md §13 + sitemap.md §6
  */
 
-const SITE_URL = 'https://webhype.de';
+const SITE_URL = 'https://web-hype.de';
 
 export const organizationSchema = {
   '@type': 'Organization',
@@ -35,7 +35,7 @@ export const organizationSchema = {
     {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'hallo@webhype.de',
+      email: 'hallo@web-hype.de',
       areaServed: ['DE', 'AT', 'CH'],
       availableLanguage: ['German'],
     },
