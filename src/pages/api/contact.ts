@@ -140,8 +140,8 @@ export const POST: APIRoute = async ({ request }) => {
       <p style="margin-top:20px;"><strong>Was als Nächstes passiert:</strong></p>
       <ol style="padding-left:20px;color:#4A5168;">
         <li>Wir lesen deine Anfrage spätestens am nächsten Werktag.</li>
-        <li>Wir schicken dir <strong>drei Terminvorschläge</strong> für ein kurzes Gespräch (max. 30 Minuten).</li>
-        <li>Im Call besprechen wir das passende Paket. Danach startet der 7-Tage-Countdown.</li>
+        <li>Wir schicken dir <strong>Terminvorschläge</strong> für ein kurzes Gespräch (max. 30 Minuten).</li>
+        <li>Im Call besprechen wir das passende Paket und du erzählst uns, was dein Unternehmen besonders macht. Danach startet der 7-Tage-Countdown.</li>
       </ol>
 
       <div style="background:#EAF1FF;border-left:4px solid #0051FD;padding:16px;border-radius:8px;margin-top:24px;">
