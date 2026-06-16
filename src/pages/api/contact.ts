@@ -28,8 +28,8 @@ function escapeHtml(text: string): string {
 }
 
 const paketLabel: Record<string, string> = {
-  starter: 'Starter · 499 €',
-  business: 'Business · 999 €',
+  starter: 'Starter · 499 € (netto)',
+  business: 'Business · 999 € (netto)',
   unsicher: 'Noch unsicher',
 };
 

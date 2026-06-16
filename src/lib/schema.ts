@@ -20,7 +20,7 @@ export const organizationSchema = {
     height: 630,
   },
   description:
-    'webhype baut moderne Websites für mittelständische Unternehmen in 7 Tagen zum Festpreis. Zwei Pakete: Starter 499 € (bis zu 5 Unterseiten) oder Business 999 € (bis zu 10 Unterseiten).',
+    'webhype baut moderne Websites für mittelständische Unternehmen in 7 Tagen zum Festpreis. Zwei Pakete: Starter 499 € (bis zu 5 Unterseiten) oder Business 999 € (bis zu 10 Unterseiten). Alle Preise netto zzgl. MwSt.',
   founder: { '@id': `${SITE_URL}/#founder` },
   legalName: 'Gil Miguel Holding UG (haftungsbeschränkt)',
   vatID: 'DE359941428',
@@ -98,6 +98,12 @@ export function serviceSchema(opts: {
       '@type': 'Offer',
       price: opts.price,
       priceCurrency: opts.priceCurrency ?? 'EUR',
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        price: opts.price,
+        priceCurrency: opts.priceCurrency ?? 'EUR',
+        valueAddedTaxIncluded: false,
+      },
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
       eligibleQuantity: { '@type': 'QuantitativeValue', value: opts.pages, unitText: 'Unterseiten' },
