@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 export const prerender = false;
 
@@ -78,29 +78,38 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'invalid_email' }), { status: 400 });
   }
 
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  const fromAddress = import.meta.env.RESEND_FROM ?? 'webhype <no-reply@webhype.de>';
-  const toAddress = import.meta.env.CONTACT_INBOX ?? 'hallo@webhype.de';
+  // Versand über das Hetzner-Postfach info@ (Website-Funnel). Werte aus der Runtime-Env (Coolify).
+  const host = process.env.SMTP_HOST;
+  const port = parseInt(process.env.SMTP_PORT || '587', 10);
+  const user = process.env.SMTP_USER_INFO || 'info@web-hype.de';
+  const pass = process.env.SMTP_PASS_INFO;
+  const fromAddress = `webhype <${user}>`;
+  const toAddress = process.env.CONTACT_INBOX || 'info@web-hype.de';
 
-  if (!apiKey) {
-    console.warn('[contact] RESEND_API_KEY not set — payload received but not delivered:', data);
+  if (!host || !pass) {
+    console.warn('[contact] SMTP nicht konfiguriert — Anfrage empfangen, aber nicht zugestellt:', JSON.stringify({ company: data.company, email: data.email }));
     return new Response(JSON.stringify({ ok: true, warning: 'mail_not_configured' }), { status: 200 });
   }
 
-  const resend = new Resend(apiKey);
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465, // 465 = SSL/TLS, 587 = STARTTLS
+    auth: { user, pass },
+  });
+
   const safeVorname = escapeHtml(data.vorname);
   const safeNachname = escapeHtml(data.nachname);
   const safeAnrede = anredeLabel[data.anrede] ?? '';
-  const safeName = `${safeVorname} ${safeNachname}`.trim();
   const safeCompany = escapeHtml(data.company);
   const safeEmail = escapeHtml(data.email);
   const safePhone = data.phone ? escapeHtml(data.phone) : '';
   const safeMessage = escapeHtml(data.message).replace(/\n/g, '<br/>');
 
   const internalHtml = `
-    <div style="font-family:Inter,system-ui,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
-      <h1 style="font-family:Geist,Inter,sans-serif;color:#0051FD;font-size:24px;margin-bottom:8px;">Neue webhype-Anfrage</h1>
-      <p style="color:#4A5168;margin-bottom:24px;">Eingegangen über das Kontaktformular auf webhype.de/kontakt</p>
+    <div style="font-family:Arial,Helvetica,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
+      <h1 style="color:#0051FD;font-size:24px;margin-bottom:8px;">Neue webhype-Anfrage</h1>
+      <p style="color:#4A5168;margin-bottom:24px;">Eingegangen über das Kontaktformular auf web-hype.de/kontakt</p>
 
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;width:140px;">Anrede</td><td style="padding:10px 0;font-weight:500;">${safeAnrede}</td></tr>
@@ -114,16 +123,18 @@ export const POST: APIRoute = async ({ request }) => {
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Bestand</td><td style="padding:10px 0;">${bestandLabel[data.bestand] ?? data.bestand}</td></tr>
       </table>
 
-      <h2 style="font-family:Geist,Inter,sans-serif;font-size:16px;margin-top:32px;margin-bottom:8px;">Was die Website können soll</h2>
+      <h2 style="font-size:16px;margin-top:32px;margin-bottom:8px;">Was die Website können soll</h2>
       <div style="background:#FAF9F9;border:1px solid #E0E3EC;border-radius:8px;padding:16px;color:#1F2433;">${safeMessage}</div>
 
       <p style="color:#8A91A6;font-size:12px;margin-top:32px;">DSGVO-Consent: ✓ erteilt · Eingang: ${new Date().toISOString()}</p>
     </div>
   `;
 
+  const internalText = `Neue webhype-Anfrage (web-hype.de/kontakt)\n\nAnrede: ${safeAnrede}\nName: ${data.vorname} ${data.nachname}\nGeschäft: ${data.company}\nE-Mail: ${data.email}\n${data.phone ? 'Telefon: ' + data.phone + '\n' : ''}Paket: ${paketLabel[data.paket] ?? data.paket}\nBranche: ${data.branche ? (brancheLabel[data.branche] ?? data.branche) : '—'}\nBestand: ${bestandLabel[data.bestand] ?? data.bestand}\n\nNachricht:\n${data.message}\n\nDSGVO-Consent erteilt · ${new Date().toISOString()}`;
+
   const customerHtml = `
-    <div style="font-family:Inter,system-ui,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
-      <h1 style="font-family:Geist,Inter,sans-serif;color:#0051FD;font-size:24px;margin-bottom:8px;">Danke, ${safeVorname}!</h1>
+    <div style="font-family:Arial,Helvetica,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
+      <h1 style="color:#0051FD;font-size:24px;margin-bottom:8px;">Danke, ${safeVorname}!</h1>
       <p>Deine Anfrage ist bei uns angekommen.</p>
 
       <p style="margin-top:20px;"><strong>Was als Nächstes passiert:</strong></p>
@@ -141,23 +152,23 @@ export const POST: APIRoute = async ({ request }) => {
       <p style="margin-top:28px;color:#4A5168;">Falls du Fragen hast, antworte einfach auf diese Mail.</p>
 
       <p style="margin-top:36px;font-size:14px;color:#8A91A6;border-top:1px solid #E0E3EC;padding-top:16px;">
-        webhype — ein Produkt der Gil Miguel Holding UG (haftungsbeschränkt)<br/>
-        Westfälische Str. 46 · 10711 Berlin<br/>
-        <a href="https://webhype.de" style="color:#0051FD;">webhype.de</a>
+        webhype · Westfälische Str. 46 · 10711 Berlin<br/>
+        <a href="https://web-hype.de" style="color:#0051FD;">web-hype.de</a>
       </p>
     </div>
   `;
 
   try {
     await Promise.all([
-      resend.emails.send({
+      transporter.sendMail({
         from: fromAddress,
         to: toAddress,
         replyTo: data.email,
         subject: `Neue Anfrage: ${data.company} (${paketLabel[data.paket] ?? data.paket})`,
+        text: internalText,
         html: internalHtml,
       }),
-      resend.emails.send({
+      transporter.sendMail({
         from: fromAddress,
         to: data.email,
         subject: 'Danke für deine Anfrage – wir melden uns binnen 24 h',
@@ -170,7 +181,7 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (err) {
-    console.error('[contact] resend error:', err);
+    console.error('[contact] SMTP-Fehler:', err);
     return new Response(JSON.stringify({ error: 'mail_failed' }), { status: 500 });
   }
 };
