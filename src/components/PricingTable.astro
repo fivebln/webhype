@@ -17,12 +17,12 @@ const { id = 'preise' } = Astro.props;
 <div id={id}>
   {/* toggle */}
   <div class="flex justify-center" data-reveal>
-    <div class="inline-flex rounded-full border border-ink-100 bg-warm-white p-1" role="tablist" aria-label="Preismodell wählen">
+    <div class="inline-flex rounded-full border border-ink-100 bg-warm-white p-1" role="group" aria-label="Preismodell wählen">
       <button
         type="button"
         class="pricing-toggle-btn rounded-full px-4 py-2 text-sm font-semibold"
         data-mode-btn="service"
-        aria-selected="true"
+        aria-pressed="true"
       >
         Mit Rundum-Service
       </button>
@@ -30,7 +30,7 @@ const { id = 'preise' } = Astro.props;
         type="button"
         class="pricing-toggle-btn rounded-full px-4 py-2 text-sm font-semibold"
         data-mode-btn="handover"
-        aria-selected="false"
+        aria-pressed="false"
       >
         Einmalig &amp; fertig
       </button>
@@ -71,7 +71,7 @@ const { id = 'preise' } = Astro.props;
       cards.setAttribute('data-pricing-mode', mode);
       btns.forEach((b) => {
         const on = b.getAttribute('data-mode-btn') === mode;
-        b.setAttribute('aria-selected', String(on));
+        b.setAttribute('aria-pressed', String(on));
         ACTIVE.forEach((c) => b.classList.toggle(c, on));
         INACTIVE.forEach((c) => b.classList.toggle(c, !on));
       });
