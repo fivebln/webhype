@@ -11,6 +11,7 @@ interface ContactPayload {
   email: string;
   phone?: string;
   paket: 'starter' | 'business' | 'unsicher';
+  modell?: 'service' | 'einmalig';
   branche?: string;
   bestand: 'neu' | 'ersetzen';
   message: string;
@@ -32,6 +33,17 @@ const paketLabel: Record<string, string> = {
   business: 'Business · 999 € (netto)',
   unsicher: 'Noch unsicher',
 };
+
+function paketModellLabel(paket: string, modell?: string): string {
+  const m = modell === 'einmalig' ? 'einmalig' : 'service';
+  const map: Record<string, string> = {
+    'starter-service': 'Starter · Rundum-Service · 499 € netto + 19 €/Monat',
+    'starter-einmalig': 'Starter · einmalige Übergabe · 699 € netto',
+    'business-service': 'Business · Rundum-Service · 999 € netto + 29 €/Monat',
+    'business-einmalig': 'Business · einmalige Übergabe · 1.199 € netto',
+  };
+  return map[`${paket}-${m}`] ?? paketLabel[paket] ?? paket;
+}
 
 const brancheLabel: Record<string, string> = {
   handwerk: 'Handwerk',
@@ -118,7 +130,7 @@ export const POST: APIRoute = async ({ request }) => {
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Geschäft</td><td style="padding:10px 0;font-weight:500;">${safeCompany}</td></tr>
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">E-Mail</td><td style="padding:10px 0;"><a href="mailto:${safeEmail}" style="color:#0051FD;">${safeEmail}</a></td></tr>
         ${safePhone ? `<tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Telefon</td><td style="padding:10px 0;">${safePhone}</td></tr>` : ''}
-        <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Paket</td><td style="padding:10px 0;font-weight:500;">${paketLabel[data.paket] ?? data.paket}</td></tr>
+        <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Paket</td><td style="padding:10px 0;font-weight:500;">${paketModellLabel(data.paket, data.modell)}</td></tr>
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Branche</td><td style="padding:10px 0;">${data.branche ? (brancheLabel[data.branche] ?? data.branche) : '—'}</td></tr>
         <tr style="border-bottom:1px solid #E0E3EC;"><td style="padding:10px 0;color:#4A5168;">Bestand</td><td style="padding:10px 0;">${bestandLabel[data.bestand] ?? data.bestand}</td></tr>
       </table>
@@ -130,7 +142,7 @@ export const POST: APIRoute = async ({ request }) => {
     </div>
   `;
 
-  const internalText = `Neue webhype-Anfrage (web-hype.de/kontakt)\n\nAnrede: ${safeAnrede}\nName: ${data.vorname} ${data.nachname}\nGeschäft: ${data.company}\nE-Mail: ${data.email}\n${data.phone ? 'Telefon: ' + data.phone + '\n' : ''}Paket: ${paketLabel[data.paket] ?? data.paket}\nBranche: ${data.branche ? (brancheLabel[data.branche] ?? data.branche) : '—'}\nBestand: ${bestandLabel[data.bestand] ?? data.bestand}\n\nNachricht:\n${data.message}\n\nDSGVO-Consent erteilt · ${new Date().toISOString()}`;
+  const internalText = `Neue webhype-Anfrage (web-hype.de/kontakt)\n\nAnrede: ${safeAnrede}\nName: ${data.vorname} ${data.nachname}\nGeschäft: ${data.company}\nE-Mail: ${data.email}\n${data.phone ? 'Telefon: ' + data.phone + '\n' : ''}Paket: ${paketModellLabel(data.paket, data.modell)}\nBranche: ${data.branche ? (brancheLabel[data.branche] ?? data.branche) : '—'}\nBestand: ${bestandLabel[data.bestand] ?? data.bestand}\n\nNachricht:\n${data.message}\n\nDSGVO-Consent erteilt · ${new Date().toISOString()}`;
 
   const customerHtml = `
     <div style="font-family:Arial,Helvetica,sans-serif;color:#0A0E1A;line-height:1.6;max-width:600px;">
@@ -146,7 +158,7 @@ export const POST: APIRoute = async ({ request }) => {
 
       <div style="background:#EAF1FF;border-left:4px solid #0051FD;padding:16px;border-radius:8px;margin-top:24px;">
         <strong style="color:#0051FD;">Deine Eingaben in Kürze:</strong><br/>
-        ${safeCompany} · ${paketLabel[data.paket] ?? data.paket} · ${data.branche ? (brancheLabel[data.branche] ?? data.branche) : 'Branche n.a.'}
+        ${safeCompany} · ${paketModellLabel(data.paket, data.modell)} · ${data.branche ? (brancheLabel[data.branche] ?? data.branche) : 'Branche n.a.'}
       </div>
 
       <p style="margin-top:28px;color:#4A5168;">Falls du Fragen hast, antworte einfach auf diese Mail.</p>
@@ -164,7 +176,7 @@ export const POST: APIRoute = async ({ request }) => {
         from: fromAddress,
         to: toAddress,
         replyTo: data.email,
-        subject: `Neue Anfrage: ${data.company} (${paketLabel[data.paket] ?? data.paket})`,
+        subject: `Neue Anfrage: ${data.company} (${paketModellLabel(data.paket, data.modell)})`,
         text: internalText,
         html: internalHtml,
       }),

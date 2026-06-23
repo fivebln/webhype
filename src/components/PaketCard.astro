@@ -22,7 +22,7 @@ const data = {
       'Blitzschnell und fürs Handy gemacht',
     ],
     cta: 'Starter wählen',
-    href: '/kontakt?paket=starter',
+    href: '/kontakt?paket=starter&modell=service',
     buttonVariant: 'ink' as const,
   },
   business: {
@@ -38,7 +38,7 @@ const data = {
       'Du änderst alles selbst — mit Video-Anleitung',
     ],
     cta: 'Business wählen',
-    href: '/kontakt?paket=business',
+    href: '/kontakt?paket=business&modell=service',
     buttonVariant: 'primary' as const,
   },
 }[variant];
@@ -115,7 +115,7 @@ const cardClasses = featured
     </p>
   </div>
 
-  <div class="mt-6">
+  <div class="mt-6 pricing-cta" data-paket={variant}>
     <Button href={data.href} variant={data.buttonVariant} fullWidth arrow>
       {data.cta}
     </Button>

@@ -78,6 +78,12 @@ const { id = 'preise' } = Astro.props;
       texts.forEach((t) => {
         t.hidden = t.getAttribute('data-mode-text') !== mode;
       });
+      // CTA-Links das gewählte Abrechnungsmodell mitgeben
+      document.querySelectorAll('.pricing-cta').forEach((w) => {
+        const paket = w.getAttribute('data-paket');
+        const a = w.querySelector('a');
+        if (a && paket) a.setAttribute('href', `/kontakt?paket=${paket}&modell=${mode === 'service' ? 'service' : 'einmalig'}`);
+      });
     }
 
     btns.forEach((b) => b.addEventListener('click', () => setMode(b.getAttribute('data-mode-btn'))));

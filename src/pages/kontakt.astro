@@ -108,6 +108,9 @@ const jsonLd = [
         <fieldset class="space-y-5 border-t border-ink-100 pt-6">
           <legend class="font-mono text-xs font-bold uppercase tracking-wider text-blue-500">Block 2 · Projekt</legend>
 
+          <input type="hidden" name="modell" id="modell-field" />
+          <div id="auswahl-summary" class="hidden rounded-md border border-blue-200 bg-blue-50 p-4 text-sm text-ink-900"></div>
+
           <div>
             <label class="block text-sm font-medium text-ink-700 mb-2.5">Welches Paket passt vermutlich? <span class="text-error">*</span></label>
             <div class="space-y-2">
@@ -245,10 +248,11 @@ const jsonLd = [
   const successBox = document.getElementById('form-success');
   const errorBox = document.getElementById('form-error');
 
-  // Prefill from query parameters (?paket=starter|business, ?branche=handwerk|...)
+  // Prefill from query parameters (?paket=starter|business, ?modell=service|einmalig, ?branche=...)
   if (form) {
     const params = new URLSearchParams(window.location.search);
     const paketParam = params.get('paket');
+    const modellParam = params.get('modell') === 'einmalig' ? 'einmalig' : 'service';
     const brancheParam = params.get('branche');
 
     if (paketParam) {
@@ -259,6 +263,24 @@ const jsonLd = [
       const brancheSelect = form.querySelector<HTMLSelectElement>('select[name="branche"]');
       if (brancheSelect && Array.from(brancheSelect.options).some((o) => o.value === brancheParam)) {
         brancheSelect.value = brancheParam;
+      }
+    }
+
+    // Gewähltes Abrechnungsmodell + Preis sichtbar machen und mitsenden
+    const PREISE: Record<string, { name: string; modell: string; preis: string }> = {
+      'starter-service':  { name: 'Starter',  modell: 'mit Rundum-Service', preis: '499 € netto einmalig + 19 € netto / Monat' },
+      'starter-einmalig': { name: 'Starter',  modell: 'einmalige Übergabe', preis: '699 € netto · kein Monatsbeitrag' },
+      'business-service': { name: 'Business', modell: 'mit Rundum-Service', preis: '999 € netto einmalig + 29 € netto / Monat' },
+      'business-einmalig':{ name: 'Business', modell: 'einmalige Übergabe', preis: '1.199 € netto · kein Monatsbeitrag' },
+    };
+    const modellField = form.querySelector<HTMLInputElement>('#modell-field');
+    if (modellField) modellField.value = modellParam;
+    const summary = document.getElementById('auswahl-summary');
+    if ((paketParam === 'starter' || paketParam === 'business') && summary) {
+      const info = PREISE[`${paketParam}-${modellParam}`];
+      if (info) {
+        summary.innerHTML = `<strong>Deine Auswahl von der Paket-Seite:</strong> ${info.name} · ${info.modell} · <strong>${info.preis}</strong>`;
+        summary.classList.remove('hidden');
       }
     }
   }

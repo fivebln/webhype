@@ -207,6 +207,7 @@ const icons: Record<string, string> = {
       root.querySelector('[data-result-reason]').textContent = reasons.join(' ');
       const params = new URLSearchParams();
       params.set('paket', m.paket);
+      params.set('modell', care === 'handover' ? 'einmalig' : 'service');
       if (answers.branche && answers.branche !== 'anderes') params.set('branche', answers.branche);
       cta.setAttribute('href', `/kontakt?${params.toString()}`);
       // show result
