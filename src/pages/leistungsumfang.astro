@@ -1,0 +1,101 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+/* #9 Leistungsbeschreibung — präzise Servicegrenzen je Paket. Kundenfreundliche
+   Ergänzung zur AGB (/agb). Defaults markenkonform; Gil bestätigt, Anwalt prüft live. */
+const title = 'Leistungsumfang – was genau drin ist · webhype';
+const description = 'Klar definiert: Was „bis zu 5/10 Seiten" bedeutet, was eine Korrekturrunde umfasst, was im Service steckt und was nicht — je Paket.';
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'Leistungsumfang', url: '/leistungsumfang' },
+]);
+
+const rows = [
+  { label: 'Seiten (inkl. Startseite)', starter: 'bis zu 5', business: 'bis zu 10' },
+  { label: 'Impressum & Datenschutz', starter: 'inklusive (zählen nicht als Seite)', business: 'inklusive (zählen nicht als Seite)' },
+  { label: 'Korrekturrunde', starter: '1 inklusive', business: '1 inklusive' },
+  { label: 'Lieferzeit', starter: '7 Tage*', business: '7 Tage*' },
+  { label: 'Mobil-optimiert & schnell', starter: 'ja', business: 'ja' },
+  { label: 'Selbst editierbar (Portal)', starter: 'Texte & Bilder', business: 'Texte, Bilder & Blog' },
+  { label: 'Eigene Leistungs-Unterseiten', starter: '—', business: 'ja' },
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <Section variant="warm-white" size="lg">
+    <div class="mx-auto max-w-3xl">
+      <p class="eyebrow">Klartext</p>
+      <h1 class="mt-3 display-xl text-ink-900">Was genau drin ist.</h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-500">Damit es keine Missverständnisse gibt: Hier steht präzise, was jedes Paket umfasst, was eine Korrekturrunde bedeutet und wo die Grenzen des Service liegen. Die rechtlich verbindliche Fassung steht in den <a href="/agb" class="text-blue-500 underline">AGB</a>.</p>
+    </div>
+  </Section>
+
+  {/* Vergleich */}
+  <Section variant="white" size="lg">
+    <div class="mx-auto max-w-3xl overflow-x-auto rounded-2xl border border-ink-100">
+      <table class="w-full text-left text-[15px]">
+        <thead class="bg-ink-50">
+          <tr>
+            <th class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-ink-500">Leistung</th>
+            <th class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-ink-500">Starter</th>
+            <th class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-blue-500">Business</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-ink-100">
+          {rows.map((r) => (
+            <tr>
+              <td class="px-5 py-3.5 text-ink-700">{r.label}</td>
+              <td class="px-5 py-3.5 text-ink-900">{r.starter}</td>
+              <td class="px-5 py-3.5 text-ink-900">{r.business}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mx-auto mt-3 max-w-3xl text-xs text-ink-400">* Die 7 Tage beginnen, sobald das Erstgespräch stattgefunden hat und alle Inhalte/Freigaben vollständig vorliegen. Fehlen Inhalte, verschiebt sich die Frist entsprechend.</p>
+  </Section>
+
+  {/* Begriffe geklärt */}
+  <Section variant="warm-white" size="lg">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="display-lg text-ink-900">Klar definiert</h2>
+      <div class="mt-8 space-y-5">
+        <div class="rounded-2xl border border-ink-100 bg-white p-6">
+          <h3 class="text-lg font-bold text-ink-900 headline">Was zählt als „Seite"?</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Eine „Seite" ist eine eigenständige Unterseite (z. B. Start, Leistungen, Über uns, Kontakt). Die <strong>Startseite zählt mit</strong>. Impressum und Datenschutz sind Pflicht-Beigaben und zählen <strong>nicht</strong> als Seite.</p>
+        </div>
+        <div class="rounded-2xl border border-ink-100 bg-white p-6">
+          <h3 class="text-lg font-bold text-ink-900 headline">Was ist eine Korrekturrunde?</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Ein gesammelter Durchgang deiner Änderungswünsche am fertigen Entwurf. Nicht enthalten ist ein konzeptioneller Neuentwurf oder Design-Wechsel. Weitere Runden rechnen wir nach Aufwand zu 95 € netto/Std. ab — vorher transparent angekündigt.</p>
+        </div>
+        <div class="rounded-2xl border border-ink-100 bg-white p-6">
+          <h3 class="text-lg font-bold text-ink-900 headline">Wer ändert was?</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-ink-500"><strong>Du selbst (im Portal):</strong> Texte und Bilder, jederzeit. <strong>Wir:</strong> Technik, Sicherheit, Updates, Backups und strukturelle Änderungen.</p>
+        </div>
+        <div class="rounded-2xl border border-ink-100 bg-white p-6">
+          <h3 class="text-lg font-bold text-ink-900 headline">Im Rundum-Service (19 € / 29 € im Monat)</h3>
+          <ul class="mt-2 space-y-1.5 text-[15px] text-ink-700">
+            <li>· Hosting auf deutschen Servern (Hetzner)</li>
+            <li>· Täglicher automatischer Sicherheits- & Erreichbarkeits-Check</li>
+            <li>· Tägliches Backup (Aufbewahrung 14 Tage rollierend)</li>
+            <li>· Sicherheits-Updates</li>
+            <li>· Texte & Bilder selbst änderbar über das Portal</li>
+            <li>· Bearbeitung von Anfragen an Werktagen, Reaktion i. d. R. in 1–2 Werktagen</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-dashed border-ink-200 bg-warm-white p-6">
+          <h3 class="text-lg font-bold text-ink-900 headline">Nicht enthalten</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Inhaltliche Neugestaltungen, zusätzliche Unterseiten, individuelle Funktionsentwicklung, Online-Shop/Buchungssysteme, Werbe-/SEO-Kampagnen, Texterstellung sowie Rechtstexte und Rechtsberatung. Keine Garantie für Google-Platzierungen oder bestimmte Besucherzahlen.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <Button href="/kontakt" variant="primary" size="lg" arrow>Gespräch anfragen</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

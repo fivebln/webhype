@@ -1,0 +1,40 @@
+---
+/**
+ * PortalShowcase — verkauft das Kundenportal als Produktvorteil.
+ * Nur REAL existierende Features (verifiziert im 05_app-Portal). Keine erfundenen
+ * Funktionen (kein Besucher-Analytics/SEO — noch nicht gebaut).
+ * Screenshot/Demo-Slot ist als Platzhalter markiert (echte Portal-Screenshots ergänzen).
+ */
+const features = [
+  { t: 'Texte & Bilder selbst ändern', d: 'Direkt im Portal bearbeiten — mit Live-Vorschau daneben. Layout bleibt fest, du kannst nichts kaputt machen.' },
+  { t: 'Mit einem Klick veröffentlichen', d: 'Änderung speichern, „Veröffentlichen" klicken — sofort live. Wir werden automatisch informiert.' },
+  { t: 'Blog selbst pflegen', d: 'Neue Artikel schreiben, Kategorie wählen, veröffentlichen — ganz ohne uns.' },
+  { t: 'Verträge & Rechnungen', d: 'Deine Verträge und Rechnungen jederzeit einsehbar — übersichtlich an einem Ort.' },
+  { t: 'Status, Sicherheit & Backups', d: 'Erreichbarkeit, Sicherheit (HTTPS, Updates) und tägliche Backups auf einen Blick (im Rundum-Service).' },
+  { t: 'Pflege-Protokoll', d: 'Du siehst, was wir laufend für dich tun — transparent dokumentiert.' },
+];
+---
+
+<section class="bg-ink-900 text-blue-100">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow is-light">Mehr als eine Website</p>
+      <h2 class="display-lg mt-3 text-white">Dein Website-Cockpit — inklusive.</h2>
+      <p class="mt-5 text-lg leading-relaxed text-blue-100/90">Bei webhype bekommst du nicht nur eine Seite, sondern ein einfaches Portal, in dem du alles selbst im Griff hast — und siehst, dass wir uns im Hintergrund kümmern.</p>
+    </div>
+
+    {/* ⟶ PLATZHALTER: echte Portal-Screenshots oder 60–90-Sek-Demo einsetzen */}
+    <div class="mx-auto mt-12 max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-10 text-center" data-reveal>
+      <p class="text-sm text-blue-100/70">⟶ Hier echte Portal-Screenshots / kurze Demo einsetzen (Editor mit Live-Vorschau, Veröffentlichen, Rechnungen, Status). Platzhalter — Gil liefert/freigibt.</p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+      {features.map((f) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-lg font-bold text-white headline">{f.t}</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-blue-100/80">{f.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

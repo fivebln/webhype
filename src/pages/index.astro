@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import PricingTable from '../components/PricingTable.astro';
+import PortalShowcase from '../components/PortalShowcase.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import StatRow from '../components/StatRow.astro';
 import PinnedProcess from '../components/PinnedProcess.astro';
@@ -258,6 +259,9 @@ const jsonLd = [
       </div>
     </div>
   </Section>
+
+  {/* ============ PORTAL-SHOWCASE ============ */}
+  <PortalShowcase />
 
   {/* ============ REFERENZEN ============ */}
   <section class="bg-ink-50 py-10 sm:py-14 border-t border-ink-100">

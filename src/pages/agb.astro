@@ -1,0 +1,137 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+/* HINWEIS (intern): Entwurf nach bestem Wissen + Recherche realer DACH-Agentur-AGB
+   (Werkvertrag + Dienst-/Dauerschuldverhältnis). Geschäfts-Defaults markenkonform
+   (kein Lock-in) gewählt — von Gil zu bestätigen, anwaltlich zu prüfen (Live-Review). */
+const title = 'AGB / Projektbedingungen · webhype';
+const description = 'Allgemeine Geschäftsbedingungen der Gil Miguel Holding UG (haftungsbeschränkt) für die Erstellung und den laufenden Service von Websites.';
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'AGB', url: '/agb' },
+]);
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <Section variant="warm-white" size="lg">
+    <p class="section-cap">Vertragsgrundlagen</p>
+    <h1 class="mt-3 text-4xl sm:text-5xl font-bold text-ink-900 headline">AGB / Projektbedingungen</h1>
+    <p class="mt-4 text-sm text-ink-500">Gil Miguel Holding UG (haftungsbeschränkt) · „webhype" · Stand: Juni 2026</p>
+  </Section>
+
+  <Section variant="white" size="lg">
+    <article class="prose-content mx-auto max-w-3xl space-y-9 text-[15px] leading-relaxed text-ink-700">
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 1 Geltungsbereich</h2>
+        <p class="mt-3">(1) Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen der Gil Miguel Holding UG (haftungsbeschränkt), Westfälische Straße 46, 10711 Berlin („webhype", „wir") und ihren Kunden über die Erstellung von Websites sowie damit verbundene Dienstleistungen.</p>
+        <p class="mt-3">(2) Unsere Angebote richten sich ausschließlich an Unternehmer im Sinne des § 14 BGB. Abweichenden Geschäftsbedingungen des Kunden wird widersprochen; sie werden nicht Vertragsbestandteil, auch nicht durch widerspruchslose Leistungserbringung.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 2 Vertragsgegenstand &amp; Leistungen</h2>
+        <p class="mt-3">(1) Gegenstand ist die <strong>Erstellung</strong> einer Website nach dem gewählten Paket (Starter oder Business) als Werkleistung sowie wahlweise (a) der laufende <strong>Rundum-Service</strong> (Hosting, Sicherheit, regelmäßiger Check, Backups, Pflege im vereinbarten Umfang) als Dauerschuldverhältnis oder (b) die <strong>einmalige Übergabe</strong> der fertigen Website ohne laufenden Service.</p>
+        <p class="mt-3">(2) Der konkrete Leistungsumfang je Paket ergibt sich aus der <a href="/leistungsumfang" class="text-blue-500 underline">Leistungsbeschreibung</a>, die Vertragsbestandteil wird. Angaben auf der Website oder in Werbung sind unverbindlich; verbindlich ist die individuelle Auftragsbestätigung.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 3 Vertragsschluss</h2>
+        <p class="mt-3">Der Vertrag kommt durch Auftragsbestätigung von webhype bzw. die Freigabe des gemeinsam erstellten Bau-Briefs zustande. Die Kommunikation in Textform (z. B. E-Mail) genügt.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 4 Mitwirkungspflichten des Kunden</h2>
+        <p class="mt-3">(1) Der Kunde stellt rechtzeitig, vollständig und unentgeltlich alle für die Leistung erforderlichen Inhalte und Zugänge bereit (insbesondere Texte, Bilder, Logo, Impressums-/Kontaktdaten, ggf. Domain-/Hosting-Zugänge) und erteilt die erforderlichen Freigaben. Er benennt einen Ansprechpartner.</p>
+        <p class="mt-3">(2) Kommt der Kunde seinen Mitwirkungspflichten trotz Aufforderung und angemessener Nachfrist nicht nach, ruht die Leistungspflicht von webhype. Hierdurch entstehender Mehraufwand oder Verzögerungen gehen zu Lasten des Kunden (§§ 642, 643 BGB).</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 5 Termine &amp; 7-Tage-Lieferzeit</h2>
+        <p class="mt-3">(1) Die zugesagte Lieferzeit von <strong>7 Tagen</strong> beginnt erst, wenn das Erstgespräch stattgefunden hat <em>und</em> sämtliche Mitwirkungsleistungen des Kunden vollständig vorliegen (Inhalte sowie Freigabe des Bau-Briefs).</p>
+        <p class="mt-3">(2) Verzögert der Kunde Inhalte oder Freigaben, verschiebt sich die Lieferfrist entsprechend; ein Verzug von webhype tritt insoweit nicht ein. Termine sind nur verbindlich, wenn sie ausdrücklich als verbindlich bestätigt wurden. Ereignisse höherer Gewalt verlängern die Frist angemessen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 6 Abnahme</h2>
+        <p class="mt-3">(1) Nach Fertigstellung wird die Website zur Prüfung übergeben. Der Kunde prüft sie innerhalb von <strong>14 Tagen</strong> auf Vertragsmäßigkeit und rügt etwaige Mängel in Textform.</p>
+        <p class="mt-3">(2) Erklärt der Kunde innerhalb dieser Frist weder die Abnahme noch rügt er einen Mangel, gilt das Werk als abgenommen (§ 640 Abs. 2 BGB). Die Inbetriebnahme/Live-Schaltung gilt ebenfalls als Abnahme. Wegen unwesentlicher Mängel kann die Abnahme nicht verweigert werden.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 7 Korrekturrunde &amp; Änderungswünsche</h2>
+        <p class="mt-3">(1) Im Festpreis ist <strong>eine (1) Korrekturrunde</strong> enthalten: ein gesammelter Durchgang von Änderungswünschen am erstellten Entwurf. Nicht umfasst sind konzeptionelle Neugestaltungen oder ein Design-Wechsel.</p>
+        <p class="mt-3">(2) Weitere Korrekturrunden sowie nachträgliche Änderungswünsche nach Freigabe werden nach Aufwand zu einem Stundensatz von <strong>95 € netto</strong> berechnet. Wesentliche Erweiterungen des Umfangs (z. B. zusätzliche Seiten, neue Funktionen) sind ein gesonderter Auftrag.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 8 Vergütung &amp; Zahlung</h2>
+        <p class="mt-3">(1) Es gelten die im jeweiligen Paket genannten Festpreise. Alle Preise verstehen sich <strong>netto zzgl. der gesetzlichen Umsatzsteuer</strong>.</p>
+        <p class="mt-3">(2) Der einmalige Erstellungspreis ist je zur Hälfte bei Auftragsbestätigung und bei Abnahme fällig; bei der einmaligen Übergabe ist der volle Betrag mit Abnahme fällig. Die monatliche Service-Gebühr ist im Voraus zu entrichten.</p>
+        <p class="mt-3">(3) Bei Zahlungsverzug gelten die gesetzlichen Verzugszinsen (§ 288 Abs. 2 BGB: 9 Prozentpunkte über dem Basiszinssatz) zzgl. Mahnpauschale.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 9 Laufzeit &amp; Kündigung des Service-Modells</h2>
+        <p class="mt-3">(1) Der Rundum-Service ist ein Dauerschuldverhältnis. Er kann von beiden Seiten <strong>monatlich zum Monatsende</strong> in Textform gekündigt werden. Eine feste Mindestlaufzeit besteht nicht.</p>
+        <p class="mt-3">(2) Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. Die Kündigung des Service berührt nicht das bereits erstellte und bezahlte Werk; die eingeräumten Nutzungsrechte bleiben bestehen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 10 Nutzungs- &amp; Eigentumsrechte</h2>
+        <p class="mt-3">(1) webhype räumt dem Kunden die Nutzungsrechte an der erstellten Website erst mit vollständiger Bezahlung ein. Es handelt sich um ein einfaches, zeitlich und räumlich unbeschränktes Nutzungsrecht am sichtbaren Werk.</p>
+        <p class="mt-3">(2) Die zugrundeliegende Software, eingesetzte Frameworks, Templates und der Quellcode verbleiben bei webhype bzw. den jeweiligen Rechteinhabern; der Kunde erhält insoweit kein Eigentum, sondern das zur vertragsgemäßen Nutzung erforderliche Recht.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 11 Material des Kunden, Lizenzen &amp; Freistellung</h2>
+        <p class="mt-3">(1) Für vom Kunden bereitgestellte Inhalte (Texte, Bilder, Logos, Marken) sichert der Kunde zu, über die erforderlichen Rechte zu verfügen. Er stellt webhype von Ansprüchen Dritter wegen der Verletzung solcher Rechte auf erstes Anfordern frei.</p>
+        <p class="mt-3">(2) Von webhype beschaffte Stock-Bilder, Schriften oder Drittkomponenten unterliegen den jeweiligen Lizenzbedingungen und sind nicht ohne Weiteres übertragbar; der Kunde erhält das im Rahmen der jeweiligen Lizenz Zulässige.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 12 Hosting &amp; Verfügbarkeit</h2>
+        <p class="mt-3">Im Rundum-Service enthaltenes Hosting wird mit marktüblicher Sorgfalt erbracht. Eine ununterbrochene Verfügbarkeit wird nicht geschuldet; angestrebt wird eine Verfügbarkeit von 99 % im Jahresmittel, ausgenommen Wartungsfenster sowie Störungen außerhalb unseres Einflussbereichs (insb. höhere Gewalt, Vorleister, DDoS-Angriffe).</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 13 Umfang &amp; Grenzen des Service</h2>
+        <p class="mt-3">(1) Der Service umfasst Hosting, Sicherheits- und Backup-Betrieb sowie die Pflege im vereinbarten Umfang. Laufende Text- und Bildänderungen nimmt der Kunde selbst über das Kundenportal vor.</p>
+        <p class="mt-3">(2) Nicht enthalten sind insbesondere inhaltliche Neugestaltungen, zusätzliche Unterseiten, individuelle Funktionsentwicklung, Werbe-/SEO-Kampagnen, Texterstellung sowie Rechtstexte und Rechtsberatung. Anfragen werden an Werktagen bearbeitet; eine Reaktion erfolgt in der Regel innerhalb von 1–2 Werktagen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 14 Datenexport &amp; Domainübergabe bei Vertragsende</h2>
+        <p class="mt-3">Bei Beendigung des Service erhält der Kunde auf Wunsch einen Export seiner Inhalte in einem gängigen Format sowie Unterstützung beim Transfer einer von webhype verwalteten Domain (Auth-Code/DNS). Hosting und Betrieb enden mit Vertragsende; eine Löschung der Daten erfolgt nach einer angemessenen Frist.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 15 Gewährleistung &amp; Haftung</h2>
+        <p class="mt-3">(1) Für die Werkleistung gelten die gesetzlichen Mängelrechte; webhype leistet zunächst Nacherfüllung. Die Verjährung von Mängelansprüchen beträgt 12 Monate ab Abnahme.</p>
+        <p class="mt-3">(2) webhype haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit, bei Schäden aus der Verletzung von Leben, Körper oder Gesundheit, nach dem Produkthaftungsgesetz sowie im Umfang übernommener Garantien.</p>
+        <p class="mt-3">(3) Bei einfacher Fahrlässigkeit haftet webhype nur für die Verletzung wesentlicher Vertragspflichten (Kardinalpflichten) und der Höhe nach begrenzt auf den vertragstypischen, vorhersehbaren Schaden. Im Übrigen ist die Haftung ausgeschlossen; bei Datenverlust ist die Haftung auf den Wiederherstellungsaufwand begrenzt, der bei ordnungsgemäßer Datensicherung angefallen wäre.</p>
+        <p class="mt-3">(4) Keine Gewähr wird übernommen für bestimmte Platzierungen in Suchmaschinen (z. B. Google-Rankings) oder für Besucher-, Anfrage- oder Umsatzzahlen, da diese von Faktoren außerhalb des Einflussbereichs von webhype abhängen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 16 Datenschutz</h2>
+        <p class="mt-3">webhype verarbeitet personenbezogene Daten nach Maßgabe der <a href="/datenschutz" class="text-blue-500 underline">Datenschutzerklärung</a> und der gesetzlichen Vorgaben (DSGVO/BDSG). Soweit webhype im Auftrag des Kunden personenbezogene Daten verarbeitet, wird auf Wunsch ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO) geschlossen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 17 Referenznennung</h2>
+        <p class="mt-3">webhype ist berechtigt, die erstellte Website unter Nennung des Kundennamens als Referenz zu nennen und im Rahmen der eigenen Außendarstellung zu zeigen. Der Kunde kann dem jederzeit in Textform widersprechen.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-ink-900 headline">§ 18 Schlussbestimmungen</h2>
+        <p class="mt-3">(1) Änderungen und Ergänzungen bedürfen der Textform. Es gilt das Recht der Bundesrepublik Deutschland.</p>
+        <p class="mt-3">(2) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem Vertrag ist – soweit der Kunde Kaufmann ist – Berlin.</p>
+        <p class="mt-3">(3) Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+      </section>
+
+    </article>
+  </Section>
+</BaseLayout>
