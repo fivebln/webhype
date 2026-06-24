@@ -1,9 +1,13 @@
 ---
 /**
  * PortalShowcase — verkauft das Kundenportal als Produktvorteil.
- * Nur REAL existierende Features (verifiziert im 05_app-Portal). Keine erfundenen
- * Funktionen (kein Besucher-Analytics/SEO — noch nicht gebaut).
- * Screenshot/Demo-Slot ist als Platzhalter markiert (echte Portal-Screenshots ergänzen).
+ * Die „Screenshots" sind originalgetreue, eingebaute Nachbauten der echten
+ * Portal-Oberfläche (05_app): identische Labels, Markenblau #0051FD, Inter,
+ * Zeichen-Limit-Hinweise, Zwei-Spalten-Editor mit Live-Vorschau. Demo-Inhalte
+ * eines fiktiven Handwerksbetriebs („Maler Hoffmann"), damit klar wird, was der
+ * Kunde selbst ändern kann. Nur REAL existierende Funktionen — kein erfundenes
+ * Analytics/SEO. (Echte Roh-Screenshots aus dem Live-Portal können diese
+ * Nachbauten jederzeit ersetzen.)
  */
 const features = [
   { t: 'Texte & Bilder selbst ändern', d: 'Direkt im Portal bearbeiten — mit Live-Vorschau daneben. Layout bleibt fest, du kannst nichts kaputt machen.' },
@@ -23,12 +27,163 @@ const features = [
       <p class="mt-5 text-lg leading-relaxed text-blue-100/90">Bei webhype bekommst du nicht nur eine Seite, sondern ein einfaches Portal, in dem du alles selbst im Griff hast — und siehst, dass wir uns im Hintergrund kümmern.</p>
     </div>
 
-    {/* ⟶ PLATZHALTER: echte Portal-Screenshots oder 60–90-Sek-Demo einsetzen */}
-    <div class="mx-auto mt-12 max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-10 text-center" data-reveal>
-      <p class="text-sm text-blue-100/70">⟶ Hier echte Portal-Screenshots / kurze Demo einsetzen (Editor mit Live-Vorschau, Veröffentlichen, Rechnungen, Status). Platzhalter — Gil liefert/freigibt.</p>
+    {/* ── Haupt-Screenshot: Texte & Bilder ändern mit Live-Vorschau ── */}
+    <figure class="pf mx-auto mt-14 max-w-5xl" data-reveal>
+      <div class="pf-frame">
+        <div class="pf-bar">
+          <span class="pf-dots"><i></i><i></i><i></i></span>
+          <span class="pf-url"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>mein.web-hype.de/portal/texte</span>
+        </div>
+        <div class="pf-body">
+          <div class="pf-tabs">
+            <span class="pf-tab is-active">Startseite</span>
+            <span class="pf-tab">Leistungen</span>
+            <span class="pf-tab">Über mich</span>
+            <span class="pf-tab">Galerie & Kontakt</span>
+            <span class="pf-tab">FAQ</span>
+          </div>
+
+          <div class="pf-editor">
+            {/* linke Spalte: Editor */}
+            <div class="pf-col">
+              <p class="pf-colhead"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Hier änderst du die Texte</p>
+
+              <div class="pf-card">
+                <h3 class="pf-cardh">Startseite · Hero</h3>
+                <div class="pf-field">
+                  <span class="pf-label">Überschrift</span>
+                  <div class="pf-input">Maler Hoffmann — saubere Arbeit seit 1998</div>
+                  <span class="pf-counter pf-ok"><em>empfohlen: max. 70 Zeichen</em><b>42/70</b></span>
+                </div>
+                <div class="pf-field">
+                  <span class="pf-label">Unterzeile</span>
+                  <div class="pf-textarea">Wir streichen, tapezieren und gestalten Räume in ganz Berlin. Festpreis, termintreu, sauber — seit über 25 Jahren.</div>
+                  <span class="pf-counter pf-ok"><em>empfohlen: max. 280 Zeichen</em><b>113/280</b></span>
+                </div>
+              </div>
+
+              <div class="pf-card">
+                <h3 class="pf-cardh">Bilder dieser Seite</h3>
+                <p class="pf-hint">Tipp: Fahr in der Vorschau rechts über ein Bild und klick „Bild ändern". JPG/PNG, max. 8 MB.</p>
+                <div class="pf-slot">
+                  <span class="pf-thumb" aria-hidden="true"></span>
+                  <div class="pf-slotmeta">
+                    <span class="pf-slotlabel">Hero-Bild</span>
+                    <span class="pf-slotwo">Startseite ganz oben</span>
+                    <span class="pf-slotok">● Eigenes Bild</span>
+                  </div>
+                  <div class="pf-slotbtns">
+                    <span class="pf-btn pf-btn-primary">Ersetzen</span>
+                    <span class="pf-btn">In Vorschau zeigen</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* rechte Spalte: Live-Vorschau */}
+            <div class="pf-col pf-col-preview">
+              <p class="pf-colhead pf-colhead-eye"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="2.6"/></svg>Vorschau — Startseite</p>
+              <div class="pf-card pf-previewcard">
+                <span class="pf-tag">Aktualisiert nach „Vorschau speichern"</span>
+                {/* Mini-Abbild der Kundenseite */}
+                <div class="pf-site">
+                  <div class="pf-site-nav"><b>Maler Hoffmann</b><span>Leistungen · Referenzen · Kontakt</span></div>
+                  <div class="pf-site-hero">
+                    <p class="pf-site-kicker">Malerbetrieb · Berlin</p>
+                    <p class="pf-site-h1">Maler Hoffmann — saubere Arbeit seit 1998</p>
+                    <p class="pf-site-sub">Wir streichen, tapezieren und gestalten Räume in ganz Berlin. Festpreis, termintreu, sauber.</p>
+                    <span class="pf-site-cta">Termin anfragen</span>
+                  </div>
+                  <div class="pf-site-cards">
+                    <span>Innenanstrich</span><span>Tapezieren</span><span>Fassade</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pf-actionbar">
+            <span class="pf-actiontext">Schritt 1: Vorschau speichern → kontrollieren → Schritt 2: Veröffentlichen.</span>
+            <span class="pf-spacer"></span>
+            <span class="pf-btn pf-btn-outline">Vorschau speichern</span>
+            <span class="pf-btn pf-btn-primary">Veröffentlichen (sofort live)</span>
+          </div>
+        </div>
+      </div>
+      <figcaption class="pf-cap">Texte tippst du links, rechts siehst du sofort, wie deine Seite aussieht — ein Klick auf <strong>„Veröffentlichen"</strong>, fertig.</figcaption>
+    </figure>
+
+    {/* ── Zwei kleinere Screenshots: Übersicht + Rechnungen ── */}
+    <div class="pf-screens mx-auto mt-10 max-w-5xl" data-reveal-group>
+      {/* Übersicht */}
+      <figure class="pf">
+        <div class="pf-frame">
+          <div class="pf-bar">
+            <span class="pf-dots"><i></i><i></i><i></i></span>
+            <span class="pf-url">mein.web-hype.de/portal</span>
+          </div>
+          <div class="pf-body pf-body-pad">
+            <p class="pf-h1">Hallo Thomas</p>
+            <p class="pf-muted">Dein Überblick — alles Wichtige auf einen Blick.</p>
+            <div class="pf-banner">✓ Alles im grünen Bereich. Du musst gerade nichts tun.</div>
+            <div class="pf-stats">
+              <div class="pf-statc"><b>1</b><span>Website online</span></div>
+              <div class="pf-statc"><b>0</b><span>Offene To-dos</span></div>
+              <div class="pf-statc"><b>1</b><span>Laufender Vertrag</span></div>
+              <div class="pf-statc"><b>0</b><span>Offene Rechnungen</span></div>
+            </div>
+            <div class="pf-card pf-webcard">
+              <span class="pf-webthumb" aria-hidden="true">maler-hoffmann.de</span>
+              <div class="pf-webrow">
+                <b>Maler Hoffmann</b>
+                <span class="pf-badge pf-badge-ok">Online & gepflegt</span>
+              </div>
+              <div class="pf-btnrow">
+                <span class="pf-btn">Seite öffnen</span>
+                <span class="pf-btn pf-btn-primary">Texte bearbeiten</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="pf-cap">Dein Status auf einen Blick: Website, Verträge, offene To-dos.</figcaption>
+      </figure>
+
+      {/* Verträge & Rechnungen */}
+      <figure class="pf">
+        <div class="pf-frame">
+          <div class="pf-bar">
+            <span class="pf-dots"><i></i><i></i><i></i></span>
+            <span class="pf-url">mein.web-hype.de/portal/abrechnung</span>
+          </div>
+          <div class="pf-body pf-body-pad">
+            <p class="pf-h1">Verträge & Rechnungen</p>
+            <p class="pf-muted">Deine laufenden Verträge und alle Rechnungen.</p>
+            <div class="pf-card">
+              <h3 class="pf-cardh">Deine Verträge</h3>
+              <div class="pf-li">
+                <div><b>Business · Rundum-Service</b><span class="pf-tag">29 €/Monat · seit 14.03.2026</span></div>
+                <span class="pf-pill pf-pill-ok">aktiv</span>
+              </div>
+            </div>
+            <div class="pf-card">
+              <h3 class="pf-cardh">Deine Rechnungen</h3>
+              <div class="pf-li">
+                <div><b>RG-2026-018 · Juni 2026</b><span class="pf-tag">01.06.2026</span></div>
+                <div class="pf-amt"><b>29,00 €</b><span class="pf-pill pf-pill-ok">bezahlt</span></div>
+              </div>
+              <div class="pf-li">
+                <div><b>RG-2026-012 · Mai 2026</b><span class="pf-tag">01.05.2026</span></div>
+                <div class="pf-amt"><b>29,00 €</b><span class="pf-pill pf-pill-ok">bezahlt</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="pf-cap">Verträge und Rechnungen jederzeit einsehbar — an einem Ort.</figcaption>
+      </figure>
     </div>
 
-    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+    {/* ── Feature-Karten ── */}
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
       {features.map((f) => (
         <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
           <h3 class="text-lg font-bold text-white headline">{f.t}</h3>
@@ -38,3 +193,139 @@ const features = [
     </div>
   </div>
 </section>
+
+<style>
+  /* Portal-Nachbau ("Screenshots"). Werte aus dem echten 05_app-Portal. */
+  .pf { --b: #0051fd; --ink: #0a0e1a; --ink5: #4a5168; --ink1: #e0e3ec; --ink05: #f4f5f8; --warm: #faf9f9; }
+  .pf-frame {
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 30px 70px -25px rgba(0,0,0,.65), 0 8px 24px -12px rgba(0,0,0,.5);
+    overflow: hidden;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+  }
+  .pf-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 14px;
+    background: #f0f1f4;
+    border-bottom: 1px solid #e3e5ea;
+  }
+  .pf-dots { display: inline-flex; gap: 6px; }
+  .pf-dots i { width: 11px; height: 11px; border-radius: 9999px; background: #d4d6dd; display: block; }
+  .pf-dots i:nth-child(1) { background: #ff5f57; }
+  .pf-dots i:nth-child(2) { background: #febc2e; }
+  .pf-dots i:nth-child(3) { background: #28c840; }
+  .pf-url {
+    flex: 1; display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; border: 1px solid #e3e5ea; border-radius: 9999px;
+    padding: 4px 12px; font-size: 12px; color: #6a7186; max-width: 380px;
+  }
+  .pf-url svg { color: #28c840; flex: 0 0 auto; }
+  .pf-body { background: var(--warm); padding: 16px; font-size: 13px; line-height: 1.5; }
+  .pf-body-pad { padding: 18px; }
+
+  /* Tabs */
+  .pf-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .pf-tab {
+    border: 1px solid var(--ink1); background: #fff; color: var(--ink5);
+    border-radius: 9999px; padding: 6px 13px; font-size: 12.5px; font-weight: 600;
+  }
+  .pf-tab.is-active { background: var(--b); border-color: var(--b); color: #fff; }
+
+  /* Editor zwei-spaltig */
+  .pf-editor { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: 16px; align-items: start; }
+  .pf-col { min-width: 0; }
+  .pf-colhead {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-weight: 800; font-size: 12px; color: var(--b); margin: 2px 0 9px;
+  }
+  .pf-card { background: #fff; border: 1px solid var(--ink1); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+  .pf-cardh { margin: 0 0 11px; font-size: 14px; font-weight: 700; color: var(--ink); }
+  .pf-field { margin-bottom: 12px; }
+  .pf-label { display: block; font-size: 12px; color: var(--ink5); margin-bottom: 5px; }
+  .pf-input, .pf-textarea {
+    border: 1px solid var(--ink1); border-radius: 10px; padding: 9px 11px;
+    font-size: 13px; color: var(--ink); background: #fff;
+  }
+  .pf-input { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pf-textarea { min-height: 56px; }
+  .pf-counter { display: flex; justify-content: space-between; font-size: 11px; margin-top: 5px; }
+  .pf-counter em { font-style: normal; }
+  .pf-counter.pf-ok { color: #8a91a6; }
+  .pf-hint { font-size: 11.5px; color: var(--ink5); margin: 0 0 9px; line-height: 1.45; }
+
+  /* Bild-Slot */
+  .pf-slot { display: flex; gap: 12px; align-items: center; padding: 11px; border: 1px solid var(--ink1); border-radius: 12px; }
+  .pf-thumb { flex: 0 0 auto; width: 84px; height: 60px; border-radius: 8px; background: linear-gradient(135deg, #1f6f5c, #7fb7a6); }
+  .pf-slotmeta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .pf-slotlabel { font-size: 13px; font-weight: 700; }
+  .pf-slotwo { font-size: 11.5px; color: var(--ink5); }
+  .pf-slotok { font-size: 11px; font-weight: 600; color: #0a7f57; }
+  .pf-slotbtns { display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto; }
+
+  /* Live-Vorschau Mini-Site */
+  .pf-col-preview { position: sticky; top: 16px; }
+  .pf-colhead-eye { color: var(--b); }
+  .pf-previewcard { padding: 10px; }
+  .pf-tag { display: inline-block; background: var(--ink05); color: var(--ink5); border-radius: 7px; padding: 3px 8px; font-size: 11px; margin-bottom: 8px; }
+  .pf-site { border: 1px solid var(--ink1); border-radius: 10px; overflow: hidden; background: #fff; }
+  .pf-site-nav { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-bottom: 1px solid var(--ink1); font-size: 11px; }
+  .pf-site-nav b { font-size: 12.5px; letter-spacing: -.01em; }
+  .pf-site-nav span { color: var(--ink5); }
+  .pf-site-hero { padding: 18px 14px; background: linear-gradient(160deg, #0e3a31 0%, #14564a 60%, #1f6f5c 100%); color: #fff; }
+  .pf-site-kicker { font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: #b6e0d4; margin: 0 0 6px; }
+  .pf-site-h1 { font-size: 17px; font-weight: 800; line-height: 1.2; margin: 0 0 7px; }
+  .pf-site-sub { font-size: 12px; line-height: 1.5; color: #e3f1ec; margin: 0 0 12px; }
+  .pf-site-cta { display: inline-block; background: #ffd166; color: #1a2e29; font-weight: 700; font-size: 11.5px; padding: 7px 13px; border-radius: 8px; }
+  .pf-site-cards { display: flex; gap: 7px; padding: 11px; }
+  .pf-site-cards span { flex: 1; text-align: center; background: var(--ink05); border: 1px solid var(--ink1); border-radius: 8px; padding: 8px 4px; font-size: 11px; font-weight: 600; color: var(--ink); }
+
+  /* Action-Bar */
+  .pf-actionbar { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #e7eaea; }
+  .pf-actiontext { font-size: 12px; color: var(--ink5); }
+  .pf-spacer { flex: 1; }
+
+  /* Buttons */
+  .pf-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--ink1); background: #fff; color: var(--ink); border-radius: 9999px; padding: 8px 15px; font-size: 12.5px; font-weight: 600; }
+  .pf-btn-primary { background: var(--b); border-color: var(--b); color: #fff; }
+  .pf-btn-outline { border-color: var(--b); color: var(--b); }
+
+  /* Übersicht */
+  .pf-h1 { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 3px; }
+  .pf-muted { font-size: 13px; color: var(--ink5); margin: 0 0 13px; }
+  .pf-banner { background: #e6f8f1; border: 1px solid #b9ecd8; color: #0a7f57; border-radius: 12px; padding: 11px 13px; font-size: 13px; font-weight: 600; margin-bottom: 13px; }
+  .pf-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 13px; }
+  .pf-statc { background: #fff; border: 1px solid var(--ink1); border-radius: 12px; padding: 11px; text-align: left; }
+  .pf-statc b { display: block; font-size: 22px; font-weight: 800; line-height: 1; }
+  .pf-statc span { font-size: 11px; color: var(--ink5); }
+  .pf-webcard { padding: 12px; }
+  .pf-webthumb { display: flex; align-items: center; justify-content: center; height: 84px; border-radius: 10px; background: linear-gradient(135deg, #0051fd, #00d4ff); color: #fff; font-weight: 700; font-size: 13px; margin-bottom: 11px; }
+  .pf-webrow { display: flex; align-items: center; justify-content: space-between; margin-bottom: 11px; }
+  .pf-webrow b { font-size: 14px; }
+  .pf-btnrow { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* Badges / Pills / Listen */
+  .pf-badge { border-radius: 9999px; padding: 3px 10px; font-size: 11.5px; font-weight: 700; }
+  .pf-badge-ok { background: #e6f8f1; color: #0a7f57; }
+  .pf-li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--ink1); }
+  .pf-li:last-child { border-bottom: 0; }
+  .pf-li b { font-size: 13px; }
+  .pf-li .pf-tag { display: block; margin-top: 3px; }
+  .pf-amt { display: flex; align-items: center; gap: 9px; }
+  .pf-pill { border-radius: 9999px; padding: 3px 10px; font-size: 11.5px; font-weight: 700; }
+  .pf-pill-ok { background: #e6f8f1; color: #0a7f57; }
+
+  /* Layout der zwei kleinen Frames + Bildunterschriften */
+  .pf-screens { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .pf-cap { margin-top: 13px; text-align: center; font-size: 13.5px; line-height: 1.5; color: rgba(219, 234, 254, .82); }
+  .pf-cap strong { color: #fff; font-weight: 700; }
+
+  @media (max-width: 860px) {
+    .pf-editor { grid-template-columns: 1fr; }
+    .pf-col-preview { position: static; }
+    .pf-screens { grid-template-columns: 1fr; }
+    .pf-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
