@@ -5,8 +5,9 @@ import Section from '../components/Section.astro';
 import { breadcrumbSchema } from '../lib/schema';
 
 /* HINWEIS (intern): Entwurf nach bestem Wissen + Recherche realer DACH-Agentur-AGB
-   (Werkvertrag + Dienst-/Dauerschuldverhältnis). Geschäfts-Defaults markenkonform
-   (kein Lock-in) gewählt — von Gil zu bestätigen, anwaltlich zu prüfen (Live-Review). */
+   (Werkvertrag + Dienst-/Dauerschuldverhältnis). Geschäfts-Defaults von Gil bestätigt
+   (u. a. 12 Monate Mindestlaufzeit für die Service-Modelle, danach monatlich kündbar);
+   anwaltlich zu prüfen (Live-Review). */
 const title = 'AGB / Projektbedingungen · webhype';
 const description = 'Allgemeine Geschäftsbedingungen der Gil Miguel Holding UG (haftungsbeschränkt) für die Erstellung und den laufenden Service von Websites.';
 const jsonLd = breadcrumbSchema([
@@ -75,7 +76,7 @@ const jsonLd = breadcrumbSchema([
 
       <section>
         <h2 class="text-xl font-bold text-ink-900 headline">§ 9 Laufzeit &amp; Kündigung des Service-Modells</h2>
-        <p class="mt-3">(1) Der Rundum-Service ist ein Dauerschuldverhältnis. Er kann von beiden Seiten <strong>monatlich zum Monatsende</strong> in Textform gekündigt werden. Eine feste Mindestlaufzeit besteht nicht.</p>
+        <p class="mt-3">(1) Der Rundum-Service ist ein Dauerschuldverhältnis mit einer <strong>Mindestlaufzeit von 12 Monaten</strong> ab Vertragsbeginn. Wird er nicht mit einer Frist von einem Monat zum Ende der Mindestlaufzeit in Textform gekündigt, verlängert er sich auf unbestimmte Zeit und kann danach von beiden Seiten <strong>monatlich zum Monatsende</strong> gekündigt werden. Die einmalige Übergabe ohne laufenden Service unterliegt keiner Mindestlaufzeit.</p>
         <p class="mt-3">(2) Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. Die Kündigung des Service berührt nicht das bereits erstellte und bezahlte Werk; die eingeräumten Nutzungsrechte bleiben bestehen.</p>
       </section>
 
