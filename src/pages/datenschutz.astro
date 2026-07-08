@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import { breadcrumbSchema } from '../lib/schema';
 
 const title = 'Datenschutzerklärung · webhype';
-const description = 'Wie wir mit deinen Daten umgehen: welche Cookies wir mit deiner Einwilligung setzen (GA4, Google Tag Manager, Meta-Pixel), deine Rechte und wie du deine Einwilligung jederzeit widerrufst.';
+const description = 'Wie wir mit deinen Daten umgehen: welche Cookies wir mit deiner Einwilligung setzen (Google Analytics 4, Google Tag Manager), deine Rechte und wie du deine Einwilligung jederzeit widerrufst.';
 const jsonLd = breadcrumbSchema([
   { name: 'Startseite', url: '/' },
   { name: 'Datenschutz', url: '/datenschutz' },
@@ -81,7 +81,7 @@ const jsonLd = breadcrumbSchema([
       <section>
         <h2 class="text-xl font-bold text-ink-900 headline">5. Cookies & Einwilligung</h2>
         <p class="mt-3">
-          Wir setzen technisch notwendige Cookies immer, optionale Cookies (Statistik &amp; Marketing) <strong>nur mit deiner Einwilligung</strong>. Beim ersten Besuch fragen wir dich über einen Cookie-Hinweis. Solange du nicht einwilligst, werden <strong>keine</strong> Statistik- oder Marketing-Dienste geladen und keine dafür nötigen Cookies gesetzt. Die Ablehnung ist gleichwertig zur Zustimmung (kein Nachteil, kein Dark Pattern).
+          Wir setzen technisch notwendige Cookies immer, optionale Cookies (Statistik) <strong>nur mit deiner Einwilligung</strong>. Beim ersten Besuch fragen wir dich über einen Cookie-Hinweis. Solange du nicht einwilligst, werden <strong>keine</strong> Statistik-Dienste geladen und keine dafür nötigen Cookies gesetzt. Die Ablehnung ist gleichwertig zur Zustimmung (kein Nachteil, kein Dark Pattern).
         </p>
         <p class="mt-4"><strong>Technisch notwendig (keine Einwilligung nötig, § 25 Abs. 2 TDDDG):</strong></p>
         <div class="mt-2 overflow-x-auto">
@@ -92,24 +92,22 @@ const jsonLd = breadcrumbSchema([
             </tbody>
           </table>
         </div>
-        <p class="mt-5"><strong>Optional — Statistik &amp; Marketing (nur nach Einwilligung, Art. 6 Abs. 1 lit. a DSGVO / § 25 Abs. 1 TDDDG):</strong></p>
+        <p class="mt-5"><strong>Optional — Statistik (nur nach Einwilligung, Art. 6 Abs. 1 lit. a DSGVO / § 25 Abs. 1 TDDDG):</strong></p>
         <div class="mt-2 overflow-x-auto">
           <table class="w-full text-left text-sm">
             <thead><tr class="border-b border-ink-100 text-ink-900"><th class="py-2 pr-4 font-semibold">Cookie</th><th class="py-2 pr-4 font-semibold">Anbieter / Zweck</th><th class="py-2 font-semibold">Speicherdauer</th></tr></thead>
             <tbody class="align-top">
-              <tr class="border-b border-ink-100/60"><td class="py-2 pr-4 font-mono text-xs">_ga, _ga_*</td><td class="py-2 pr-4">Google Analytics 4 — Reichweitenmessung</td><td class="py-2">bis 24 Monate</td></tr>
-              <tr class="border-b border-ink-100/60"><td class="py-2 pr-4 font-mono text-xs">_fbp</td><td class="py-2 pr-4">Meta-Pixel — Werbe-/Reichweitenmessung</td><td class="py-2">bis 3 Monate</td></tr>
-              <tr><td class="py-2 pr-4 font-mono text-xs">_gcl_*</td><td class="py-2 pr-4">Google — Conversion-Zuordnung (falls Google Ads aktiv)</td><td class="py-2">bis 3 Monate</td></tr>
+              <tr><td class="py-2 pr-4 font-mono text-xs">_ga, _ga_*</td><td class="py-2 pr-4">Google Analytics 4 — Reichweitenmessung</td><td class="py-2">bis 24 Monate</td></tr>
             </tbody>
           </table>
         </div>
         <p class="mt-5">
-          <strong>Einwilligung widerrufen / ändern:</strong> Du kannst deine Auswahl jederzeit mit Wirkung für die Zukunft über den Link <em>„Cookie-Einstellungen"</em> im Seitenfuß anpassen oder widerrufen. Beim Widerruf werden die zugehörigen Statistik-/Marketing-Cookies entfernt.
+          <strong>Einwilligung widerrufen / ändern:</strong> Du kannst deine Auswahl jederzeit mit Wirkung für die Zukunft über den Link <em>„Cookie-Einstellungen"</em> im Seitenfuß anpassen oder widerrufen. Beim Widerruf werden die zugehörigen Statistik-Cookies entfernt.
         </p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-ink-900 headline">6. Statistik, Marketing & Reichweitenmessung</h2>
+        <h2 class="text-xl font-bold text-ink-900 headline">6. Statistik & Reichweitenmessung</h2>
         <p class="mt-3">
           Die folgenden Dienste laden wir <strong>ausschließlich nach deiner ausdrücklichen Einwilligung</strong> (Cookie-Hinweis). Vor der Einwilligung werden sie nicht geladen und übertragen keine Daten. Technisch steuern wir das über den Google-Consent-Mode v2: Dienste erhalten erst nach Einwilligung die Freigabe.
         </p>
@@ -124,18 +122,13 @@ const jsonLd = breadcrumbSchema([
           Zur anonymisierten Analyse der Websitenutzung setzen wir Google Analytics 4 ein (Anbieter: Google Ireland Limited, Dublin, Irland; ggf. Google LLC, USA). Wir werten pseudonymisiert aus, wie die Website genutzt wird (z. B. besuchte Seiten, Verweildauer, ungefähre Region). Google Analytics 4 protokolliert und speichert IP-Adressen nach Angaben von Google nicht. Es werden keine Daten mit anderen Google-Diensten zu einem personenbezogenen Profil zusammengeführt, sofern du dies nicht in deinem Google-Konto erlaubt hast. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG.
         </p>
 
-        <h3 class="mt-5 font-semibold text-ink-900">6.3 Meta-Pixel (Facebook/Instagram)</h3>
+        <h3 class="mt-5 font-semibold text-ink-900">6.3 Datenübermittlung in die USA</h3>
         <p class="mt-2">
-          Wir nutzen den Meta-Pixel (Anbieter: Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland; ggf. Meta Platforms, Inc., USA), um die Wirksamkeit von Werbeanzeigen zu messen und — mit deiner Einwilligung — Websitebesucher:innen erneut anzusprechen (Retargeting). Für die Erhebung und Übermittlung der Daten sind wir und Meta gemeinsam Verantwortliche i. S. v. Art. 26 DSGVO; die weitere Verarbeitung erfolgt durch Meta in eigener Verantwortung. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG.
-        </p>
-
-        <h3 class="mt-5 font-semibold text-ink-900">6.4 Datenübermittlung in die USA</h3>
-        <p class="mt-2">
-          Bei Google und Meta können Daten in die USA übermittelt werden. Google LLC und Meta Platforms, Inc. sind unter dem EU-US Data Privacy Framework (DPF) zertifiziert; ergänzend bestehen Standardvertragsklauseln (SCC) der EU-Kommission. Ein Restrisiko des Zugriffs durch US-Behörden lässt sich nicht vollständig ausschließen. Deine Einwilligung umfasst gem. Art. 49 Abs. 1 lit. a DSGVO auch diese Übermittlung.
+          Bei Google können Daten in die USA übermittelt werden. Google LLC ist unter dem EU-US Data Privacy Framework (DPF) zertifiziert; ergänzend bestehen Standardvertragsklauseln (SCC) der EU-Kommission. Ein Restrisiko des Zugriffs durch US-Behörden lässt sich nicht vollständig ausschließen. Deine Einwilligung umfasst gem. Art. 49 Abs. 1 lit. a DSGVO auch diese Übermittlung.
         </p>
 
         <p class="mt-5">
-          <strong>Widerruf:</strong> Du kannst deine Einwilligung jederzeit über <em>„Cookie-Einstellungen"</em> im Seitenfuß mit Wirkung für die Zukunft widerrufen. Weitere Informationen: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">Google-Datenschutz</a> · <a href="https://www.facebook.com/privacy/policy" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">Meta-Datenschutz</a>.
+          <strong>Widerruf:</strong> Du kannst deine Einwilligung jederzeit über <em>„Cookie-Einstellungen"</em> im Seitenfuß mit Wirkung für die Zukunft widerrufen. Weitere Informationen: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">Google-Datenschutz</a>.
         </p>
       </section>
 

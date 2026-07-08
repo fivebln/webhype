@@ -51,10 +51,10 @@ const validGtm = /^GTM-[A-Z0-9]+$/.test(gtmId);
       }
 
       function grant() {
+        // Go-Live: nur Statistik (GA4). ad_storage/ad_user_data/ad_personalization bleiben
+        // verweigert und kommen erst mit Meta-Pixel/Google-Ads in der Paid-Phase dazu
+        // (dann zusätzlich freigeben + Banner-/Datenschutz-Text auf „Marketing" erweitern).
         gtag('consent', 'update', {
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
           analytics_storage: 'granted',
         });
         loadGTM();
