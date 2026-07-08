@@ -13,8 +13,10 @@ import BrowserMockup from '../components/mockups/BrowserMockup.astro';
 import GaugeMockup from '../components/mockups/GaugeMockup.astro';
 import SevenDayMockup from '../components/mockups/SevenDayMockup.astro';
 import { Image } from 'astro:assets';
-import refRentenrechner from '../assets/referenzen/rentenrechner.png';
 import refStudioH from '../assets/referenzen/studio-h-next.png';
+import refMedau from '../assets/referenzen/medau.png';
+import ref9minds from '../assets/referenzen/9minds.png';
+import refKropp from '../assets/referenzen/kropp.png';
 import { faqSchema, serviceSchema } from '../lib/schema';
 import { getGlobal } from '../lib/cms';
 
@@ -54,22 +56,40 @@ const trustBadges = start.trustBadges ?? fallbackStart.trustBadges;
 
 const testimonials = [
   {
-    quote: 'In einer Woche stand meine Seite — genau wie besprochen. Schnell, unkompliziert, und ich konnte mich voll auf mein Geschäft konzentrieren.',
-    name: 'Felix K.',
-    project: 'dein-rentenrechner',
-    href: 'https://dein-rentenrechner.vercel.app/',
-    domain: 'dein-rentenrechner.vercel.app',
-    initials: 'FK',
-    image: refRentenrechner,
-  },
-  {
-    quote: 'Endlich ein Auftritt, der so professionell wirkt wie meine Arbeit. webhype hat sofort verstanden, was ich brauche — kein langes Hin und Her.',
-    name: 'Max H.',
-    project: 'Studio H',
-    href: 'https://studio-h-next.vercel.app/',
-    domain: 'studio-h-next.vercel.app',
+    quote: 'Für so eine Seite hätte ich bei einer Agentur locker fünf- bis zehntausend Euro gelassen. Bei webhype war es ein halbstündiges Telefonat, den Rest haben die übernommen.',
+    name: 'Maximilian Hauenstein',
+    project: 'Studio H.',
+    href: '/referenzen/studio-h',
+    domain: 'studio-h.web-hype.de',
     initials: 'MH',
     image: refStudioH,
+  },
+  {
+    quote: 'Das Zins-Radar schickt jede Woche automatisch die aktuellen Bauzinsen an meine Kontakte. So bleibe ich präsent, ohne ständig hinterherzutelefonieren.',
+    name: 'Alexander Medau',
+    project: 'Immobilienfinanzierung',
+    href: '/referenzen/alexander-medau',
+    domain: 'alexander-medau.de',
+    initials: 'AM',
+    image: refMedau,
+  },
+  {
+    quote: 'Ich wollte was Eigenes, aber keine Agentur bezahlen, die Monate braucht. Nach einem halbstündigen Gespräch stand eine Seite, die wirklich nach mir klingt.',
+    name: 'Paul Adloff',
+    project: '9Minds',
+    href: '/referenzen/9minds',
+    domain: '9minds.web-hype.de',
+    initials: 'PA',
+    image: ref9minds,
+  },
+  {
+    quote: 'Ich wollte kein Verkaufsprospekt, sondern etwas, das ehrlich rechnet. Jetzt kommen die Leute zu mir, statt dass ich hinterherlaufe.',
+    name: 'Felix Kropp',
+    project: 'Kinderfrühstart-Rente',
+    href: '/referenzen/kinderfruehstart-rente',
+    domain: 'kropp.web-hype.de',
+    initials: 'FK',
+    image: refKropp,
   },
 ];
 
@@ -278,7 +298,7 @@ const jsonLd = [
         {testimonials.map((t) => (
           <figure class="flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-sm">
             {/* Live-Vorschau im Browser-Rahmen — echte, von webhype gebaute Seite */}
-            <a href={t.href} target="_blank" rel="noopener noreferrer" class="group block" aria-label={`Website von ${t.name} ansehen`}>
+            <a href={t.href} class="group block" aria-label={`Case Study zu ${t.project} ansehen`}>
               <div class="flex items-center gap-2 border-b border-ink-100 bg-ink-50 px-4 py-2.5">
                 <span class="flex gap-1.5" aria-hidden="true">
                   <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
@@ -304,12 +324,15 @@ const jsonLd = [
                 <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-500 text-sm font-semibold text-white">{t.initials}</span>
                 <div>
                   <div class="font-semibold text-ink-900">{t.name}</div>
-                  <a href={t.href} target="_blank" rel="noopener noreferrer" class="text-sm text-blue-500 hover:text-blue-600">{t.project} ansehen →</a>
+                  <a href={t.href} class="text-sm text-blue-500 hover:text-blue-600">Case Study ansehen →</a>
                 </div>
               </figcaption>
             </div>
           </figure>
         ))}
+      </div>
+      <div class="mt-8" data-reveal>
+        <a href="/referenzen" class="inline-flex items-center gap-1.5 text-base font-semibold text-blue-500 hover:text-blue-600">Alle Referenzen ansehen →</a>
       </div>
     </div>
   </section>

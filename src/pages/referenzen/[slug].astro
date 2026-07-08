@@ -1,0 +1,295 @@
+---
+export const prerender = true;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import { Image } from 'astro:assets';
+import { breadcrumbSchema } from '../../lib/schema';
+import ref9minds from '../../assets/referenzen/9minds.png';
+import refMedau from '../../assets/referenzen/medau.png';
+import refKropp from '../../assets/referenzen/kropp.png';
+import refStudioH from '../../assets/referenzen/studio-h-next.png';
+import refHauenstein from '../../assets/referenzen/hauenstein.png';
+
+/**
+ * Case-Study-Template. Inhalte sind vom jeweiligen Kunden freigegeben
+ * (Zitat, Namensnennung, Verlinkung). Fakten aus dem echten Build + Bau-Brief
+ * verifiziert. Keine erfundenen Ergebnis-Zahlen (MARKETING.md §7).
+ */
+const cases = {
+  'studio-h': {
+    kunde: 'Maximilian Hauenstein',
+    firma: 'Studio H.',
+    branche: 'Projektentwicklung / Immobilien',
+    paket: 'Business',
+    headline: 'Eine Seite so hochwertig wie die Projekte dahinter, aus einem 30-Minuten-Call.',
+    subline: 'Für Studio H. aus Berlin: ein reduzierter Premium-Auftritt mit editierbarem Projekte-Modul und Journal, alles selbst pflegbar.',
+    domainLabel: 'studio-h.web-hype.de',
+    liveUrl: 'https://studio-h.web-hype.de/',
+    image: refStudioH,
+    ausgangslage:
+      'Studio H. entwickelt hochwertige Wohnprojekte in Berlin, mit Schwerpunkt auf Dachgeschossausbauten in den besten Lagen. Der Auftritt sollte so hochwertig wirken wie die Projekte selbst, ohne den Aufwand und die Kosten einer klassischen Agentur.',
+    zielgruppe: 'Käufer:innen und Partner im Premium-Segment, die sich vor dem Kontakt online ein Bild von der Qualität machen.',
+    leistungen: [
+      'Eigenständiges Premium-Design in Schwarz, Weiß und Grau, ganz ohne Baukasten-Look',
+      'Editierbares Projekte-/Immobilien-Modul mit Galerie und Detailseiten',
+      'Journal für eigene Beiträge samt Titelbild',
+      'Team-Seite, die sich selbst erweitern lässt',
+      'Alle Texte, Bilder, Projekte und Beiträge selbst pflegbar über den Kundenbereich',
+    ],
+    laufzeit: 'gebaut und in laufender Betreuung',
+    ergebnisse: [
+      { wert: 'ein 30-Min-Call', label: 'statt wochenlanger Agentur-Schleifen' },
+      { wert: 'selbst pflegbar', label: 'Projekte, Journal & Team im Kundenbereich' },
+      { wert: 'kein Baukasten', label: 'eigenständiges Premium-Design' },
+    ],
+    zitat:
+      'Für so eine Seite hätte ich bei einer Agentur locker fünf- bis zehntausend Euro gelassen, und danach trotzdem noch selbst alle Texte geschrieben und ein Fotoshooting organisiert. Bei webhype war es ein halbstündiges Telefonat, den Rest haben die übernommen. Keine ewigen Korrekturschleifen, kein großes Shooting. Und die Seite ist so hochwertig geworden wie unsere Projekte.',
+  },
+  'alexander-medau': {
+    kunde: 'Alexander Medau',
+    firma: 'Immobilienfinanzierung',
+    branche: 'Immobilienfinanzierung',
+    paket: 'Business',
+    headline: 'Von der Idee zur Zusage, mit einem wöchentlichen Draht zum Kunden.',
+    subline: 'Für den Berliner Immobilienfinanzierer Alexander Medau: ein eigenes Zins-Radar, ein Budgetrechner und die eigene Wunschdomain.',
+    domainLabel: 'alexander-medau.de',
+    liveUrl: 'https://alexander-medau.de/',
+    image: refMedau,
+    ausgangslage:
+      'Alexander Medau finanziert seit 2011 Immobilien, unabhängig und mit einem Netzwerk aus über 685 Banken. Seine Stärke liegt weniger im Zins als in der Strategie. Was fehlte, war ein Auftritt, der genau das zeigt, statt in Fachbegriffen und Zinstabellen unterzugehen.',
+    zielgruppe: 'Familien, Akademiker:innen und Paare, die eine Immobilie finanzieren wollen und einen verständlichen, verlässlichen Partner suchen.',
+    leistungen: [
+      'Zins-Radar: die aktuellen Bauzinsen als wöchentlicher Report per E-Mail',
+      'Budgetrechner, der ohne Anmeldung den machbaren Kaufpreis zeigt',
+      'Finanzierungscheck, der erst nach aktiver Zustimmung lädt (DSGVO-konform)',
+      'Eigene Seite für Makler mit separatem Kontaktweg',
+      'Eigenes Logo „Aufstieg" und eine ruhige, hochwertige Typografie',
+    ],
+    laufzeit: 'am Tag nach dem Briefing zur Freigabe online',
+    ergebnisse: [
+      { wert: 'eigene Domain', label: 'live auf alexander-medau.de' },
+      { wert: 'wöchentlich', label: 'Zins-Radar als fester Touchpoint' },
+      { wert: '685+ Banken', label: 'unabhängiger Vergleich' },
+    ],
+    zitat:
+      'In meinem Geschäft vergehen zwischen erstem Kontakt und Abschluss oft Monate, und in der Zeit verliert man die Leute leicht aus den Augen. Das Zins-Radar löst genau das: Jede Woche gehen die aktuellen Bauzinsen automatisch an meine Kontakte raus. So bleibe ich präsent, ohne ständig hinterherzutelefonieren. Auf die Idee wäre ich allein nie gekommen.',
+  },
+  '9minds': {
+    kunde: 'Paul Adloff',
+    firma: '9Minds',
+    branche: 'Business-Coaching & Marketing',
+    paket: 'Business',
+    headline: 'Ein Coaching-Auftritt, der nach dem Menschen klingt, nicht nach Vorlage.',
+    subline: 'Für Paul Adloff aus Berlin: ein eigenständiger Auftritt mit Tiefsee-Konzept, eigenem Blog und allem selbst pflegbar.',
+    domainLabel: '9minds.web-hype.de',
+    liveUrl: 'https://9minds.web-hype.de/',
+    image: ref9minds,
+    ausgangslage:
+      'Paul Adloff berät in Berlin: Einzelcoaching, Team-Workshops und Marketing-Begleitung, dreifach IHK-zertifiziert. Seine alte Seite lief auf einem WordPress-Baukasten, ein Standard-Template wie bei hundert anderen Coaches. Was er nicht wollte, war „unpersönliche Beratung aus einem Baukasten".',
+    zielgruppe: 'Unternehmer:innen, Selbstständige und Führungskräfte, die sich persönlich weiterentwickeln und Klarheit suchen.',
+    leistungen: [
+      'Eigenes Designkonzept aus der Marke: die Tiefsee als Bild für Klarheit, der Oktopus als Zeichen',
+      'Eine eigene Schrift-Kombination, selbst gehostet statt vom Google-Netz',
+      'Startseite, Leistungen, Über, Galerie, Blog, FAQ und Kontakt',
+      'Blog, den Paul selbst schreibt und veröffentlicht, mit Live-Vorschau',
+      'Alle Texte und Bilder selbst änderbar über den Kundenbereich',
+    ],
+    laufzeit: 'erste Version am Tag nach dem Briefing',
+    ergebnisse: [
+      { wert: '100/100', label: 'Google-Tempo-Test am Desktop' },
+      { wert: 'Blog inklusive', label: 'selbst pflegbar im Kundenbereich' },
+      { wert: 'kein Baukasten', label: 'eigenes Tiefsee-Designkonzept' },
+    ],
+    zitat:
+      'Ehrlich gesagt hatte ich Bammel, dass wieder so eine Baukasten-Seite rauskommt wie bei jedem zweiten Coach. Ich wollte was Eigenes, aber keine Agentur bezahlen, die Monate braucht. Nach einem halbstündigen Gespräch stand eine Seite, die wirklich nach mir klingt, und Texte und Blog ändere ich seitdem selbst. Damit hatte ich so nicht gerechnet.',
+  },
+  'kinderfruehstart-rente': {
+    kunde: 'Felix Kropp',
+    firma: 'Kinderfrühstart-Rente',
+    branche: 'Finanzberatung',
+    paket: 'Business',
+    headline: 'Ein ehrliches Werkzeug für ein Thema, das kaum jemand kennt.',
+    subline: 'Für Finanzberater Felix Kropp: ein Rechner, der die neue Kinderfrühstart-Rente greifbar macht, zweisprachig, mit Erklärvideo und Ratgeber.',
+    domainLabel: 'kropp.web-hype.de',
+    liveUrl: 'https://kropp.web-hype.de/',
+    image: refKropp,
+    ausgangslage:
+      'Felix Kropp berät in Berlin rund um Geld und Vorsorge. Mit der Kinderfrühstart-Rente kommt ab 2027 ein staatlich gefördertes Modell für Kinder, das die wenigsten Eltern kennen. Diese Lücke sollte die Seite füllen, mit einem Werkzeug, das ehrlich rechnet statt zu verkaufen.',
+    zielgruppe: 'Eltern und Familien, die früh fürs Kind vorsorgen wollen und eine ehrliche, verständliche Orientierung suchen.',
+    leistungen: [
+      'Rentenrechner als Herzstück: zeigt sofort, was aus kleinen Beträgen werden kann',
+      'Kurzes Erklärvideo auf Deutsch und Englisch',
+      'Ratgeber-Bereich mit fundierten Artikeln, die Felix selbst pflegt',
+      'Komplett zweisprachig (Deutsch und Englisch)',
+      'Eigenes Logo und ein warmes, editoriales Design, selbst gehostet ohne fremde Tracker',
+    ],
+    laufzeit: 'erste Version wenige Tage nach dem Briefing',
+    ergebnisse: [
+      { wert: '2 Sprachen', label: 'komplett Deutsch & Englisch' },
+      { wert: 'Rechner + Video', label: 'die Frühstart-Rente in Minuten erklärt' },
+      { wert: 'selbst pflegbar', label: 'Ratgeber-Artikel im Kundenbereich' },
+    ],
+    zitat:
+      'Von der Frühstart-Rente haben die meisten Eltern noch nie gehört, und noch ein Verkaufsprospekt wollte ich auf keinen Fall. Ich wollte etwas, das ehrlich rechnet und den Leuten wirklich weiterhilft. Genau das kam raus: Der Rechner erklärt das Thema in zwei Minuten, die Ratgeber-Texte schreibe ich selbst dazu. Jetzt kommen die Leute zu mir, statt dass ich hinterherlaufe.',
+  },
+  'hauenstein-gruppe': {
+    kunde: 'Maximilian Hauenstein',
+    firma: 'Hauenstein Gruppe',
+    branche: 'Immobilien / Projektentwicklung',
+    paket: 'Business',
+    headline: 'Drei Firmen, ein klarer Auftritt, ein Zugang für beide Websites.',
+    subline: 'Für die Hauenstein Gruppe aus Berlin: ein Onepager, der Projektentwicklung, Dachausbau und Vermittlung auf einen Blick zusammenführt.',
+    domainLabel: 'hauenstein-gruppe.web-hype.de',
+    liveUrl: 'https://hauenstein-gruppe.web-hype.de/',
+    image: refHauenstein,
+    ausgangslage:
+      'Die Hauenstein Gruppe vereint drei Firmen unter einem Dach: Projektentwicklung, Dachgeschossausbau und Immobilienvermittlung. Nach außen war dieser Zusammenhang bisher schwer zu greifen, drei Marken ohne gemeinsamen Ort.',
+    zielgruppe: 'Investor:innen und institutionelle Partner, die die Gruppe und ihre drei Firmen auf einen Blick verstehen wollen.',
+    leistungen: [
+      'Onepager, der die drei Firmen der Gruppe klar zusammenführt',
+      'Ruhiges „Private-Office"-Design mit klassischer Serifenschrift',
+      'Eine Logo-Familie: drei Zeichen nach einem gemeinsamen System',
+      'Referenzstrecke der bisherigen Objekte',
+      'Zwei Websites (Gruppe und Studio H.) über einen einzigen Zugang pflegbar',
+    ],
+    laufzeit: 'rund 1,5 Tage vom Briefing bis online',
+    ergebnisse: [
+      { wert: '3 Marken', label: 'klar auf einer Seite' },
+      { wert: '2 Sites, 1 Zugang', label: 'beide Websites zentral pflegbar' },
+      { wert: 'rund 1,5 Tage', label: 'vom Briefing bis online' },
+    ],
+    zitat:
+      'Wir sind drei Firmen, und von außen war kaum zu erkennen, wie das zusammenhängt. Ich wollte eine Seite, die das seriös auf den Punkt bringt und trotzdem nicht nach Baukasten aussieht. Genau das kam raus. Und das Beste: Unsere zwei Websites pflege ich bequem über einen einzigen Zugang.',
+  },
+} as const;
+
+export function getStaticPaths() {
+  return Object.keys({
+    'studio-h': 1,
+    'alexander-medau': 1,
+    '9minds': 1,
+    'kinderfruehstart-rente': 1,
+    'hauenstein-gruppe': 1,
+  }).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const c = (cases as Record<string, (typeof cases)[keyof typeof cases]>)[slug as string];
+
+const title = `${c.firma} · Case Study · webhype`;
+const description = c.subline;
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'Referenzen', url: '/referenzen' },
+  { name: c.firma, url: `/referenzen/${slug}` },
+]);
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  {/* HERO */}
+  <Section variant="warm-white" size="xl">
+    <div class="mx-auto max-w-3xl" data-reveal>
+      <p class="eyebrow">Case Study · {c.branche}</p>
+      <h1 class="display-xl mt-3 text-ink-900">{c.headline}</h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-500">{c.subline}</p>
+      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-500">
+        <span><strong class="text-ink-900">Kunde:</strong> {c.kunde} · {c.firma}</span>
+        <span><strong class="text-ink-900">Paket:</strong> {c.paket}</span>
+        <span><strong class="text-ink-900">Laufzeit:</strong> {c.laufzeit}</span>
+      </div>
+      <div class="mt-7">
+        <Button href={c.liveUrl} variant="primary" size="lg" arrow>Live ansehen</Button>
+        <span class="ml-3 text-xs text-ink-400">{c.domainLabel}</span>
+      </div>
+    </div>
+  </Section>
+
+  {/* SCREENSHOT (Ergebnis) */}
+  <Section variant="white" size="lg">
+    <figure class="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-ink-100 shadow-lg" data-reveal>
+      <div class="flex items-center gap-2 border-b border-ink-100 bg-ink-50 px-4 py-2.5">
+        <span class="flex gap-1.5" aria-hidden="true">
+          <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-ink-200"></span>
+        </span>
+        <span class="ml-2 flex-1 truncate rounded-md border border-ink-100 bg-white px-3 py-1 text-[11px] text-ink-400">{c.domainLabel}</span>
+      </div>
+      <Image src={c.image} alt={`Von webhype gebaute Website für ${c.firma}`} width={1280} height={800} format="webp" quality={78} class="w-full" />
+      <figcaption class="bg-ink-50 px-4 py-2 text-center text-xs text-ink-400">Ergebnis: die fertige Website.</figcaption>
+    </figure>
+  </Section>
+
+  {/* AUSGANGSLAGE / ZIELGRUPPE / PAKET */}
+  <Section variant="warm-white" size="lg">
+    <div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-3" data-reveal-group>
+      <div class="rounded-2xl border border-ink-100 bg-white p-7">
+        <h2 class="text-lg font-bold text-ink-900 headline">Ausgangslage</h2>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{c.ausgangslage}</p>
+      </div>
+      <div class="rounded-2xl border border-ink-100 bg-white p-7">
+        <h2 class="text-lg font-bold text-ink-900 headline">Zielgruppe</h2>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{c.zielgruppe}</p>
+      </div>
+      <div class="rounded-2xl border border-ink-100 bg-white p-7">
+        <h2 class="text-lg font-bold text-ink-900 headline">Paket</h2>
+        <p class="mt-3 text-[15px] leading-relaxed text-ink-500">{c.paket}, fester Preis, Lieferung in 7 Tagen. Details siehe <a href="/pakete" class="text-blue-500 underline">Pakete</a>.</p>
+      </div>
+    </div>
+  </Section>
+
+  {/* LEISTUNGEN */}
+  <Section variant="white" size="lg">
+    <div class="mx-auto max-w-4xl" data-reveal>
+      <p class="eyebrow">Was wir gemacht haben</p>
+      <h2 class="display-lg mt-3 text-ink-900">Die erbrachten Leistungen.</h2>
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+        {c.leistungen.map((l) => (
+          <li class="flex gap-2.5 rounded-xl border border-ink-100 bg-warm-white p-4 text-[15px] text-ink-900">
+            <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success/10 text-success" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </span>
+            <span>{l}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  {/* ERGEBNISSE */}
+  <Section variant="warm-white" size="lg">
+    <div class="mx-auto max-w-4xl" data-reveal>
+      <p class="eyebrow">Ergebnisse</p>
+      <h2 class="display-lg mt-3 text-ink-900">Was dabei herauskam.</h2>
+      <div class="mt-8 grid gap-5 sm:grid-cols-3">
+        {c.ergebnisse.map((e) => (
+          <div class="rounded-2xl border border-ink-100 bg-white p-7 text-center">
+            <div class="text-3xl font-bold text-blue-500 headline">{e.wert}</div>
+            <p class="mt-2 text-sm leading-relaxed text-ink-500">{e.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  {/* ZITAT */}
+  <Section variant="ink" size="lg">
+    <figure class="mx-auto max-w-3xl text-center" data-reveal>
+      <blockquote class="text-2xl font-medium leading-relaxed text-white sm:text-3xl">„{c.zitat}"</blockquote>
+      <figcaption class="mt-6 text-blue-100">— {c.kunde}, {c.firma}</figcaption>
+    </figure>
+  </Section>
+
+  {/* CTA */}
+  <Section variant="white" size="lg">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <h2 class="display-lg text-ink-900">Soll deine Seite die nächste sein?</h2>
+      <p class="mt-4 text-lg text-ink-500">Ein kurzes Gespräch von max. 30 Minuten, in 7 Tagen bist du online.</p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <Button href="/kontakt" variant="primary" size="lg" arrow>Gespräch anfragen</Button>
+        <Button href="/referenzen" variant="secondary" size="lg">Weitere Referenzen</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

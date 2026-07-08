@@ -14,12 +14,11 @@ export default defineConfig({
   adapter: node({ mode: 'standalone' }),
   integrations: [
     sitemap({
-      // noindex-Seiten aus der Sitemap ausschließen (datenschutz, referenzen*, 404, api, og).
+      // noindex-Seiten aus der Sitemap ausschließen (datenschutz, 404, api, og).
       filter: (page) =>
         !page.includes('/api/') &&
         !page.includes('/og/') &&
         !page.includes('/datenschutz') &&
-        !page.includes('/referenzen') &&
         !page.includes('/404'),
       changefreq: 'monthly',
       priority: 0.7,

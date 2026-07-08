@@ -1,0 +1,53 @@
+---
+export const prerender = true;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import { Image } from 'astro:assets';
+import { breadcrumbSchema } from '../../lib/schema';
+import ref9minds from '../../assets/referenzen/9minds.png';
+import refMedau from '../../assets/referenzen/medau.png';
+import refKropp from '../../assets/referenzen/kropp.png';
+import refStudioH from '../../assets/referenzen/studio-h-next.png';
+import refHauenstein from '../../assets/referenzen/hauenstein.png';
+
+const refs = [
+  { slug: 'studio-h', firma: 'Studio H.', branche: 'Projektentwicklung', paket: 'Business', image: refStudioH, teaser: 'Ein reduzierter Premium-Auftritt aus einem 30-Minuten-Call.' },
+  { slug: 'alexander-medau', firma: 'Alexander Medau', branche: 'Immobilienfinanzierung', paket: 'Business', image: refMedau, teaser: 'Ein eigenes Zins-Radar als wöchentlicher Draht zum Kunden.' },
+  { slug: '9minds', firma: '9Minds', branche: 'Business-Coaching', paket: 'Business', image: ref9minds, teaser: 'Ein Coaching-Auftritt, der nach dem Menschen klingt.' },
+  { slug: 'kinderfruehstart-rente', firma: 'Kinderfrühstart-Rente', branche: 'Finanzberatung', paket: 'Business', image: refKropp, teaser: 'Ein ehrlicher Rechner für die neue Kinderfrühstart-Rente.' },
+  { slug: 'hauenstein-gruppe', firma: 'Hauenstein Gruppe', branche: 'Immobilien', paket: 'Business', image: refHauenstein, teaser: 'Drei Firmen, ein klarer Auftritt, ein Zugang.' },
+];
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Startseite', url: '/' },
+  { name: 'Referenzen', url: '/referenzen' },
+]);
+---
+
+<BaseLayout title="Referenzen & Case Studies · webhype" description="Echte Projekte, in wenigen Tagen gebaut. Ausgangslage, Leistungen und Ergebnisse im Detail." jsonLd={jsonLd}>
+  <Section variant="warm-white" size="xl">
+    <div class="mx-auto max-w-3xl text-center" data-reveal>
+      <p class="eyebrow justify-center">Referenzen</p>
+      <h1 class="display-xl mt-3 text-ink-900">Echte Seiten, echte Kunden.</h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-500">Wie aus einem 30-Minuten-Gespräch eine fertige Website wird, mit Ausgangslage, Leistungen und Ergebnissen.</p>
+    </div>
+  </Section>
+
+  <Section variant="white" size="lg">
+    <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2" data-reveal-group>
+      {refs.map((r) => (
+        <a href={`/referenzen/${r.slug}`} class="group block overflow-hidden rounded-3xl border border-ink-100 bg-white transition hover:shadow-lg">
+          <div class="aspect-[16/10] overflow-hidden bg-ink-50">
+            <Image src={r.image} alt={`Website für ${r.firma}`} width={1280} height={800} format="webp" quality={72} class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+          </div>
+          <div class="p-7">
+            <p class="text-xs font-semibold text-blue-500">{r.branche} · Paket {r.paket}</p>
+            <h2 class="mt-2 text-xl font-bold text-ink-900 headline">{r.firma}</h2>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">{r.teaser}</p>
+            <span class="mt-4 inline-block text-sm font-medium text-blue-500 group-hover:text-blue-600">Case Study ansehen →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Section>
+</BaseLayout>
