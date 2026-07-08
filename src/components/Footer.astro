@@ -70,11 +70,24 @@ const linkGroups = [
     <hr class="my-10 border-t border-white/10" />
 
     <div class="flex flex-col items-start justify-between gap-3 text-xs text-white/70 sm:flex-row sm:items-center">
-      <p>© {year} webhype</p>
+      <p class="flex items-center gap-3">
+        <span>© {year} webhype</span>
+        <button
+          type="button"
+          id="wh-cookie-reopen"
+          class="underline underline-offset-2 transition hover:text-white"
+        >Cookie-Einstellungen</button>
+      </p>
       <p class="flex items-center gap-2">
         <span class="inline-flex h-2 w-2 rounded-full bg-success"></span>
         Aus Berlin · Datenschutz-konform · Deutsche Server
       </p>
     </div>
   </div>
+
+  <script is:inline>
+    document.getElementById('wh-cookie-reopen')?.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('wh:open-cookie-settings'));
+    });
+  </script>
 </footer>

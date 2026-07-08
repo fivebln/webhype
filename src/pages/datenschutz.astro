@@ -5,18 +5,18 @@ import Section from '../components/Section.astro';
 import { breadcrumbSchema } from '../lib/schema';
 
 const title = 'Datenschutzerklärung · webhype';
-const description = 'Wir erheben nur die Daten, die wir für deine Anfrage brauchen. Keine Tracking-Cookies, kein Re-Marketing. Volle Transparenz.';
+const description = 'Wie wir mit deinen Daten umgehen: welche Cookies wir mit deiner Einwilligung setzen (GA4, Google Tag Manager, Meta-Pixel), deine Rechte und wie du deine Einwilligung jederzeit widerrufst.';
 const jsonLd = breadcrumbSchema([
   { name: 'Startseite', url: '/' },
   { name: 'Datenschutz', url: '/datenschutz' },
 ]);
 ---
 
-<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} jsonLd={jsonLd} robots="noindex, follow">
   <Section variant="warm-white" size="lg">
     <p class="section-cap">DSGVO-Information</p>
     <h1 class="mt-3 text-4xl sm:text-5xl font-bold text-ink-900 headline">Datenschutzerklärung</h1>
-    <p class="mt-4 text-sm text-ink-500">Stand: 24. Mai 2026</p>
+    <p class="mt-4 text-sm text-ink-500">Stand: 8. Juli 2026</p>
   </Section>
 
   <Section variant="white" size="lg">
@@ -36,13 +36,14 @@ const jsonLd = breadcrumbSchema([
       <section>
         <h2 class="text-xl font-bold text-ink-900 headline">2. Allgemeines zur Datenverarbeitung</h2>
         <p class="mt-3">
-          Wir verarbeiten personenbezogene Daten unserer Nutzer:innen grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist.
+          Wir verarbeiten personenbezogene Daten unserer Nutzer:innen grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist oder Sie eingewilligt haben.
         </p>
         <p class="mt-3"><strong>Rechtsgrundlagen:</strong></p>
         <ul class="mt-2 ml-5 list-disc space-y-1">
-          <li>Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) — Kontaktformular, optionale Tools</li>
+          <li>Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) — Kontaktformular, optionale Statistik-/Marketing-Dienste</li>
+          <li>§ 25 Abs. 1 TDDDG (Einwilligung) — Speichern/Auslesen von Informationen auf deinem Endgerät durch optionale Cookies</li>
           <li>Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) — Anfragen für Vertragsschluss</li>
-          <li>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) — Server-Logs, IT-Sicherheit</li>
+          <li>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) — Server-Logs, IT-Sicherheit; § 25 Abs. 2 TDDDG für technisch notwendige Speicherung</li>
         </ul>
       </section>
 
@@ -73,27 +74,68 @@ const jsonLd = breadcrumbSchema([
         <ul class="mt-2 ml-5 list-disc space-y-1">
           <li>Hetzner Online GmbH (Deutschland) — Hosting des Servers und Betrieb des E-Mail-Postfachs, über das die Anfrage entgegengenommen und beantwortet wird.</li>
         </ul>
-        <p class="mt-3">Es werden keine Drittanbieter außerhalb der EU (z. B. in den USA) eingesetzt.</p>
+        <p class="mt-3">Für die reine Anfragebearbeitung werden keine Drittanbieter außerhalb der EU eingesetzt.</p>
         <p class="mt-3"><strong>Speicherdauer:</strong> 6 Monate nach Abschluss der Kommunikation. Bei Vertragsschluss: gesetzliche Aufbewahrungsfristen (i. d. R. 10 Jahre).</p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-ink-900 headline">5. Cookies</h2>
+        <h2 class="text-xl font-bold text-ink-900 headline">5. Cookies & Einwilligung</h2>
         <p class="mt-3">
-          Diese Website nutzt <strong>keine</strong> Tracking-Cookies, <strong>keine</strong> Marketing-Cookies und <strong>keine</strong> Third-Party-Analyse-Cookies. Es wird ausschließlich ein technisch notwendiges Cookie gesetzt (kein Consent nötig):
+          Wir setzen technisch notwendige Cookies immer, optionale Cookies (Statistik &amp; Marketing) <strong>nur mit deiner Einwilligung</strong>. Beim ersten Besuch fragen wir dich über einen Cookie-Hinweis. Solange du nicht einwilligst, werden <strong>keine</strong> Statistik- oder Marketing-Dienste geladen und keine dafür nötigen Cookies gesetzt. Die Ablehnung ist gleichwertig zur Zustimmung (kein Nachteil, kein Dark Pattern).
         </p>
-        <ul class="mt-2 ml-5 list-disc space-y-1">
-          <li><span class="font-mono text-xs">cookie-consent</span> — speichert deine Auswahl aus dem Cookie-Hinweis (12 Monate)</li>
-        </ul>
+        <p class="mt-4"><strong>Technisch notwendig (keine Einwilligung nötig, § 25 Abs. 2 TDDDG):</strong></p>
+        <div class="mt-2 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead><tr class="border-b border-ink-100 text-ink-900"><th class="py-2 pr-4 font-semibold">Cookie</th><th class="py-2 pr-4 font-semibold">Zweck</th><th class="py-2 font-semibold">Speicherdauer</th></tr></thead>
+            <tbody class="align-top">
+              <tr class="border-b border-ink-100/60"><td class="py-2 pr-4 font-mono text-xs">cookie-consent</td><td class="py-2 pr-4">Speichert deine Cookie-Auswahl</td><td class="py-2">12 Monate</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-5"><strong>Optional — Statistik &amp; Marketing (nur nach Einwilligung, Art. 6 Abs. 1 lit. a DSGVO / § 25 Abs. 1 TDDDG):</strong></p>
+        <div class="mt-2 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead><tr class="border-b border-ink-100 text-ink-900"><th class="py-2 pr-4 font-semibold">Cookie</th><th class="py-2 pr-4 font-semibold">Anbieter / Zweck</th><th class="py-2 font-semibold">Speicherdauer</th></tr></thead>
+            <tbody class="align-top">
+              <tr class="border-b border-ink-100/60"><td class="py-2 pr-4 font-mono text-xs">_ga, _ga_*</td><td class="py-2 pr-4">Google Analytics 4 — Reichweitenmessung</td><td class="py-2">bis 24 Monate</td></tr>
+              <tr class="border-b border-ink-100/60"><td class="py-2 pr-4 font-mono text-xs">_fbp</td><td class="py-2 pr-4">Meta-Pixel — Werbe-/Reichweitenmessung</td><td class="py-2">bis 3 Monate</td></tr>
+              <tr><td class="py-2 pr-4 font-mono text-xs">_gcl_*</td><td class="py-2 pr-4">Google — Conversion-Zuordnung (falls Google Ads aktiv)</td><td class="py-2">bis 3 Monate</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-5">
+          <strong>Einwilligung widerrufen / ändern:</strong> Du kannst deine Auswahl jederzeit mit Wirkung für die Zukunft über den Link <em>„Cookie-Einstellungen"</em> im Seitenfuß anpassen oder widerrufen. Beim Widerruf werden die zugehörigen Statistik-/Marketing-Cookies entfernt.
+        </p>
       </section>
 
       <section>
-        <h2 class="text-xl font-bold text-ink-900 headline">6. Analyse, Tracking & Session-Recording</h2>
+        <h2 class="text-xl font-bold text-ink-900 headline">6. Statistik, Marketing & Reichweitenmessung</h2>
         <p class="mt-3">
-          Diese Website nutzt aktuell <strong>keine</strong> Analyse-, Tracking-, Marketing- oder Session-Recording-Dienste (z. B. Google Analytics, Vercel Analytics, Microsoft Clarity, Meta-Pixel). Es werden keine Nutzungsprofile erstellt.
+          Die folgenden Dienste laden wir <strong>ausschließlich nach deiner ausdrücklichen Einwilligung</strong> (Cookie-Hinweis). Vor der Einwilligung werden sie nicht geladen und übertragen keine Daten. Technisch steuern wir das über den Google-Consent-Mode v2: Dienste erhalten erst nach Einwilligung die Freigabe.
         </p>
-        <p class="mt-3">
-          Sollten wir künftig einen optionalen Analyse-Dienst einsetzen, geschieht dies ausschließlich auf Basis deiner Einwilligung über den Cookie-Hinweis (Art. 6 Abs. 1 lit. a DSGVO).
+
+        <h3 class="mt-5 font-semibold text-ink-900">6.1 Google Tag Manager</h3>
+        <p class="mt-2">
+          Zur Verwaltung der nachfolgenden Dienste nutzen wir den Google Tag Manager (Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Der Tag Manager ist selbst ein Verwaltungswerkzeug und setzt keine eigenen Analyse-Cookies; er wird erst <strong>nach deiner Einwilligung</strong> geladen und lädt dann die von dir freigegebenen Dienste. Dabei kann deine IP-Adresse an Server von Google übermittelt werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG.
+        </p>
+
+        <h3 class="mt-5 font-semibold text-ink-900">6.2 Google Analytics 4</h3>
+        <p class="mt-2">
+          Zur anonymisierten Analyse der Websitenutzung setzen wir Google Analytics 4 ein (Anbieter: Google Ireland Limited, Dublin, Irland; ggf. Google LLC, USA). Wir werten pseudonymisiert aus, wie die Website genutzt wird (z. B. besuchte Seiten, Verweildauer, ungefähre Region). Google Analytics 4 protokolliert und speichert IP-Adressen nach Angaben von Google nicht. Es werden keine Daten mit anderen Google-Diensten zu einem personenbezogenen Profil zusammengeführt, sofern du dies nicht in deinem Google-Konto erlaubt hast. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG.
+        </p>
+
+        <h3 class="mt-5 font-semibold text-ink-900">6.3 Meta-Pixel (Facebook/Instagram)</h3>
+        <p class="mt-2">
+          Wir nutzen den Meta-Pixel (Anbieter: Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland; ggf. Meta Platforms, Inc., USA), um die Wirksamkeit von Werbeanzeigen zu messen und — mit deiner Einwilligung — Websitebesucher:innen erneut anzusprechen (Retargeting). Für die Erhebung und Übermittlung der Daten sind wir und Meta gemeinsam Verantwortliche i. S. v. Art. 26 DSGVO; die weitere Verarbeitung erfolgt durch Meta in eigener Verantwortung. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG.
+        </p>
+
+        <h3 class="mt-5 font-semibold text-ink-900">6.4 Datenübermittlung in die USA</h3>
+        <p class="mt-2">
+          Bei Google und Meta können Daten in die USA übermittelt werden. Google LLC und Meta Platforms, Inc. sind unter dem EU-US Data Privacy Framework (DPF) zertifiziert; ergänzend bestehen Standardvertragsklauseln (SCC) der EU-Kommission. Ein Restrisiko des Zugriffs durch US-Behörden lässt sich nicht vollständig ausschließen. Deine Einwilligung umfasst gem. Art. 49 Abs. 1 lit. a DSGVO auch diese Übermittlung.
+        </p>
+
+        <p class="mt-5">
+          <strong>Widerruf:</strong> Du kannst deine Einwilligung jederzeit über <em>„Cookie-Einstellungen"</em> im Seitenfuß mit Wirkung für die Zukunft widerrufen. Weitere Informationen: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">Google-Datenschutz</a> · <a href="https://www.facebook.com/privacy/policy" rel="noopener noreferrer" target="_blank" class="text-blue-500 underline">Meta-Datenschutz</a>.
         </p>
       </section>
 
@@ -142,7 +184,7 @@ const jsonLd = breadcrumbSchema([
 
       <section>
         <h2 class="text-xl font-bold text-ink-900 headline">10. Aktualität</h2>
-        <p class="mt-3">Stand 24.05.2026. Die jeweils aktuelle Datenschutzerklärung ist auf dieser Seite einsehbar.</p>
+        <p class="mt-3">Stand 08.07.2026. Die jeweils aktuelle Datenschutzerklärung ist auf dieser Seite einsehbar.</p>
       </section>
     </article>
   </Section>

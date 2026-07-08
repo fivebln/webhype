@@ -36,10 +36,34 @@ export const organizationSchema = {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       email: 'hallo@web-hype.de',
+      telephone: '+49 173 2427352',
       areaServed: ['DE', 'AT', 'CH'],
       availableLanguage: ['German'],
     },
   ],
+} as const;
+
+/** LocalBusiness-Signal (Berliner Standort) — stärkt Local-SEO für „Webdesign Berlin" u. Ä. */
+export const professionalServiceSchema = {
+  '@type': 'ProfessionalService',
+  '@id': `${SITE_URL}/#localbusiness`,
+  name: 'webhype',
+  description:
+    'Webdesign-Service aus Berlin: individuelle Websites für kleine und mittelständische Unternehmen in 7 Tagen zum Festpreis.',
+  url: SITE_URL,
+  image: `${SITE_URL}/og-default.png`,
+  telephone: '+49 173 2427352',
+  email: 'hallo@web-hype.de',
+  priceRange: '€€',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Westfälische Straße 46',
+    postalCode: '10711',
+    addressLocality: 'Berlin',
+    addressCountry: 'DE',
+  },
+  areaServed: ['DE', 'AT', 'CH'],
+  parentOrganization: { '@id': `${SITE_URL}/#organization` },
 } as const;
 
 export const personSchema = {
@@ -61,7 +85,7 @@ export const websiteSchema = {
 
 export const siteGraph = {
   '@context': 'https://schema.org',
-  '@graph': [organizationSchema, websiteSchema, personSchema],
+  '@graph': [organizationSchema, professionalServiceSchema, websiteSchema, personSchema],
 };
 
 export function breadcrumbSchema(items: { name: string; url: string }[]) {

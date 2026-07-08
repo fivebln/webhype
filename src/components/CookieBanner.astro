@@ -23,7 +23,7 @@
 >
   <div style="max-width:680px;width:100%;background:#fff;border:1px solid #E0E3EC;border-radius:14px;box-shadow:0 12px 40px rgba(8,14,30,.14);padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
     <p style="flex:1 1 300px;margin:0;font-size:14px;line-height:1.55;color:#4A5168;">
-      Wir nutzen nur technisch notwendige Cookies. Optionale Cookies (z.&nbsp;B. anonyme Statistik) setzen wir erst mit deiner Einwilligung.
+      Wir nutzen technisch notwendige Cookies. Optionale Cookies für <strong>Statistik &amp; Marketing</strong> (Google&nbsp;Analytics, Meta) setzen wir nur mit deiner Einwilligung.
       <a href="/datenschutz" style="color:#0051FD;text-decoration:underline;white-space:nowrap;">Mehr im Datenschutz</a>
     </p>
     <div style="display:flex;gap:10px;flex:0 0 auto;">
@@ -51,11 +51,34 @@
       window.whConsent = v;
       document.dispatchEvent(new CustomEvent('wh:consent', { detail: v }));
     };
+    // Beim Widerruf gesetzte Statistik-/Marketing-Cookies entfernen (GA4/Meta/Ads).
+    const clearTracking = () => {
+      const parts = location.hostname.split('.');
+      const root = parts.length > 1 ? '.' + parts.slice(-2).join('.') : location.hostname;
+      const domains = [location.hostname, '.' + location.hostname, root];
+      document.cookie.split('; ').forEach((c) => {
+        const name = c.split('=')[0];
+        if (/^(_ga|_gid|_gat|_fbp|_fbc|_gcl)/.test(name)) {
+          document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+          domains.forEach((d) => {
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=' + d;
+          });
+        }
+      });
+    };
+    const choose = (v) => {
+      const prev = read(KEY);
+      write(v);
+      apply(v);
+      el.hidden = true;
+      // Downgrade (all → essential): geladene Tags per Reload entfernen + Cookies löschen.
+      if (v === 'essential' && prev === 'all') { clearTracking(); location.reload(); }
+    };
     const existing = read(KEY);
-    if (existing) { apply(existing); return; }
-    el.hidden = false;
-    const choose = (v) => { write(v); apply(v); el.hidden = true; };
+    if (existing) apply(existing); else el.hidden = false;
     document.getElementById('wh-cookie-all').addEventListener('click', () => choose('all'));
     document.getElementById('wh-cookie-essential').addEventListener('click', () => choose('essential'));
+    // Widerruf / erneut öffnen über den Footer-Link „Cookie-Einstellungen".
+    document.addEventListener('wh:open-cookie-settings', () => { el.hidden = false; });
   })();
 </script>

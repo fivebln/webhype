@@ -1,0 +1,77 @@
+---
+/**
+ * Analytics · webhype — consent-gated (DSGVO/TDDDG, §9.9)
+ *
+ * Lädt Google Tag Manager (GTM) ERST nach Opt-in über den Cookie-Banner.
+ * GA4 + Meta-Pixel werden INNERHALB von GTM konfiguriert (Gil, Self-Service) —
+ * die Site injiziert nur den GTM-Container. Vor der Einwilligung wird nichts
+ * geladen und nichts übertragen (Consent Mode v2, Default „denied").
+ *
+ * IDs kommen aus Coolify-Env (PUBLIC_*, is_literal:false), zur Render-Zeit via
+ * process.env gelesen (nicht import.meta.env/Build-Only — vgl. Env-Memory).
+ * Fehlt PUBLIC_GTM_ID → No-op (Site verhält sich exakt wie ohne Analytics).
+ *
+ * GSC: bevorzugt DNS-TXT (Hetzner). Optional Meta-Tag via PUBLIC_GSC_VERIFICATION.
+ */
+const gtmId = (process.env.PUBLIC_GTM_ID ?? '').trim();
+const gscToken = (process.env.PUBLIC_GSC_VERIFICATION ?? '').trim();
+const validGtm = /^GTM-[A-Z0-9]+$/.test(gtmId);
+---
+{gscToken && <meta name="google-site-verification" content={gscToken} />}
+{validGtm && <meta name="wh:gtm-id" content={gtmId} />}
+{validGtm && (
+  <script is:inline>
+    (() => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = window.gtag || gtag;
+
+      // Consent Mode v2 — Default: verweigert, bis der Nutzer einwilligt.
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500,
+      });
+
+      const metaEl = document.querySelector('meta[name="wh:gtm-id"]');
+      const GTM_ID = metaEl && metaEl.getAttribute('content');
+
+      function loadGTM() {
+        if (!GTM_ID || window.__whGtmLoaded) return;
+        window.__whGtmLoaded = true;
+        window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+        const j = document.createElement('script');
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(GTM_ID);
+        document.head.appendChild(j);
+      }
+
+      function grant() {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted',
+        });
+        loadGTM();
+      }
+
+      function readConsent() {
+        const m = document.cookie.split('; ').find((c) => c.indexOf('cookie-consent=') === 0);
+        return m ? m.split('=')[1] : null;
+      }
+
+      // Bereits eingewilligt (Folge-Besuch) → sofort laden.
+      if (readConsent() === 'all') grant();
+
+      // Frische Banner-Wahl.
+      document.addEventListener('wh:consent', (e) => {
+        if (e && e.detail === 'all') grant();
+      });
+    })();
+  </script>
+)}

@@ -14,10 +14,17 @@ export default defineConfig({
   adapter: node({ mode: 'standalone' }),
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/api/') && !page.includes('/og/'),
+      // noindex-Seiten aus der Sitemap ausschließen (datenschutz, referenzen*, 404, api, og).
+      filter: (page) =>
+        !page.includes('/api/') &&
+        !page.includes('/og/') &&
+        !page.includes('/datenschutz') &&
+        !page.includes('/referenzen') &&
+        !page.includes('/404'),
       changefreq: 'monthly',
       priority: 0.7,
-      lastmod: new Date(),
+      // Kein globales lastmod=new Date() mehr — das stempelte bei JEDEM Build „heute" auf ALLE URLs
+      // (falsches Frische-Signal). Ohne Angabe emittiert @astrojs/sitemap kein irreführendes lastmod.
       serialize(item) {
         if (item.url.includes('/impressum') || item.url.includes('/datenschutz')) {
           item.priority = 0.2;
