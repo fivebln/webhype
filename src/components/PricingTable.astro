@@ -87,6 +87,15 @@ const { id = 'preise' } = Astro.props;
     }
 
     btns.forEach((b) => b.addEventListener('click', () => setMode(b.getAttribute('data-mode-btn'))));
+
+    // Detail-Aufklapper beider Karten koppeln: ein Klick öffnet/schließt beide (Vergleich ohne Doppelklick)
+    const syncDetails = cards.querySelectorAll('details[data-detail-sync]');
+    syncDetails.forEach((d) => {
+      d.addEventListener('toggle', () => {
+        syncDetails.forEach((o) => { if (o !== d && o.open !== d.open) o.open = d.open; });
+      });
+    });
+
     setMode('service');
   })();
 </script>
