@@ -120,4 +120,64 @@ const cardClasses = featured
       {data.cta}
     </Button>
   </div>
+
+  {/* ===== Preis-Transparenz: alle Details zum Aufklappen ===== */}
+  <details class="group mt-5 border-t border-ink-100 pt-4">
+    <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-left [&::-webkit-details-marker]:hidden">
+      <span class="text-sm font-semibold text-ink-700">Alle Details — was drin ist &amp; was extra kostet</span>
+      <span class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-ink-200 text-ink-500 transition group-open:rotate-45 group-open:border-blue-500 group-open:text-blue-500" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </span>
+    </summary>
+
+    <div class="mt-4 space-y-5 text-[14px] leading-relaxed text-ink-700">
+      {/* enthalten */}
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-ink-500">Im Preis enthalten</p>
+        <ul class="mt-2 space-y-1.5">
+          {[
+            'Individuell gestaltet — kein Baukasten, kein Vorlagen-Look',
+            `Bis zu ${variant === 'starter' ? '5' : '10'} Seiten`,
+            'Fürs Handy optimiert und schnell geladen',
+            'Bei Google auffindbar (Grundlagen eingerichtet)',
+            'Datenschutz & Impressum rechtssicher eingerichtet',
+            'Eine Korrekturrunde inklusive',
+            'In 7 Tagen online',
+          ].map((t) => (
+            <li class="flex gap-2"><span class="mt-px text-success" aria-hidden="true">✓</span><span>{t}</span></li>
+          ))}
+          <li class="price-service flex gap-2">
+            <span class="mt-px text-success" aria-hidden="true">✓</span>
+            <span>Jeden Monat ({data.monthly}): Hosting auf deutschen Servern, täglicher Check, Sicherheits-Updates, Backups — und dein Portal, um Texte &amp; Bilder selbst zu ändern.</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* extra kosten */}
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-ink-500">Was extra kostet — ehrlich vorab</p>
+        <ul class="mt-2 space-y-1.5">
+          <li class="flex gap-2"><span class="mt-px text-ink-400" aria-hidden="true">›</span><span>Änderungen nach der inklusiven Korrekturrunde: <strong class="text-ink-900">95 € netto/Std</strong> — immer vorher abgesprochen.</span></li>
+          <li class="flex gap-2"><span class="mt-px text-ink-400" aria-hidden="true">›</span><span>Zusätzliche Seiten oder neue Funktionen: eigener Festpreis, den du vorher kennst.</span></li>
+          <li class="flex gap-2"><span class="mt-px text-ink-400" aria-hidden="true">›</span><span>Deine Wunsch-Domain (z. B. .de): rund 15–20 € im Jahr zum Selbstkostenpreis — je nach Verfügbarkeit der Wunschadresse.</span></li>
+          <li class="price-handover flex gap-2"><span class="mt-px text-ink-400" aria-hidden="true">›</span><span>Nach der Übergabe kümmerst du dich selbst um Hosting, Technik und Updates.</span></li>
+        </ul>
+      </div>
+
+      {/* domain & daten */}
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-ink-500">Domain &amp; Daten gehören dir</p>
+        <p class="mt-2">Die Domain läuft auf deinen Namen, deine Inhalte gehören dir. Wenn du gehst, bekommst du alles als Export — kein Knebel, keine Geiselhaft.</p>
+      </div>
+
+      {/* laufzeit */}
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-ink-500">Laufzeit &amp; Kündigung</p>
+        <p class="price-service mt-2">Der Monatsbeitrag ({data.monthly}) läuft 12 Monate, danach monatlich zum Monatsende kündbar. Die Website bleibt in jedem Fall deine — gekündigt wird nur der laufende Service.</p>
+        <p class="price-handover mt-2">Kein Monatsbeitrag, keine Laufzeit: einmal zahlen, fertig.</p>
+      </div>
+
+      <p class="text-xs text-ink-400">Verbindlich im Detail: siehe <a href="/agb" class="underline hover:text-blue-600">AGB</a> (§7 Änderungen, §9 Laufzeit).</p>
+    </div>
+  </details>
 </article>
