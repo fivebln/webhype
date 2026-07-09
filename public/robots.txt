@@ -29,3 +29,4 @@ User-Agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://web-hype.de/sitemap-index.xml
+Sitemap: https://web-hype.de/blog/sitemap.xml

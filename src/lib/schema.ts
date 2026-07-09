@@ -168,3 +168,39 @@ export function howToSchema(opts: { name: string; description: string; steps: { 
     })),
   };
 }
+
+/**
+ * BlogPosting (Magazin-Artikel). Publisher = webhype (Organization).
+ * Autor: „webhype" → Organization-Ref (kein erfundener Mensch, MARKETING.md); ein realer
+ * Name wird als Person ausgewiesen. Bild/Datum sind optional, aber für Rich Results empfohlen.
+ */
+export function blogPostingSchema(opts: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  image?: string;
+  author?: string;
+  section?: string;
+}) {
+  const abs = (u: string) => (u.startsWith('http') ? u : `${SITE_URL}${u}`);
+  const isOrgAuthor = !opts.author || opts.author.trim().toLowerCase() === 'webhype';
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: opts.title,
+    description: opts.description,
+    url: abs(opts.url),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': abs(opts.url) },
+    ...(opts.image ? { image: [opts.image] } : {}),
+    ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
+    dateModified: opts.dateModified ?? opts.datePublished,
+    author: isOrgAuthor
+      ? { '@id': `${SITE_URL}/#organization` }
+      : { '@type': 'Person', name: opts.author },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    ...(opts.section ? { articleSection: opts.section } : {}),
+    inLanguage: 'de-DE',
+  };
+}

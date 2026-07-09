@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import { getBlogPost, getRelatedPosts } from '../../lib/marketingBlog';
+import { lexicalToHtml } from '../../lib/lexical';
+import { blogPostingSchema, breadcrumbSchema } from '../../lib/schema';
+
+export const prerender = false;
+
+const CMS_URL = (import.meta.env.CMS_URL ?? 'https://mein.web-hype.de').replace(/\/+$/, '');
+
+const { slug } = Astro.params;
+const post = slug ? await getBlogPost(slug) : null;
+
+// Kein Beitrag → sauberer 404-Status + on-brand Not-Found-Zustand (kein Rewrite auf die
+// prerenderte /404, das ist im SSR-Modus verboten).
+if (!post) Astro.response.status = 404;
+
+const fmt = (d?: string) =>
+  d ? new Date(d).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
+
+const related = post ? await getRelatedPosts(post, 2) : [];
+const bodyHtml = post ? lexicalToHtml(post.body, CMS_URL) : '';
+const metaLine = post
+  ? [fmt(post.veroeffentlichtAm), post.lesezeitMin ? `${post.lesezeitMin} Min. Lesezeit` : '']
+      .filter(Boolean)
+      .join(' · ')
+  : '';
+
+const pageTitle = post ? post.metaTitle || `${post.titel} · webhype` : 'Beitrag nicht gefunden · webhype';
+const pageDesc = post ? post.metaDescription || post.teaser : 'Diesen Magazin-Beitrag gibt es nicht (mehr).';
+const ogImage = post?.ogImage ?? undefined;
+
+const jsonLd = post
+  ? [
+      blogPostingSchema({
+        title: post.titel,
+        description: pageDesc,
+        url: `/blog/${post.slug}`,
+        datePublished: post.veroeffentlichtAm,
+        dateModified: post.updatedAt ?? post.veroeffentlichtAm,
+        image: post.ogImage ?? 'https://web-hype.de/og-default.png',
+        author: post.autor,
+        section: post.kategorie,
+      }),
+      breadcrumbSchema([
+        { name: 'Start', url: '/' },
+        { name: 'Magazin', url: '/blog' },
+        { name: post.titel, url: `/blog/${post.slug}` },
+      ]),
+    ]
+  : undefined;
+---
+
+{post ? (
+  <BaseLayout title={pageTitle} description={pageDesc} ogImage={ogImage} jsonLd={jsonLd}>
+    <Fragment slot="head">
+      <link rel="alternate" type="application/rss+xml" title="webhype-Magazin" href="/blog/rss.xml" />
+    </Fragment>
+
+    <Section variant="white" size="lg">
+      <div class="mx-auto max-w-[46rem]">
+        <nav aria-label="Brotkrumen" class="mb-8 text-body-sm text-ink-300">
+          <a href="/blog" class="text-blue-500 hover:underline">← Alle Beiträge</a>
+        </nav>
+
+        <article>
+          <header data-reveal>
+            <div class="mb-4 flex flex-wrap items-center gap-3 text-body-sm">
+              {post.kategorie && (
+                <span class="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-600">
+                  {post.kategorie}
+                </span>
+              )}
+              <span class="text-ink-300">{metaLine}</span>
+            </div>
+            <h1 class="font-headline text-h1 leading-tight text-ink-900">{post.titel}</h1>
+            {post.teaser && <p class="mt-5 text-body-lg text-ink-500">{post.teaser}</p>}
+            <p class="mt-6 text-body-sm font-medium text-ink-500">von {post.autor}</p>
+          </header>
+
+          {post.titelbild && (
+            <img
+              src={post.titelbild}
+              alt={post.titel}
+              class="mt-8 aspect-[16/9] w-full rounded-2xl border border-ink-100 object-cover"
+              loading="eager"
+              decoding="async"
+            />
+          )}
+
+          {bodyHtml ? (
+            <div class="article-prose mt-10" set:html={bodyHtml} />
+          ) : (
+            <p class="mt-10 text-body text-ink-500">
+              Dieser Beitrag wird gerade finalisiert. Wenn dich das Thema jetzt schon beschäftigt —
+              <a href="/kontakt" class="text-blue-500 underline">schreib uns kurz</a>, dann sprechen wir direkt darüber.
+            </p>
+          )}
+        </article>
+
+        {/* CTA + interne Verlinkung (Conversion & SEO) */}
+        <div class="mt-14 rounded-2xl border border-ink-100 bg-warm-white p-7 sm:p-8" data-reveal>
+          <h2 class="font-headline text-h3 text-ink-900">Passt das zu deinem Vorhaben?</h2>
+          <p class="mt-2.5 text-body text-ink-500">
+            webhype baut in 7 Tagen eine individuelle Website zum Festpreis — für Handwerk, Praxen, Kanzleien,
+            Gastro und Selbstständige. Schau dir die <a href="/pakete" class="font-medium text-blue-500 underline">Pakete &amp; Preise</a> an
+            oder sieh dir <a href="/referenzen" class="font-medium text-blue-500 underline">echte Kundenbeispiele</a> an.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <Button href="/kontakt" variant="primary" arrow>Gespräch anfragen</Button>
+            <Button href="/pakete" variant="secondary">Pakete &amp; Preise</Button>
+          </div>
+        </div>
+
+        {related.length > 0 && (
+          <section class="mt-16" aria-labelledby="mehr-lesen">
+            <h2 id="mehr-lesen" class="font-headline text-h3 text-ink-900">Mehr aus dem Magazin</h2>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2">
+              {related.map((p) => (
+                <a
+                  href={`/blog/${p.slug}`}
+                  class="group flex flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div class="aspect-[16/9] overflow-hidden bg-blue-50">
+                    {p.titelbild ? (
+                      <img src={p.titelbild} alt={p.titel} class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
+                    ) : (
+                      <div class="hero-gradient h-full w-full"></div>
+                    )}
+                  </div>
+                  <div class="flex flex-1 flex-col p-5">
+                    {p.kategorie && <span class="text-xs font-semibold text-blue-600">{p.kategorie}</span>}
+                    <h3 class="mt-1 font-headline text-h4 leading-snug text-ink-900 group-hover:text-blue-600">{p.titel}</h3>
+                    <p class="mt-1.5 line-clamp-2 text-body-sm text-ink-500">{p.teaser}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </Section>
+  </BaseLayout>
+) : (
+  <BaseLayout title={pageTitle} description={pageDesc} robots="noindex, follow">
+    <Section variant="white" size="lg">
+      <div class="mx-auto max-w-xl py-8 text-center">
+        <p class="section-cap mb-3">404</p>
+        <h1 class="font-headline text-h1 text-ink-900">Diesen Beitrag gibt es nicht (mehr).</h1>
+        <p class="mt-4 text-body-lg text-ink-500">
+          Vielleicht wurde er verschoben oder umbenannt. Im Magazin findest du alle aktuellen Beiträge.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <Button href="/blog" variant="primary" arrow>Zum Magazin</Button>
+          <Button href="/kontakt" variant="secondary">Gespräch anfragen</Button>
+        </div>
+      </div>
+    </Section>
+  </BaseLayout>
+)}
+
+<style>
+  /* Artikel-Fließtext (set:html) — webhype-CI, scoped via :global(), ohne global.css anzufassen. */
+  .article-prose {
+    font-family: var(--font-body);
+    color: var(--color-ink-700);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .article-prose :global(p) { margin-block: 0 1.4rem; }
+  .article-prose :global(h2) {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: var(--text-h2);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-ink-900);
+    margin-block: 2.6rem 0.9rem;
+  }
+  .article-prose :global(h3) {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: var(--text-h3);
+    line-height: 1.3;
+    color: var(--color-ink-900);
+    margin-block: 2rem 0.6rem;
+  }
+  .article-prose :global(h4) {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: var(--text-h4);
+    color: var(--color-ink-900);
+    margin-block: 1.6rem 0.5rem;
+  }
+  .article-prose :global(ul),
+  .article-prose :global(ol) {
+    margin-block: 0 1.4rem;
+    padding-left: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .article-prose :global(ul) { list-style: disc; }
+  .article-prose :global(ol) { list-style: decimal; }
+  .article-prose :global(li) { padding-left: 0.2rem; }
+  .article-prose :global(li)::marker { color: var(--color-blue-400); }
+  .article-prose :global(a) {
+    color: var(--color-blue-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .article-prose :global(a:hover) { color: var(--color-blue-600); }
+  .article-prose :global(strong) { font-weight: 600; color: var(--color-ink-900); }
+  .article-prose :global(blockquote) {
+    border-left: 3px solid var(--color-blue-500);
+    padding: 0.2rem 0 0.2rem 1.15rem;
+    margin: 1.8rem 0;
+    color: var(--color-ink-500);
+    font-style: italic;
+  }
+  .article-prose :global(blockquote p) { margin-bottom: 0; }
+  .article-prose :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--color-ink-100);
+    margin: 2.6rem 0;
+  }
+  .article-prose :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-ink-100);
+    margin: 1.8rem 0;
+  }
+  .article-prose :global(h2:first-child),
+  .article-prose :global(h3:first-child),
+  .article-prose :global(p:first-child) { margin-top: 0; }
+</style>
