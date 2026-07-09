@@ -82,7 +82,11 @@ const pageJsonLd = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
     {/* Theme + favicons */}
     <meta name="theme-color" content="#FAF9F9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0A0E1A" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     {/* Fonts self-hosted via @fontsource — CSS bundled by Astro. font-display: swap. */}
 
