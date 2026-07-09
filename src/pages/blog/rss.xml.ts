@@ -32,7 +32,7 @@ ${p.veroeffentlichtAm ? `      <pubDate>${new Date(p.veroeffentlichtAm).toUTCStr
     <title>webhype-Magazin</title>
     <link>${SITE}/blog</link>
     <atom:link href="${SITE}/blog/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Ehrliche Antworten rund um deine Website — von webhype.</description>
+    <description>Ehrliche Antworten rund um deine Website, von webhype.</description>
     <language>de-DE</language>
 ${items}
   </channel>
