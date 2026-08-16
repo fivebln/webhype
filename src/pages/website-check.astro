@@ -403,12 +403,12 @@ const jsonLd = [
       }
 
       laeuft.classList.add('hidden');
-      ergebnisBox.innerHTML = ergebnisHtml(antwort?.check ?? null, daten.vorname, antwort?.warning);
+      ergebnisBox.innerHTML = ergebnisHtml(antwort?.check ?? null, daten.vorname, antwort?.warning, !!antwort?.pdf);
       ergebnisBox.classList.remove('hidden');
       ergebnisBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function ergebnisHtml(check: any, vorname: string, warnung?: string): string {
+    function ergebnisHtml(check: any, vorname: string, warnung?: string, mitPdf?: boolean): string {
       // Wenn der Mailversand nicht geklappt hat, dürfen wir keine Bestätigungsmail
       // versprechen, die nie ankommt. Die Anfrage selbst liegt uns trotzdem vor
       // (sie steht im Server-Protokoll) — das sagen wir dann auch so.
@@ -449,47 +449,74 @@ const jsonLd = [
           </div>`;
       }
 
+      // Urteil — dieselbe Sprache wie Mail und PDF (lib/checkReport.ts):
+      // ein Satz, drei Zahlen, Details erst auf Klick. (Gil 16.08.: auf den ersten
+      // Blick verstehen, nicht ewig lesen.)
       const farbe: Record<Stufe, string> = { ok: 'bg-success', hinweis: 'bg-warning', problem: 'bg-error' };
       const wort: Record<Stufe, string> = { ok: 'In Ordnung', hinweis: 'Luft nach oben', problem: 'Sollte behoben werden' };
+      const textFarbe: Record<Stufe, string> = { ok: 'text-success', hinweis: 'text-warning', problem: 'text-error' };
       const rang: Record<Stufe, number> = { problem: 0, hinweis: 1, ok: 2 };
       const befunde: Befund[] = [...(check.befunde || [])].sort((a, b) => rang[a.stufe] - rang[b.stufe]);
       const b = check.bilanz || { ok: 0, hinweis: 0, problem: 0 };
 
-      const zeilen = befunde
-        .map(
-          (f) => `
-          <li class="flex gap-3.5 border-b border-ink-100 py-4 last:border-0">
-            <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${farbe[f.stufe]}" aria-hidden="true"></span>
-            <div>
-              <p class="text-[15px] font-medium text-ink-900">${escapeHtml(f.titel)}
-                <span class="ml-1 text-xs font-normal text-ink-400">${wort[f.stufe]}</span>
-              </p>
-              <p class="mt-1 text-[15px] leading-relaxed text-ink-500">${escapeHtml(f.text)}</p>
-            </div>
-          </li>`,
-        )
-        .join('');
-
-      const fazit =
+      const u =
         b.problem === 0 && b.hinweis <= 1
-          ? 'Deine Seite steht technisch gut da. Dann geht es bei dir eher um Inhalt und Wirkung als um Reparatur.'
+          ? { titel: 'Deine Website steht technisch gut da.', satz: 'Dann geht es bei dir eher um Wirkung und Inhalt als um Reparatur.', rand: 'border-success' }
           : b.problem === 0
-            ? 'Nichts davon ist dramatisch, aber in Summe kostet es dich Besucher.'
-            : `${b.problem === 1 ? 'Ein Punkt' : b.problem + ' Punkte'} solltest du zeitnah angehen — die kosten dich messbar Anfragen oder sind rechtlich heikel.`;
+            ? { titel: `${b.hinweis} Punkte haben Luft nach oben.`, satz: 'Nichts davon ist dramatisch — aber in Summe kostet es dich Besucher.', rand: 'border-warning' }
+            : { titel: b.problem === 1 ? 'Ein Punkt kostet dich gerade Anfragen.' : `${b.problem} Punkte kosten dich gerade Anfragen.`, satz: 'Die solltest du zeitnah angehen.', rand: 'border-error' };
+
+      const chip = (zahl: number, label: string, klasse: string) =>
+        `<div class="rounded-xl px-3 py-4 text-center ${klasse}">
+           <div class="headline text-3xl font-bold leading-none">${zahl}</div>
+           <div class="mt-1.5 text-xs font-semibold">${label}</div>
+         </div>`;
+
+      // Rote Punkte: aufgeklappt (das muss man lesen). Gelbe: eine Zeile, Text auf Klick.
+      const problemZeilen = befunde.filter((f) => f.stufe === 'problem').map((f) => `
+        <li class="flex gap-3 py-3.5 border-b border-ink-100 last:border-0">
+          <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${farbe[f.stufe]}" aria-hidden="true"></span>
+          <div>
+            <p class="text-[15px] font-semibold text-ink-900">${escapeHtml(f.titel)}</p>
+            <p class="mt-0.5 text-[14px] leading-relaxed text-ink-500">${escapeHtml(f.text)}</p>
+          </div>
+        </li>`).join('');
+
+      const hinweisZeilen = befunde.filter((f) => f.stufe === 'hinweis').map((f) => `
+        <li class="border-b border-ink-100 last:border-0">
+          <details class="group py-2.5">
+            <summary class="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
+              <span class="h-2.5 w-2.5 shrink-0 rounded-full ${farbe[f.stufe]}" aria-hidden="true"></span>
+              <span class="flex-1 text-[15px] font-medium text-ink-900">${escapeHtml(f.titel)}</span>
+              <span class="text-xs text-ink-400 group-open:hidden">Warum? +</span>
+              <span class="hidden text-xs text-ink-400 group-open:inline">−</span>
+            </summary>
+            <p class="mt-1.5 pl-[22px] text-[14px] leading-relaxed text-ink-500">${escapeHtml(f.text)}</p>
+          </details>
+        </li>`).join('');
+
+      const okKacheln = befunde.filter((f) => f.stufe === 'ok').map((f) =>
+        `<li class="flex items-center gap-2 text-[14px] text-ink-700"><span class="font-bold text-success" aria-hidden="true">✓</span>${escapeHtml(f.titel)}</li>`).join('');
 
       return `${kopf}
         <div class="mt-6 overflow-hidden rounded-2xl border border-ink-100 bg-white">
-          <div class="border-b border-ink-100 bg-warm-white px-6 py-5 sm:px-7">
-            <p class="text-sm text-ink-400">Geprüft: <span class="font-medium text-ink-700">${escapeHtml(check.endUrl || '')}</span></p>
-            <h3 class="mt-1.5 text-xl font-semibold text-ink-900 headline">
-              ${b.problem} ${b.problem === 1 ? 'Problem' : 'Probleme'}, ${b.hinweis} mit Luft nach oben, ${b.ok} in Ordnung
-            </h3>
-            <p class="mt-1.5 text-[15px] text-ink-500">${fazit}</p>
+          <div class="border-l-4 ${u.rand} px-6 py-5 sm:px-7">
+            <p class="text-xs text-ink-400">Geprüft: ${escapeHtml(check.endUrl || '')}</p>
+            <h3 class="mt-1 headline text-2xl font-bold leading-tight text-ink-900">${u.titel}</h3>
+            <p class="mt-1 text-[15px] text-ink-500">${u.satz}</p>
           </div>
-          <ul class="px-6 sm:px-7">${zeilen}</ul>
-          <p class="border-t border-ink-100 bg-warm-white px-6 py-4 text-xs leading-relaxed text-ink-400 sm:px-7">
-            Geprüft wurde die Startseite, automatisch und in wenigen Sekunden. Das ist ein Schnellcheck,
-            keine vollständige Analyse — Inhalt, Aufbau und Wirkung schauen wir uns persönlich an.
+          <div class="grid grid-cols-3 gap-3 px-6 pb-2 sm:px-7">
+            ${chip(b.problem, b.problem === 1 ? 'Problem' : 'Probleme', 'bg-error/10 text-error')}
+            ${chip(b.hinweis, 'Luft nach oben', 'bg-warning/10 text-warning')}
+            ${chip(b.ok, 'in Ordnung', 'bg-success/10 text-success')}
+          </div>
+          ${problemZeilen ? `<ul class="px-6 sm:px-7">${problemZeilen}</ul>` : ''}
+          ${hinweisZeilen ? `<ul class="px-6 pb-2 sm:px-7 ${problemZeilen ? 'border-t border-ink-100 pt-1' : ''}">${hinweisZeilen}</ul>` : ''}
+          ${okKacheln ? `<ul class="grid gap-x-6 gap-y-1.5 border-t border-ink-100 bg-warm-white px-6 py-4 sm:grid-cols-2 sm:px-7">${okKacheln}</ul>` : ''}
+          <p class="border-t border-ink-100 px-6 py-3.5 text-xs leading-relaxed text-ink-400 sm:px-7">
+            ${mitPdf
+              ? 'Automatischer Schnellcheck der Startseite. Der vollständige Report ist als PDF unterwegs in dein Postfach — Inhalt und Wirkung schauen wir uns zusätzlich persönlich an.'
+              : 'Automatischer Schnellcheck der Startseite. Inhalt und Wirkung schauen wir uns zusätzlich persönlich an — die Einschätzung kommt per Mail.'}
           </p>
         </div>
 

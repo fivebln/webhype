@@ -26,6 +26,11 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=4321
+# Chromium für die PDF-Erzeugung des Website-Check-Reports (lib/checkReport.ts).
+# CHROMIUM_IN_DOCKER schaltet --disable-dev-shm-usage ein (Container-/dev/shm ist nur 64 MB).
+RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates
+ENV CHROMIUM_PATH=/usr/bin/chromium-browser
+ENV CHROMIUM_IN_DOCKER=1
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json

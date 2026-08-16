@@ -15,6 +15,8 @@
 import type { APIRoute } from 'astro'
 import nodemailer from 'nodemailer'
 import { pruefeWebsite, normalisiereUrl, type CheckErgebnis, type Befund } from '../../lib/websiteCheck'
+import { reportPdf, urteil } from '../../lib/checkReport'
+import { kundenMailHtml } from '../../lib/checkMail'
 
 export const prerender = false
 
@@ -169,7 +171,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       '[website-check] SMTP nicht konfiguriert — Anfrage empfangen, aber nicht zugestellt:',
       JSON.stringify({ firma: data.firma, email: data.email, url: data.url }),
     )
-    return json({ ok: true, check, warning: 'mail_not_configured' }, 200)
+    return json({ ok: true, check, pdf: false, warning: 'mail_not_configured' }, 200)
   }
 
   const transporter = nodemailer.createTransport({
@@ -224,32 +226,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         : 'Keine Messung (noch keine Website).\n') +
     `\nZugesagt: persönlicher Check binnen 24 Stunden.`
 
-  const kundeHtml = `
-    <div style="font-family:Arial,Helvetica,sans-serif;color:#0A0E1A;line-height:1.6;max-width:640px;">
-      <h1 style="color:#0051FD;font-size:22px;margin-bottom:6px;">Dein Website-Check, ${esc(data.vorname)}</h1>
-      ${
-        gemessen
-          ? `<p>Wir haben uns <strong>${esc(gemessen.endUrl)}</strong> gerade angesehen. Das ist das Ergebnis der automatischen Prüfung:</p>
-             <table style="width:100%;border-collapse:collapse;margin-top:14px;">${befundeAlsHtml(gemessen)}</table>
-             <p style="color:#8A91A6;font-size:12px;margin-top:12px;">Gemessen am ${new Date(gemessen.gemessenAm).toLocaleString('de-DE')}. Geprüft wurde die Startseite; die Messung ersetzt keine vollständige Analyse.</p>`
-          : messFehler
-            ? `<p>Wir wollten deine Seite automatisch prüfen, das hat gerade nicht geklappt: ${esc(messFehler)} Kein Problem — wir schauen persönlich drauf.</p>`
-            : `<p>Du hast noch keine Website. Dann ist der Check bei dir keine Fehlersuche, sondern die Frage, was deine erste Seite können muss. Genau darüber sprechen wir.</p>`
-      }
+  // PDF-Report erzeugen (nur bei erfolgreicher Messung; Scheitern bricht nichts).
+  const pdf = gemessen ? await reportPdf({ vorname: data.vorname, firma: data.firma, check: gemessen }) : null
 
-      <div style="background:#EAF1FF;border-left:4px solid #0051FD;padding:16px;border-radius:8px;margin-top:26px;">
-        <strong style="color:#0051FD;">Was jetzt passiert</strong><br/>
-        <span style="color:#1F2433;">Wir sehen uns deine Situation innerhalb von 24 Stunden persönlich an und schicken dir eine kurze Einschätzung mit den drei Punkten, die bei dir am meisten bringen. Ohne Verkaufsgespräch, ohne Verpflichtung.</span>
-      </div>
-
-      <p style="margin-top:24px;color:#4A5168;">Deine Angaben: ${esc(data.firma)} · ${esc(brancheTxt)} · Ziel: ${esc(zielTxt)} · Zeithorizont: ${esc(zeitTxt)}</p>
-      <p style="color:#4A5168;">Antworte einfach auf diese Mail, wenn du etwas ergänzen willst.</p>
-
-      <p style="margin-top:32px;font-size:14px;color:#8A91A6;border-top:1px solid #E0E3EC;padding-top:14px;">
-        webhype · Westfälische Str. 46 · 10711 Berlin<br/>
-        <a href="https://web-hype.de" style="color:#0051FD;">web-hype.de</a>
-      </p>
-    </div>`
+  const kundeHtml = kundenMailHtml({
+    vorname: data.vorname,
+    firma: data.firma,
+    check: gemessen,
+    messFehler,
+    mitPdf: !!pdf,
+  })
 
   try {
     await Promise.all([
@@ -264,17 +250,20 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       transporter.sendMail({
         from: `webhype <${user}>`,
         to: data.email,
-        subject: 'Dein Website-Check – das haben wir gemessen',
+        subject: gemessen ? `Dein Website-Check: ${urteil(gemessen).titel.replace(/\.$/, '')}` : 'Dein Website-Check ist unterwegs',
         html: kundeHtml,
+        attachments: pdf
+          ? [{ filename: 'website-check-webhype.pdf', content: pdf, contentType: 'application/pdf' }]
+          : [],
       }),
     ])
   } catch (err) {
     console.error('[website-check] SMTP-Fehler:', err)
     // Die Messung ist trotzdem gelaufen — der Interessent soll sie sehen.
-    return json({ ok: true, check, warning: 'mail_failed' }, 200)
+    return json({ ok: true, check, pdf: false, warning: 'mail_failed' }, 200)
   }
 
-  return json({ ok: true, check }, 200)
+  return json({ ok: true, check, pdf: !!pdf }, 200)
 }
 
 function json(body: unknown, status: number): Response {
