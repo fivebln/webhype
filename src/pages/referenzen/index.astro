@@ -10,12 +10,18 @@ import refKropp from '../../assets/referenzen/kropp.png';
 import refStudioH from '../../assets/referenzen/studio-h-next.png';
 import refHauenstein from '../../assets/referenzen/hauenstein.png';
 
+/**
+ * `zahl` = die gemessene Kennzahl aus dem jeweiligen Case. Sie steht bewusst über dem
+ * Firmennamen — Ergebnis zuerst. Bewusst NICHT bei allen dieselbe Kennzahl: jede Seite
+ * bekommt die Zahl, die bei ihr der Nachprüfung standhält.
+ * Belege + Messmethode: 00_analyse/2026-08-16_belege_referenz-zahlen.md
+ */
 const refs = [
-  { slug: 'studio-h', firma: 'Studio H.', branche: 'Projektentwicklung', paket: 'Business', image: refStudioH, teaser: 'Ein reduzierter Premium-Auftritt aus einem 30-Minuten-Call.' },
-  { slug: 'alexander-medau', firma: 'Alexander Medau', branche: 'Immobilienfinanzierung', paket: 'Business', image: refMedau, teaser: 'Ein eigenes Zins-Radar als wöchentlicher Draht zum Kunden.' },
-  { slug: '9minds', firma: '9Minds', branche: 'Business-Coaching', paket: 'Business', image: ref9minds, teaser: 'Ein Coaching-Auftritt, der nach dem Menschen klingt.' },
-  { slug: 'kinderfruehstart-rente', firma: 'Kinderfrühstart-Rente', branche: 'Finanzberatung', paket: 'Business', image: refKropp, teaser: 'Ein ehrlicher Rechner für die neue Kinderfrühstart-Rente.' },
-  { slug: 'hauenstein-gruppe', firma: 'Hauenstein Gruppe', branche: 'Immobilien', paket: 'Business', image: refHauenstein, teaser: 'Drei Firmen, ein klarer Auftritt, ein Zugang.' },
+  { slug: 'studio-h', firma: 'Studio H.', branche: 'Projektentwicklung', paket: 'Business', image: refStudioH, zahl: '198 Texte', zahlLabel: 'pflegt der Kunde selbst', teaser: 'Ein reduzierter Premium-Auftritt aus einem 30-Minuten-Call.' },
+  { slug: 'alexander-medau', firma: 'Alexander Medau', branche: 'Immobilienfinanzierung', paket: 'Business', image: refMedau, zahl: '7 Wochen', zahlLabel: 'Zins-Radar ohne einen Ausfall', teaser: 'Ein eigenes Zins-Radar als wöchentlicher Draht zum Kunden.' },
+  { slug: '9minds', firma: '9Minds', branche: 'Business-Coaching', paket: 'Business', image: ref9minds, zahl: '99 von 100', zahlLabel: 'im Tempo-Test auf dem Handy', teaser: 'Ein Coaching-Auftritt, der nach dem Menschen klingt.' },
+  { slug: 'kinderfruehstart-rente', firma: 'Kinderfrühstart-Rente', branche: 'Finanzberatung', paket: 'Business', image: refKropp, zahl: '100 von 100', zahlLabel: 'im Tempo-Test am Desktop', teaser: 'Ein ehrlicher Rechner für die neue Kinderfrühstart-Rente.' },
+  { slug: 'hauenstein-gruppe', firma: 'Hauenstein Gruppe', branche: 'Immobilien', paket: 'Business', image: refHauenstein, zahl: 'rund 1,5 Tage', zahlLabel: 'vom Briefing bis online', teaser: 'Drei Firmen, ein klarer Auftritt, ein Zugang.' },
 ];
 
 const jsonLd = breadcrumbSchema([
@@ -42,7 +48,11 @@ const jsonLd = breadcrumbSchema([
           </div>
           <div class="p-7">
             <p class="text-xs font-semibold text-blue-500">{r.branche} · Paket {r.paket}</p>
-            <h2 class="mt-2 text-xl font-bold text-ink-900 headline">{r.firma}</h2>
+            <p class="mt-3 flex items-baseline gap-2">
+              <span class="headline text-2xl font-bold leading-none text-blue-500">{r.zahl}</span>
+              <span class="text-[13px] leading-snug text-ink-500">{r.zahlLabel}</span>
+            </p>
+            <h2 class="mt-2.5 text-xl font-bold text-ink-900 headline">{r.firma}</h2>
             <p class="mt-2 text-[15px] leading-relaxed text-ink-500">{r.teaser}</p>
             <span class="mt-4 inline-block text-sm font-medium text-blue-500 group-hover:text-blue-600">Case Study ansehen →</span>
           </div>

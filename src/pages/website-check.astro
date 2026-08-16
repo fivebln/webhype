@@ -1,0 +1,520 @@
+---
+/**
+ * Website-Check — qualifizierender Anfrage-Funnel (5 Schritte, eine Frage pro Schritt).
+ *
+ * Ersetzt /kontakt nicht, sondern ergänzt es: Wer schon weiß, was er will, geht zum
+ * Kontaktformular. Wer noch schaut, bekommt hier zuerst etwas — die Messung seiner
+ * eigenen Seite — und gibt seine Daten erst im letzten Schritt.
+ *
+ * Die Messung läuft serverseitig in /api/website-check (lib/websiteCheck.ts). Es werden
+ * keine Drittanbieter eingebunden, also auch kein Einwilligungsfall (§9.9).
+ */
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Website-Check: was deine Seite heute wirklich leistet · webhype';
+const description =
+  'Fünf kurze Fragen, dann prüfen wir deine Website direkt: Tempo, Handy-Tauglichkeit, Auffindbarkeit bei Google und die Pflichtangaben. Das Ergebnis siehst du sofort, die persönliche Einschätzung kommt binnen 24 Stunden.';
+
+const branchen = [
+  { value: 'handwerk', label: 'Handwerk' },
+  { value: 'arztpraxis', label: 'Arzt- oder Zahnarztpraxis' },
+  { value: 'kanzlei', label: 'Kanzlei, Steuerberatung' },
+  { value: 'gastronomie', label: 'Gastronomie' },
+  { value: 'einzelhandel', label: 'Einzelhandel' },
+  { value: 'beauty_fitness', label: 'Beauty, Fitness' },
+  { value: 'immobilien', label: 'Immobilien' },
+  { value: 'beratung', label: 'Beratung, Coaching' },
+  { value: 'anderes', label: 'Etwas anderes' },
+];
+
+const ziele = [
+  { value: 'anfragen', label: 'Mehr Anfragen und Anrufe', hint: 'Das Telefon soll häufiger klingeln.' },
+  { value: 'gefunden', label: 'Bei Google gefunden werden', hint: 'Wer in meiner Gegend sucht, soll mich finden.' },
+  { value: 'vertrauen', label: 'Seriöser wirken', hint: 'Wer mich googelt, soll überzeugt sein.' },
+  { value: 'mitarbeiter', label: 'Mitarbeiter finden', hint: 'Bewerbungen statt Anzeigenkosten.' },
+  { value: 'entlastung', label: 'Weniger Rückfragen', hint: 'Öffnungszeiten, Preise, Termine — soll die Seite beantworten.' },
+];
+
+const horizonte = [
+  { value: 'sofort', label: 'So schnell wie möglich' },
+  { value: 'wochen', label: 'In den nächsten Wochen' },
+  { value: 'quartal', label: 'In den nächsten Monaten' },
+  { value: 'offen', label: 'Noch offen, ich informiere mich erst' },
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: '/' },
+    { name: 'Website-Check', url: '/website-check' },
+  ]),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle="Dein Website-Check — in zwei Minuten"
+  ogDescription="Fünf Fragen, dann messen wir deine Seite. Ergebnis sofort, Einschätzung binnen 24 Stunden."
+  jsonLd={jsonLd}
+>
+  <Section variant="warm-white" size="lg">
+    <div class="max-w-3xl">
+      <p class="eyebrow">Website-Check</p>
+      <h1 class="mt-3 display-lg text-ink-900">Was leistet deine Website heute wirklich?</h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-500">
+        Fünf kurze Fragen — mehr nicht. Wenn du schon eine Seite hast, prüfen wir sie danach direkt:
+        Tempo, Darstellung auf dem Handy, Auffindbarkeit bei Google, Pflichtangaben. Das Ergebnis
+        siehst du sofort auf dieser Seite.
+      </p>
+    </div>
+  </Section>
+
+  <Section variant="white" size="lg">
+    <div class="mx-auto max-w-2xl">
+      {/* Fortschritt */}
+      <div id="wc-fortschritt" class="mb-8">
+        <div class="flex items-baseline justify-between">
+          <p class="text-sm font-medium text-ink-700">Schritt <span id="wc-nr">1</span> von 5</p>
+          <p id="wc-frage-label" class="text-sm text-ink-400">Deine Branche</p>
+        </div>
+        <div class="mt-2.5 h-1.5 overflow-hidden rounded-full bg-ink-100">
+          <div id="wc-balken" class="h-full rounded-full bg-blue-500 transition-transform duration-500 ease-out origin-left" style="transform:scaleX(0.2)"></div>
+        </div>
+      </div>
+
+      <form id="wc-form" novalidate>
+        {/* Schritt 1 — Branche */}
+        <fieldset class="wc-schritt" data-schritt="1">
+          <legend class="text-2xl font-semibold text-ink-900 headline">Was machst du?</legend>
+          <p class="mt-2 text-[15px] text-ink-500">Damit wir wissen, worauf es bei dir ankommt.</p>
+          <div class="mt-6 grid gap-2.5 sm:grid-cols-2">
+            {branchen.map((b) => (
+              <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-ink-100 px-4 py-3.5 transition hover:border-blue-200 hover:bg-blue-50/40 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                <input type="radio" name="branche" value={b.value} class="h-4 w-4 accent-blue-500" />
+                <span class="text-[15px] text-ink-900">{b.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* Schritt 2 — bestehende Website */}
+        <fieldset class="wc-schritt hidden" data-schritt="2">
+          <legend class="text-2xl font-semibold text-ink-900 headline">Hast du schon eine Website?</legend>
+          <p class="mt-2 text-[15px] text-ink-500">Wenn ja, sehen wir sie uns gleich an.</p>
+          <div class="mt-6 space-y-2.5">
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-ink-100 px-4 py-3.5 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+              <input type="radio" name="bestand" value="ja" class="h-4 w-4 accent-blue-500" />
+              <span class="text-[15px] text-ink-900">Ja, es gibt eine</span>
+            </label>
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-ink-100 px-4 py-3.5 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+              <input type="radio" name="bestand" value="nein" class="h-4 w-4 accent-blue-500" />
+              <span class="text-[15px] text-ink-900">Nein, noch nicht</span>
+            </label>
+          </div>
+          <div id="wc-url-block" class="mt-5 hidden">
+            <label for="wc-url" class="block text-sm font-medium text-ink-700 mb-1.5">Wie lautet die Adresse?</label>
+            <input
+              type="text"
+              id="wc-url"
+              name="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="meine-firma.de"
+              class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100"
+            />
+            <p class="mt-1.5 text-xs text-ink-400">Ohne „https://" reicht auch.</p>
+          </div>
+        </fieldset>
+
+        {/* Schritt 3 — Ziel */}
+        <fieldset class="wc-schritt hidden" data-schritt="3">
+          <legend class="text-2xl font-semibold text-ink-900 headline">Was soll die Seite für dich tun?</legend>
+          <p class="mt-2 text-[15px] text-ink-500">Das Wichtigste, nicht alles.</p>
+          <div class="mt-6 space-y-2.5">
+            {ziele.map((z) => (
+              <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-ink-100 px-4 py-3.5 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                <input type="radio" name="ziel" value={z.value} class="mt-1 h-4 w-4 accent-blue-500" />
+                <span>
+                  <span class="block text-[15px] font-medium text-ink-900">{z.label}</span>
+                  <span class="block text-sm text-ink-500">{z.hint}</span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* Schritt 4 — Zeithorizont */}
+        <fieldset class="wc-schritt hidden" data-schritt="4">
+          <legend class="text-2xl font-semibold text-ink-900 headline">Wann soll es so weit sein?</legend>
+          <p class="mt-2 text-[15px] text-ink-500">Ehrliche Antwort — „noch offen" ist völlig in Ordnung.</p>
+          <div class="mt-6 space-y-2.5">
+            {horizonte.map((h) => (
+              <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-ink-100 px-4 py-3.5 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                <input type="radio" name="zeithorizont" value={h.value} class="h-4 w-4 accent-blue-500" />
+                <span class="text-[15px] text-ink-900">{h.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* Schritt 5 — Kontakt */}
+        <fieldset class="wc-schritt hidden" data-schritt="5">
+          <legend class="text-2xl font-semibold text-ink-900 headline">Wohin dürfen wir den Check schicken?</legend>
+          <p class="mt-2 text-[15px] text-ink-500">
+            Das Messergebnis siehst du gleich hier. Die persönliche Einschätzung schicken wir dir per Mail.
+          </p>
+
+          <div class="mt-6 space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-ink-700 mb-2.5">Anrede</label>
+              <div class="grid gap-2 sm:grid-cols-3">
+                {[
+                  { value: 'herr', label: 'Herr' },
+                  { value: 'frau', label: 'Frau' },
+                  { value: 'divers', label: 'Divers' },
+                ].map((o) => (
+                  <label class="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-ink-100 px-4 py-2.5 transition hover:border-blue-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                    <input type="radio" name="anrede" value={o.value} class="h-4 w-4 accent-blue-500" />
+                    <span class="text-[15px] text-ink-900">{o.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="wc-vorname" class="block text-sm font-medium text-ink-700 mb-1.5">Vorname</label>
+                <input type="text" id="wc-vorname" name="vorname" autocomplete="given-name" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+              </div>
+              <div>
+                <label for="wc-nachname" class="block text-sm font-medium text-ink-700 mb-1.5">Nachname</label>
+                <input type="text" id="wc-nachname" name="nachname" autocomplete="family-name" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+              </div>
+            </div>
+
+            <div>
+              <label for="wc-firma" class="block text-sm font-medium text-ink-700 mb-1.5">Wie heißt dein Geschäft?</label>
+              <input type="text" id="wc-firma" name="firma" autocomplete="organization" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="wc-email" class="block text-sm font-medium text-ink-700 mb-1.5">E-Mail</label>
+                <input type="email" id="wc-email" name="email" autocomplete="email" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+              </div>
+              <div>
+                <label for="wc-telefon" class="block text-sm font-medium text-ink-700 mb-1.5">Telefon (optional)</label>
+                <input type="tel" id="wc-telefon" name="telefon" autocomplete="tel" class="w-full rounded-md border border-ink-200 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100" />
+              </div>
+            </div>
+
+            <label class="flex cursor-pointer items-start gap-3">
+              <input type="checkbox" name="dsgvo" class="mt-1 h-4 w-4 accent-blue-500" />
+              <span class="text-sm text-ink-700">
+                Ich habe die <a href="/datenschutz" class="font-medium text-blue-500 underline hover:text-blue-600">Datenschutzerklärung</a> gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden.
+              </span>
+            </label>
+
+            {/* Honeypot */}
+            <input type="text" name="company_url" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+          </div>
+        </fieldset>
+
+        <p id="wc-fehler" class="mt-5 hidden rounded-md border border-error/30 bg-error/10 p-3.5 text-sm text-ink-900"></p>
+
+        <div class="mt-8 flex items-center justify-between gap-3 border-t border-ink-100 pt-6">
+          <button type="button" id="wc-zurueck" class="invisible text-sm font-medium text-ink-500 transition hover:text-ink-900">← Zurück</button>
+          <Button type="button" variant="primary" size="lg" id="wc-weiter" arrow>Weiter</Button>
+        </div>
+      </form>
+
+      {/* Messung läuft */}
+      <div id="wc-laeuft" class="hidden py-10 text-center">
+        <div class="mx-auto h-9 w-9 animate-spin rounded-full border-[3px] border-ink-100 border-t-blue-500" role="status" aria-live="polite"></div>
+        <p class="mt-5 text-lg font-medium text-ink-900">Wir sehen uns deine Seite gerade an …</p>
+        <p class="mt-1.5 text-[15px] text-ink-500">Das dauert ein paar Sekunden.</p>
+      </div>
+
+      {/* Ergebnis */}
+      <div id="wc-ergebnis" class="hidden"></div>
+    </div>
+  </Section>
+
+  <Section variant="warm-white" size="md">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-[15px] text-ink-500">
+        Du weißt schon genau, was du brauchst?
+        <a href="/kontakt" class="font-medium text-blue-500 underline hover:text-blue-600">Dann schreib uns direkt.</a>
+      </p>
+    </div>
+  </Section>
+</BaseLayout>
+
+<script>
+  type Stufe = 'ok' | 'hinweis' | 'problem';
+  type Befund = { schluessel: string; titel: string; stufe: Stufe; text: string };
+
+  const form = document.getElementById('wc-form') as HTMLFormElement | null;
+  const weiter = document.getElementById('wc-weiter') as HTMLButtonElement | null;
+  const zurueck = document.getElementById('wc-zurueck') as HTMLButtonElement | null;
+  const fehler = document.getElementById('wc-fehler');
+  const balken = document.getElementById('wc-balken');
+  const nrAnzeige = document.getElementById('wc-nr');
+  const frageLabel = document.getElementById('wc-frage-label');
+  const fortschritt = document.getElementById('wc-fortschritt');
+  const laeuft = document.getElementById('wc-laeuft');
+  const ergebnisBox = document.getElementById('wc-ergebnis');
+  const urlBlock = document.getElementById('wc-url-block');
+
+  if (form && weiter && zurueck && fehler && balken && nrAnzeige && frageLabel && fortschritt && laeuft && ergebnisBox && urlBlock) {
+    const LETZTER = 5;
+    const titelJeSchritt = ['Deine Branche', 'Deine Website', 'Dein Ziel', 'Dein Zeitrahmen', 'Deine Kontaktdaten'];
+    let schritt = 1;
+
+    const schritte = () => Array.from(form.querySelectorAll<HTMLElement>('.wc-schritt'));
+    const wert = (name: string) => (form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`) || {}).value || '';
+    const feld = (name: string) => (form.querySelector<HTMLInputElement>(`[name="${name}"]`)?.value || '').trim();
+
+    function zeige(n: number, fokussieren = true) {
+      schritte().forEach((el) => el.classList.toggle('hidden', el.dataset.schritt !== String(n)));
+      nrAnzeige.textContent = String(n);
+      frageLabel.textContent = titelJeSchritt[n - 1];
+      balken.style.transform = `scaleX(${n / LETZTER})`;
+      zurueck.classList.toggle('invisible', n === 1);
+      weiter.innerHTML = n === LETZTER ? 'Check starten <span aria-hidden="true">→</span>' : 'Weiter <span aria-hidden="true">→</span>';
+      fehler.classList.add('hidden');
+      // Fokus auf die erste Eingabe des Schritts — nur beim Wechsel, nicht beim Seitenaufruf
+      // (sonst springt der Fokus ungefragt ins Formular, sobald jemand die Seite öffnet).
+      if (fokussieren) {
+        const ersteEingabe = schritte().find((el) => el.dataset.schritt === String(n))?.querySelector<HTMLElement>('input');
+        ersteEingabe?.focus({ preventScroll: true });
+      }
+    }
+
+    function meckern(text: string) {
+      fehler.textContent = text;
+      fehler.classList.remove('hidden');
+    }
+
+    function schrittGueltig(n: number): boolean {
+      if (n === 1) return wert('branche') ? true : (meckern('Wähl bitte aus, was du machst.'), false);
+      if (n === 2) {
+        const b = wert('bestand');
+        if (!b) return meckern('Sag uns kurz, ob es schon eine Website gibt.'), false;
+        if (b === 'ja' && !feld('url')) return meckern('Nenn uns die Adresse deiner Seite — sonst können wir sie nicht prüfen.'), false;
+        return true;
+      }
+      if (n === 3) return wert('ziel') ? true : (meckern('Wähl bitte dein wichtigstes Ziel.'), false);
+      if (n === 4) return wert('zeithorizont') ? true : (meckern('Wähl bitte einen Zeitrahmen.'), false);
+      if (n === 5) {
+        if (!wert('anrede')) return meckern('Bitte wähl eine Anrede.'), false;
+        if (!feld('vorname') || !feld('nachname')) return meckern('Bitte trag Vor- und Nachnamen ein.'), false;
+        if (!feld('firma')) return meckern('Wie heißt dein Geschäft?'), false;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(feld('email'))) return meckern('Die E-Mail-Adresse sieht nicht richtig aus.'), false;
+        if (!form.querySelector<HTMLInputElement>('input[name="dsgvo"]')?.checked)
+          return meckern('Ohne dein Einverständnis dürfen wir die Anfrage nicht bearbeiten.'), false;
+        return true;
+      }
+      return true;
+    }
+
+    // URL-Feld nur zeigen, wenn es eine Seite gibt
+    form.querySelectorAll<HTMLInputElement>('input[name="bestand"]').forEach((el) =>
+      el.addEventListener('change', () => urlBlock.classList.toggle('hidden', el.value !== 'ja' || !el.checked)),
+    );
+
+    // Auswahl per Klick bringt direkt weiter — außer dort, wo noch getippt wird
+    form.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((el) =>
+      el.addEventListener('change', () => {
+        fehler.classList.add('hidden');
+        const name = el.getAttribute('name');
+        if (name === 'branche' || name === 'ziel' || name === 'zeithorizont') {
+          window.setTimeout(() => weiter.click(), 180);
+        }
+      }),
+    );
+
+    zurueck.addEventListener('click', () => {
+      if (schritt > 1) zeige(--schritt);
+    });
+
+    weiter.addEventListener('click', async () => {
+      if (!schrittGueltig(schritt)) return;
+      if (schritt < LETZTER) return zeige(++schritt);
+      await absenden();
+    });
+
+    // Enter im Textfeld = weiter, nicht absenden
+    form.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') {
+        e.preventDefault();
+        weiter.click();
+      }
+    });
+
+    async function absenden() {
+      form.classList.add('hidden');
+      fortschritt.classList.add('hidden');
+      laeuft.classList.remove('hidden');
+      laeuft.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      const daten = {
+        branche: wert('branche'),
+        bestand: wert('bestand'),
+        url: feld('url'),
+        ziel: wert('ziel'),
+        zeithorizont: wert('zeithorizont'),
+        anrede: wert('anrede'),
+        vorname: feld('vorname'),
+        nachname: feld('nachname'),
+        firma: feld('firma'),
+        email: feld('email'),
+        telefon: feld('telefon'),
+        dsgvo: true,
+        company_url: feld('company_url'),
+      };
+
+      let antwort: any = null;
+      try {
+        const res = await fetch('/api/website-check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(daten),
+        });
+        antwort = await res.json();
+        if (!res.ok) throw new Error(antwort?.error || 'fehler');
+      } catch {
+        laeuft.classList.add('hidden');
+        ergebnisBox.innerHTML = `
+          <div class="rounded-2xl border border-error/30 bg-error/10 p-7">
+            <h2 class="text-xl font-semibold text-ink-900 headline">Da ging bei uns etwas schief.</h2>
+            <p class="mt-2.5 text-[15px] text-ink-700">
+              Deine Anfrage ist nicht angekommen. Schreib uns bitte kurz an
+              <a href="mailto:hallo@web-hype.de" class="font-medium text-blue-500 underline">hallo@web-hype.de</a> —
+              wir machen den Check dann von Hand.
+            </p>
+          </div>`;
+        ergebnisBox.classList.remove('hidden');
+        return;
+      }
+
+      laeuft.classList.add('hidden');
+      ergebnisBox.innerHTML = ergebnisHtml(antwort?.check ?? null, daten.vorname, antwort?.warning);
+      ergebnisBox.classList.remove('hidden');
+      ergebnisBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function ergebnisHtml(check: any, vorname: string, warnung?: string): string {
+      // Wenn der Mailversand nicht geklappt hat, dürfen wir keine Bestätigungsmail
+      // versprechen, die nie ankommt. Die Anfrage selbst liegt uns trotzdem vor
+      // (sie steht im Server-Protokoll) — das sagen wir dann auch so.
+      const mailGing = warnung !== 'mail_not_configured' && warnung !== 'mail_failed';
+      const kopf = `
+        <div class="rounded-2xl border border-success/30 bg-success/10 p-6">
+          <h2 class="text-xl font-semibold text-ink-900 headline">Danke, ${escapeHtml(vorname)} — deine Anfrage ist da.</h2>
+          <p class="mt-2 text-[15px] text-ink-700">
+            ${
+              mailGing
+                ? 'Die persönliche Einschätzung schicken wir dir innerhalb von 24 Stunden per Mail. Eine Bestätigung ist schon unterwegs.'
+                : 'Die persönliche Einschätzung schicken wir dir innerhalb von 24 Stunden. Die automatische Bestätigungsmail konnten wir gerade nicht verschicken — an deiner Anfrage ändert das nichts, wir haben sie.'
+            }
+          </p>
+        </div>`;
+
+      if (!check) {
+        return `${kopf}
+          <div class="mt-6 rounded-2xl border border-ink-100 bg-warm-white p-7">
+            <h3 class="text-lg font-semibold text-ink-900 headline">Noch keine Seite? Dann ist das hier dein Vorteil.</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-ink-500">
+              Du musst nichts reparieren und nichts umbauen. Wir fangen direkt richtig an — mit einer Seite,
+              die von Anfang an schnell ist, auf dem Handy funktioniert und die Pflichtangaben sauber hat.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="/pakete" class="inline-flex items-center gap-2 rounded-md bg-blue-500 px-5 py-2.5 text-[15px] font-medium text-white transition hover:bg-blue-400">Pakete und Preise ansehen <span aria-hidden="true">→</span></a>
+              <a href="/referenzen" class="inline-flex items-center gap-2 rounded-md border border-ink-200 px-5 py-2.5 text-[15px] font-medium text-ink-900 transition hover:bg-ink-50">Echte Kundenbeispiele</a>
+            </div>
+          </div>`;
+      }
+
+      if (check.ok === false) {
+        return `${kopf}
+          <div class="mt-6 rounded-2xl border border-ink-100 bg-warm-white p-7">
+            <h3 class="text-lg font-semibold text-ink-900 headline">Automatisch messen konnten wir deine Seite nicht.</h3>
+            <p class="mt-2.5 text-[15px] text-ink-500">${escapeHtml(check.text || '')}</p>
+            <p class="mt-2.5 text-[15px] text-ink-500">Kein Problem — wir sehen sie uns von Hand an und melden uns.</p>
+          </div>`;
+      }
+
+      const farbe: Record<Stufe, string> = { ok: 'bg-success', hinweis: 'bg-warning', problem: 'bg-error' };
+      const wort: Record<Stufe, string> = { ok: 'In Ordnung', hinweis: 'Luft nach oben', problem: 'Sollte behoben werden' };
+      const rang: Record<Stufe, number> = { problem: 0, hinweis: 1, ok: 2 };
+      const befunde: Befund[] = [...(check.befunde || [])].sort((a, b) => rang[a.stufe] - rang[b.stufe]);
+      const b = check.bilanz || { ok: 0, hinweis: 0, problem: 0 };
+
+      const zeilen = befunde
+        .map(
+          (f) => `
+          <li class="flex gap-3.5 border-b border-ink-100 py-4 last:border-0">
+            <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${farbe[f.stufe]}" aria-hidden="true"></span>
+            <div>
+              <p class="text-[15px] font-medium text-ink-900">${escapeHtml(f.titel)}
+                <span class="ml-1 text-xs font-normal text-ink-400">${wort[f.stufe]}</span>
+              </p>
+              <p class="mt-1 text-[15px] leading-relaxed text-ink-500">${escapeHtml(f.text)}</p>
+            </div>
+          </li>`,
+        )
+        .join('');
+
+      const fazit =
+        b.problem === 0 && b.hinweis <= 1
+          ? 'Deine Seite steht technisch gut da. Dann geht es bei dir eher um Inhalt und Wirkung als um Reparatur.'
+          : b.problem === 0
+            ? 'Nichts davon ist dramatisch, aber in Summe kostet es dich Besucher.'
+            : `${b.problem === 1 ? 'Ein Punkt' : b.problem + ' Punkte'} solltest du zeitnah angehen — die kosten dich messbar Anfragen oder sind rechtlich heikel.`;
+
+      return `${kopf}
+        <div class="mt-6 overflow-hidden rounded-2xl border border-ink-100 bg-white">
+          <div class="border-b border-ink-100 bg-warm-white px-6 py-5 sm:px-7">
+            <p class="text-sm text-ink-400">Geprüft: <span class="font-medium text-ink-700">${escapeHtml(check.endUrl || '')}</span></p>
+            <h3 class="mt-1.5 text-xl font-semibold text-ink-900 headline">
+              ${b.problem} ${b.problem === 1 ? 'Problem' : 'Probleme'}, ${b.hinweis} mit Luft nach oben, ${b.ok} in Ordnung
+            </h3>
+            <p class="mt-1.5 text-[15px] text-ink-500">${fazit}</p>
+          </div>
+          <ul class="px-6 sm:px-7">${zeilen}</ul>
+          <p class="border-t border-ink-100 bg-warm-white px-6 py-4 text-xs leading-relaxed text-ink-400 sm:px-7">
+            Geprüft wurde die Startseite, automatisch und in wenigen Sekunden. Das ist ein Schnellcheck,
+            keine vollständige Analyse — Inhalt, Aufbau und Wirkung schauen wir uns persönlich an.
+          </p>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-ink-100 bg-warm-white p-7">
+          <h3 class="text-lg font-semibold text-ink-900 headline">Und jetzt?</h3>
+          <p class="mt-2.5 text-[15px] leading-relaxed text-ink-500">
+            Du musst nichts davon selbst reparieren. Wenn du willst, bauen wir dir in 7 Tagen eine neue Seite
+            zum Festpreis — schnell, auf dem Handy sauber, mit korrekten Pflichtangaben.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/pakete" class="inline-flex items-center gap-2 rounded-md bg-blue-500 px-5 py-2.5 text-[15px] font-medium text-white transition hover:bg-blue-400">Pakete und Preise <span aria-hidden="true">→</span></a>
+            <a href="/referenzen" class="inline-flex items-center gap-2 rounded-md border border-ink-200 px-5 py-2.5 text-[15px] font-medium text-ink-900 transition hover:bg-ink-50">Echte Kundenbeispiele</a>
+          </div>
+        </div>`;
+    }
+
+    function escapeHtml(t: string): string {
+      return String(t ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    zeige(1, false);
+  }
+</script>

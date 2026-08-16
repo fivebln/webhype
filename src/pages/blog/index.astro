@@ -18,8 +18,10 @@ const crumb = breadcrumbSchema([
 
 const fmt = (d?: string) =>
   d ? new Date(d).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
-const meta = (p: { veroeffentlichtAm?: string; lesezeitMin?: number }) =>
-  [fmt(p.veroeffentlichtAm), p.lesezeitMin ? `${p.lesezeitMin} Min. Lesezeit` : '']
+// Autor und Lesezeit gehören an jede Karte, nicht nur in den Artikel: wer schreibt hier,
+// und wie viel Zeit kostet es mich? (E-E-A-T + Vertrauen, THEFABERS-Auftrag 3.)
+const meta = (p: { veroeffentlichtAm?: string; lesezeitMin?: number; autor?: string }) =>
+  [p.autor ? `von ${p.autor}` : '', fmt(p.veroeffentlichtAm), p.lesezeitMin ? `${p.lesezeitMin} Min. Lesezeit` : '']
     .filter(Boolean)
     .join(' · ');
 ---

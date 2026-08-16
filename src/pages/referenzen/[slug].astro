@@ -22,6 +22,11 @@ const cases = {
     firma: 'Studio H.',
     branche: 'Projektentwicklung / Immobilien',
     paket: 'Business',
+    kennzahl: {
+      wert: '198 Texte',
+      label: 'ändert Studio H. selbst — dazu 16 Bilder, ohne uns und ohne Zusatzkosten.',
+      beleg: 'Gezählt im Portal-Schema am 16.08.2026.',
+    },
     headline: 'Eine Seite so hochwertig wie die Projekte dahinter, aus einem 30-Minuten-Call.',
     subline: 'Für Studio H. aus Berlin: ein reduzierter Premium-Auftritt mit editierbarem Projekte-Modul und Journal, alles selbst pflegbar.',
     domainLabel: 'studioh-invest.de',
@@ -51,6 +56,11 @@ const cases = {
     firma: 'Immobilienfinanzierung',
     branche: 'Immobilienfinanzierung',
     paket: 'Business',
+    kennzahl: {
+      wert: '7 Wochen',
+      label: 'in Folge ging das Zins-Radar automatisch raus — keine Ausgabe ist ausgefallen.',
+      beleg: 'KW 27 bis KW 33/2026, gezählt am 16.08.2026.',
+    },
     headline: 'Von der Idee zur Zusage, mit einem wöchentlichen Draht zum Kunden.',
     subline: 'Für den Berliner Immobilienfinanzierer Alexander Medau: ein eigenes Zins-Radar, ein Budgetrechner und die eigene Wunschdomain.',
     domainLabel: 'alexander-medau.de',
@@ -80,6 +90,11 @@ const cases = {
     firma: '9Minds',
     branche: 'Business-Coaching & Marketing',
     paket: 'Business',
+    kennzahl: {
+      wert: '99 von 100',
+      label: 'im Google-Tempo-Test auf dem Handy. Am Desktop sind es 100 von 100.',
+      beleg: 'Lighthouse, Startseite, gemessen am 16.08.2026.',
+    },
     headline: 'Ein Coaching-Auftritt, der nach dem Menschen klingt, nicht nach Vorlage.',
     subline: 'Für Paul Adloff aus Berlin: ein eigenständiger Auftritt mit Tiefsee-Konzept, eigenem Blog und allem selbst pflegbar.',
     domainLabel: '9minds.web-hype.de',
@@ -109,6 +124,11 @@ const cases = {
     firma: 'Kinderfrühstart-Rente',
     branche: 'Finanzberatung',
     paket: 'Business',
+    kennzahl: {
+      wert: '100 von 100',
+      label: 'im Google-Tempo-Test am Desktop, 92 von 100 auf dem Handy.',
+      beleg: 'Lighthouse, Startseite, gemessen am 16.08.2026.',
+    },
     headline: 'Ein ehrliches Werkzeug für ein Thema, das kaum jemand kennt.',
     subline: 'Für Finanzberater Felix Kropp: ein Rechner, der die neue Kinderfrühstart-Rente greifbar macht, zweisprachig, mit Erklärvideo und Ratgeber.',
     domainLabel: 'kinderfruehstart-rente.de',
@@ -138,6 +158,11 @@ const cases = {
     firma: 'Hauenstein Gruppe',
     branche: 'Immobilien / Projektentwicklung',
     paket: 'Business',
+    kennzahl: {
+      wert: 'rund 1,5 Tage',
+      label: 'vom Briefing bis die Seite online war.',
+      beleg: 'Projektverlauf Juli 2026.',
+    },
     headline: 'Drei Firmen, ein klarer Auftritt, ein Zugang für beide Websites.',
     subline: 'Für die Hauenstein Gruppe aus Berlin: ein Onepager, der Projektentwicklung, Dachausbau und Vermittlung auf einen Blick zusammenführt.',
     domainLabel: 'hauenstein-gruppe.web-hype.de',
@@ -191,7 +216,16 @@ const jsonLd = breadcrumbSchema([
   <Section variant="warm-white" size="xl">
     <div class="mx-auto max-w-3xl" data-reveal>
       <p class="eyebrow">Case Study · {c.branche}</p>
-      <h1 class="display-xl mt-3 text-ink-900">{c.headline}</h1>
+
+      {/* Ergebnis zuerst — eine Zahl, die wir wirklich gemessen haben, mit Quelle.
+          Belege: 00_analyse/2026-08-16_belege_referenz-zahlen.md */}
+      <p class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span class="headline text-4xl font-bold leading-none text-blue-500 sm:text-5xl">{c.kennzahl.wert}</span>
+        <span class="max-w-md text-lg leading-snug text-ink-700">{c.kennzahl.label}</span>
+      </p>
+      <p class="mt-2 text-xs text-ink-400">{c.kennzahl.beleg}</p>
+
+      <h1 class="display-xl mt-6 text-ink-900">{c.headline}</h1>
       <p class="mt-5 text-lg leading-relaxed text-ink-500">{c.subline}</p>
       <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-500">
         <span><strong class="text-ink-900">Kunde:</strong> {c.kunde} · {c.firma}</span>

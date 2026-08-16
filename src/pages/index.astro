@@ -362,6 +362,33 @@ const jsonLd = [
     </div>
   </Section>
 
+  {/* ============ WEBSITE-CHECK (niedrigschwelliger Einstieg) ============
+       Für alle, die noch nicht „Gespräch anfragen" klicken wollen: erst etwas bekommen,
+       dann reden. Bewusst asymmetrisch statt zentriert — die Startseite hat schon genug
+       mittige Blöcke (§9.1, Layout-Rhythmus). */}
+  <Section variant="white" size="lg">
+    <div class="grid items-center gap-8 md:grid-cols-[1.3fr_1fr]" data-reveal>
+      <div>
+        <p class="eyebrow">Kostenlos, ohne Gespräch</p>
+        <h2 class="display-lg mt-3 text-ink-900">Erst mal sehen, wo du stehst.</h2>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-500">
+          Du hast schon eine Website und weißt nicht, ob sie noch taugt? Beantworte fünf kurze Fragen,
+          dann prüfen wir sie: Tempo, Darstellung auf dem Handy, Auffindbarkeit bei Google und die
+          Pflichtangaben. Das Ergebnis siehst du sofort.
+        </p>
+        <div class="mt-8">
+          <Button href="/website-check" variant="primary" size="lg" arrow>Website-Check starten</Button>
+        </div>
+      </div>
+      <ul class="space-y-2.5 rounded-2xl border border-ink-100 bg-warm-white p-6 text-[15px] text-ink-700">
+        <li class="flex gap-2.5"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden="true"></span>Dauert keine zwei Minuten.</li>
+        <li class="flex gap-2.5"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden="true"></span>Ergebnis direkt auf dem Bildschirm.</li>
+        <li class="flex gap-2.5"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden="true"></span>Persönliche Einschätzung binnen 24 Stunden.</li>
+        <li class="flex gap-2.5"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden="true"></span>Kein Verkaufsgespräch, keine Verpflichtung.</li>
+      </ul>
+    </div>
+  </Section>
+
   {/* ============ FAQ ============ */}
   <section class="bg-ink-50 py-10 sm:py-14 border-t border-ink-100" id="faq">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">

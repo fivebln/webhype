@@ -21,7 +21,38 @@ const fmt = (d?: string) =>
   d ? new Date(d).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
 
 const related = post ? await getRelatedPosts(post, 2) : [];
-const bodyHtml = post ? lexicalToHtml(post.body, CMS_URL) : '';
+const rohBody = post ? lexicalToHtml(post.body, CMS_URL) : '';
+
+/**
+ * Niedrigschwelliger Zwischen-CTA (THEFABERS-Auftrag 3): einmal mitten im Text, nicht
+ * dreimal „Kontakt". Er führt zum Website-Check, weil das der kleinste Schritt ist, den
+ * jemand beim Lesen gehen kann — nicht zum Verkaufsgespräch.
+ *
+ * Platzierung: vor der zweiten Zwischenüberschrift, also nachdem der Artikel seinen
+ * ersten Gedanken zu Ende gebracht hat. Fehlt die, nach etwa 45 % der Absätze. Ist der
+ * Text zu kurz (unter 4 Absätzen), lassen wir ihn ganz weg — dort wirkt er aufdringlich.
+ */
+const zwischenCta = `
+  <aside class="artikel-cta">
+    <p class="artikel-cta-titel">Du fragst dich, wie deine eigene Seite dasteht?</p>
+    <p class="artikel-cta-text">Fünf Fragen, dann prüfen wir sie: Tempo, Handy, Auffindbarkeit, Pflichtangaben. Ergebnis sofort, kostenlos.</p>
+    <a class="artikel-cta-link" href="/website-check">Website-Check starten <span aria-hidden="true">&rarr;</span></a>
+  </aside>`;
+
+function mitZwischenCta(html: string, cta: string): string {
+  const absaetze = (html.match(/<p[\s>]/g) || []).length;
+  if (absaetze < 4) return html;
+
+  const h2 = [...html.matchAll(/<h2[\s>]/g)].map((m) => m.index ?? -1).filter((i) => i >= 0);
+  if (h2.length >= 2) return html.slice(0, h2[1]) + cta + html.slice(h2[1]);
+
+  // Kein zweites Kapitel: hinter dem Absatz einsetzen, der etwa bei 45 % liegt.
+  const enden = [...html.matchAll(/<\/p>/g)].map((m) => (m.index ?? 0) + 4);
+  const ziel = enden[Math.max(0, Math.floor(enden.length * 0.45) - 1)];
+  return ziel ? html.slice(0, ziel) + cta + html.slice(ziel) : html;
+}
+
+const bodyHtml = mitZwischenCta(rohBody, zwischenCta);
 const metaLine = post
   ? [fmt(post.veroeffentlichtAm), post.lesezeitMin ? `${post.lesezeitMin} Min. Lesezeit` : '']
       .filter(Boolean)
@@ -131,7 +162,10 @@ const jsonLd = post
                     )}
                   </div>
                   <div class="flex flex-1 flex-col p-5">
-                    {p.kategorie && <span class="text-xs font-semibold text-blue-600">{p.kategorie}</span>}
+                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                      {p.kategorie && <span class="font-semibold text-blue-600">{p.kategorie}</span>}
+                      {p.lesezeitMin && <span class="text-ink-300">{p.lesezeitMin} Min. Lesezeit</span>}
+                    </div>
                     <h3 class="mt-1 font-headline text-h4 leading-snug text-ink-900 group-hover:text-blue-600">{p.titel}</h3>
                     <p class="mt-1.5 line-clamp-2 text-body-sm text-ink-500">{p.teaser}</p>
                   </div>
@@ -236,4 +270,35 @@ const jsonLd = post
   .article-prose :global(h2:first-child),
   .article-prose :global(h3:first-child),
   .article-prose :global(p:first-child) { margin-top: 0; }
+
+  /* Zwischen-CTA im Fließtext — bewusst ruhig: ein farbiger Rand statt einer bunten Box,
+     damit er den Lesefluss unterbricht, ohne wie Werbung auszusehen. */
+  .article-prose :global(.artikel-cta) {
+    margin: 2.8rem 0;
+    padding: 1.35rem 1.5rem;
+    border: 1px solid var(--color-ink-100);
+    border-left: 3px solid var(--color-blue-500);
+    border-radius: var(--radius-lg);
+    background: var(--color-warm-white);
+  }
+  .article-prose :global(.artikel-cta-titel) {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    color: var(--color-ink-900);
+    margin: 0 0 0.35rem;
+    font-size: 1.0625rem;
+  }
+  .article-prose :global(.artikel-cta-text) {
+    margin: 0 0 0.85rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-500);
+    line-height: 1.6;
+  }
+  .article-prose :global(.artikel-cta-link) {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-blue-500);
+    text-decoration: none;
+  }
+  .article-prose :global(.artikel-cta-link:hover) { color: var(--color-blue-600); text-decoration: underline; }
 </style>
