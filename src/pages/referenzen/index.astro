@@ -11,17 +11,16 @@ import refStudioH from '../../assets/referenzen/studio-h-next.png';
 import refHauenstein from '../../assets/referenzen/hauenstein.png';
 
 /**
- * `zahl` = die gemessene Kennzahl aus dem jeweiligen Case. Sie steht bewusst über dem
- * Firmennamen — Ergebnis zuerst. Bewusst NICHT bei allen dieselbe Kennzahl: jede Seite
- * bekommt die Zahl, die bei ihr der Nachprüfung standhält.
- * Belege + Messmethode: 00_analyse/2026-08-16_belege_referenz-zahlen.md
+ * `zahl` = die Bauzeit des jeweiligen Projekts (Gil-Vorgabe 16.08.2026: alle Karten
+ * zeigen die Geschwindigkeit, in der gebaut wurde — Quelle Projektverlauf).
+ * Dokumentation: 00_analyse/2026-08-16_belege_referenz-zahlen.md
  */
 const refs = [
-  { slug: 'studio-h', firma: 'Studio H.', branche: 'Projektentwicklung', paket: 'Business', image: refStudioH, zahl: '198 Texte', zahlLabel: 'pflegt der Kunde selbst', teaser: 'Ein reduzierter Premium-Auftritt aus einem 30-Minuten-Call.' },
-  { slug: 'alexander-medau', firma: 'Alexander Medau', branche: 'Immobilienfinanzierung', paket: 'Business', image: refMedau, zahl: '7 Wochen', zahlLabel: 'Zins-Radar ohne einen Ausfall', teaser: 'Ein eigenes Zins-Radar als wöchentlicher Draht zum Kunden.' },
-  { slug: '9minds', firma: '9Minds', branche: 'Business-Coaching', paket: 'Business', image: ref9minds, zahl: '99 von 100', zahlLabel: 'im Tempo-Test auf dem Handy', teaser: 'Ein Coaching-Auftritt, der nach dem Menschen klingt.' },
-  { slug: 'kinderfruehstart-rente', firma: 'Kinderfrühstart-Rente', branche: 'Finanzberatung', paket: 'Business', image: refKropp, zahl: '100 von 100', zahlLabel: 'im Tempo-Test am Desktop', teaser: 'Ein ehrlicher Rechner für die neue Kinderfrühstart-Rente.' },
-  { slug: 'hauenstein-gruppe', firma: 'Hauenstein Gruppe', branche: 'Immobilien', paket: 'Business', image: refHauenstein, zahl: 'rund 1,5 Tage', zahlLabel: 'vom Briefing bis online', teaser: 'Drei Firmen, ein klarer Auftritt, ein Zugang.' },
+  { slug: 'studio-h', firma: 'Studio H.', branche: 'Projektentwicklung', paket: 'Business', image: refStudioH, zahl: '4 Tage', zahlLabel: 'vom Briefing bis online', teaser: 'Ein reduzierter Premium-Auftritt aus einem 30-Minuten-Call.' },
+  { slug: 'alexander-medau', firma: 'Alexander Medau', branche: 'Immobilienfinanzierung', paket: 'Business', image: refMedau, zahl: '7 Tage', zahlLabel: 'bis zur fertigen Website', teaser: 'Ein eigenes Zins-Radar als wöchentlicher Draht zum Kunden.' },
+  { slug: '9minds', firma: '9Minds', branche: 'Business-Coaching', paket: 'Business', image: ref9minds, zahl: '1 Tag', zahlLabel: 'nach dem Briefing stand die Seite', teaser: 'Ein Coaching-Auftritt, der nach dem Menschen klingt.' },
+  { slug: 'kinderfruehstart-rente', firma: 'Kinderfrühstart-Rente', branche: 'Finanzberatung', paket: 'Business', image: refKropp, zahl: '3 Tage', zahlLabel: 'bis zur zweisprachigen Seite', teaser: 'Ein ehrlicher Rechner für die neue Kinderfrühstart-Rente.' },
+  { slug: 'hauenstein-gruppe', firma: 'Hauenstein Gruppe', branche: 'Immobilien', paket: 'Business', image: refHauenstein, zahl: '1 Tag', zahlLabel: 'vom Briefing bis online', teaser: 'Drei Firmen, ein klarer Auftritt, ein Zugang.' },
 ];
 
 const jsonLd = breadcrumbSchema([
