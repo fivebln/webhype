@@ -460,7 +460,7 @@ function pruefeHtml(a: Antwort): Befund[] {
           ? 'Von der Startseite aus ist weder ein Impressum noch eine Datenschutzerklärung verlinkt. Beides ist in Deutschland Pflicht und wird regelmäßig abgemahnt.'
           : !hatImpressum
             ? 'Ein Impressum ist von der Startseite aus nicht verlinkt. In Deutschland ist es Pflicht und ein beliebter Abmahngrund.'
-            : 'Eine Datenschutzerklärung ist von der Startseite aus nicht verlinkt. Sie ist Pflicht, sobald überhaupt Daten verarbeitet werden — und das ist praktisch immer der Fall.',
+            : 'Eine Datenschutzerklärung ist von der Startseite aus nicht verlinkt. Pflicht ist sie, sobald überhaupt Daten verarbeitet werden — und das ist praktisch immer der Fall.',
   })
 
   /* --- Einwilligungspflichtige Drittdienste --- */
