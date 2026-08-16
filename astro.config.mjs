@@ -19,6 +19,7 @@ export default defineConfig({
         !page.includes('/api/') &&
         !page.includes('/og/') &&
         !page.includes('/datenschutz') &&
+        !page.includes('/vorschau-') &&
         !page.includes('/404'),
       changefreq: 'monthly',
       priority: 0.7,
